@@ -7,14 +7,20 @@
  
 <div style="background-color: #199aca; width: 1024px; padding: 10px 50px;">
     <div style="text-align: left;">
-        <font size="6" color="#FFFFFF" face="arial"><h2>Joueur</h2></font>
+        <font size="6" color="#FFFFFF" face="arial"><h2>@ViewBag.Joueur.Nom @ViewBag.Joueur.Prenom</h2></font>
     </div>
 </div>
  
 <div style="position: relative; left: 700px; top: -100px; height:0px;">
-    <img src="~/Content/image/FlorianVanAcker.jpg" style="border: 2px solid #fff; width: 382px; height: 334px; border-radius: 80px;">
+    <img src="~/Content/image/@(ViewBag.Joueur.Id).jpg" style="border: 2px solid #fff; width: 382px; height: 334px; border-radius: 80px;">
 </div>
-
+<div>
+    <p>
+        <h3>Date de naissance : @ViewBag.Joueur.DateNaissance</h3> <br />
+        <h3>Nationalité : @ViewBag.Joueur.National</h3>
+    </p>
+    
+</div>
 <div style="background-color: #fff; width: 460px; padding: 20px;">
     <div style="text-align: center;">
         <font face="arial" color="#666666" size="3">
@@ -28,13 +34,21 @@
     <a name="1"></a>
     <div style="height: 40px; width: 450px; overflow: auto; padding:0px 25px 25px 25px; background-color: #fff;"></div>
     <div style="text-align: center;"><font color="#666666">Palmarès Civil</font></div>
-    <div style="text-align: left;"><font color="#666666">Texte</font></div>
+    <div style="text-align: left;">
+        <font color="#666666">
+            @*Liste des palmarès civic*@
+        </font>
+    </div>
 </div>
  
 <div style="height: 240px; width: 450px; overflow: auto; padding:25px; background-color: #fff;">
     <a name="2"></a>
     <div style="text-align: center;"><font color="#666666">Palmarès Sportif</font></div>
-    <div style="text-align: left;"><font color="#666666">Texte</font></div>
+    <div style="text-align: left;">
+        <font color="#666666">
+            @*Liste des palmarès sportifs*@
+        </font>
+    </div>
 </div>
-<input type="button" id="topPage" value="Haut de la page" OnClick="window.location.href='#top';">
+<button type="button" id="topPage" value="Haut de la page" OnClick="window.location.href='#top';">Haut de la page</button>
 <div style="height: 240px; width: 450px; overflow: auto; padding:25px; background-color: #fff;"></div>

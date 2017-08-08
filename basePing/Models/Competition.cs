@@ -43,11 +43,11 @@ namespace basePing.Models
             this.id = id;
         }
 
-        public Competition getInformation()
-        {
-            DCCompetition dc = new DCCompetition();
-            return dc.find(id);
-        }
+        //public Competition getInformation()
+        //{
+        //    DCCompetition dc = new DCCompetition();
+        //    return dc.find(id);
+        //}
 
         public List<Competition> getList()
         {

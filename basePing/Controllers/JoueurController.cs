@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using basePing.Models;
+using basePing.DataContext;
 
 namespace basePing.Controllers
 {
@@ -16,9 +17,12 @@ namespace basePing.Controllers
             return View();
         }
 
-        public ActionResult Joueur()
+        public ActionResult Joueur(int id)
         {
-            //Joueur player = new Joueur();
+            DCJoueur joueur = new DCJoueur();
+            Joueur player = new Joueur();
+            player = joueur.GetJoueur(id);
+            ViewBag.Joueur = player;
             return View();
         }
     }
