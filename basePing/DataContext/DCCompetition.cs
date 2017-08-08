@@ -16,7 +16,7 @@ namespace basePing.DataContext
             if (con.IsConnect())
             {
                 //recuperer la compet en entier et l information par equipe ou pas
-                string query = "SELECT * FROM Compétition INNER JOIN Match ON Compétition.idComp=Match.idCompet INNER JOIN ldjoueur ON Match.idMatch=ldjoueur.idMatch";
+                string query = "SELECT * FROM Compétition INNER JOIN Match ON Compétition.idComp=Match.idCompet INNER JOIN ldjoueur ON Match.idMatch=ldjoueur.idMatch WHERE idComp="+id;
                 var cmd = new MySqlCommand(query, con.Connection);
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
