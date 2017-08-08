@@ -173,6 +173,9 @@
     </Compile>
     <Compile Include="Models\Categorie.cs" />
     <Compile Include="Models\Competition.cs" />
+    <Compile Include="Models\Joueur.cs" />
+    <Compile Include="Models\PalmaresCivil.cs" />
+    <Compile Include="Models\PalmaresSportif.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -180,6 +183,9 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\image\FlorianVanAcker.jpg" />
+    <Content Include="Content\image\fondjoueur.jpg" />
+    <Content Include="Content\image\fondPalette.jpg" />
     <Content Include="Content\image\logo_lhf.png" />
     <Content Include="Content\image\logo_parantee.png" />
     <Content Include="Content\image\ParalympicLogoBelgian.png" />
@@ -230,6 +236,7 @@
     <Content Include="Views\Club\Index.cshtml" />
     <Content Include="Views\Federation\Index.cshtml" />
     <Content Include="Views\Joueur\Index.cshtml" />
+    <Content Include="Views\Joueur\Joueur.cshtml" />
     <Content Include="Views\Competition\getComp.cshtml" />
     <Content Include="Views\Competition\infoComp.cshtml" />
   </ItemGroup>
