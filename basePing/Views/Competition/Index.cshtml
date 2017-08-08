@@ -1,8 +1,20 @@
-﻿
-@{
-    ViewBag.Title = "Compétition";
-}
+﻿@using basePing.Models;
 
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+
+
+@{
+    foreach(Categorie c in ViewBag.listCat)
+    {
+        @Html.ActionLink(c.Nom, "getComp", "Competition",
+                     new { id = c.Id }, new { @class = "btn" })
+                     
+            }
+
+            @Html.ActionLink("Ajouter", "Competition", "AjouterCategorie",
+                      new { @class = "btn" })
+
+            }
+
+
+
 

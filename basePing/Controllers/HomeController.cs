@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using basePing.DataContext;
 
 namespace basePing.Controllers
 {
@@ -10,7 +11,11 @@ namespace basePing.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            DBConnection con = DBConnection.Instance();
+            if (con.IsConnect())
+                return View();
+            else
+                return View();
         }
 
         public ActionResult About()
