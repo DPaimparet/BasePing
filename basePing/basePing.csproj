@@ -165,6 +165,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Joueur.cs" />
+    <Compile Include="Models\PalmaresCivil.cs" />
+    <Compile Include="Models\PalmaresSportif.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -172,6 +175,9 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\image\FlorianVanAcker.jpg" />
+    <Content Include="Content\image\fondjoueur.jpg" />
+    <Content Include="Content\image\fondPalette.jpg" />
     <Content Include="Content\image\logo_lhf.png" />
     <Content Include="Content\image\logo_parantee.png" />
     <Content Include="Content\image\ParalympicLogoBelgian.png" />
@@ -222,10 +228,10 @@
     <Content Include="Views\Club\Index.cshtml" />
     <Content Include="Views\Federation\Index.cshtml" />
     <Content Include="Views\Joueur\Index.cshtml" />
+    <Content Include="Views\Joueur\Joueur.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
