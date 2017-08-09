@@ -12,8 +12,6 @@ namespace basePing.Models
         private string prenom;
         private DateTime dateNaissance;
         private string national;
-        //private List<PalmaresCivil> palmCivil;
-        //private List<PalmaresSportif> palmSportif;
 
         public int Id
         {
@@ -40,14 +38,7 @@ namespace basePing.Models
             get { return national; }
             set { national = value; }
         }
-        //public List<PalmaresCivil> ListePalmCivil
-        //{
-        //    get { return ListePalmCivil; }
-        //}
-        //public List<PalmaresSportif> ListePalmSportif
-        //{
-        //    get { return ListePalmSportif; }
-        //}
+
         public Joueur() { }
         public Joueur(int id, string nom, string prenom, DateTime dateNaissance, string nationalite)
         {

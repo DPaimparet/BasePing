@@ -14,6 +14,10 @@ namespace basePing.Controllers
         public ActionResult Index()
         {
             Session["admin"] = true;
+            DCJoueur joueur = new DCJoueur();
+            List<Joueur> listeJoueur = new List<Joueur>();
+            listeJoueur = joueur.GetAllJoueur();
+            ViewBag.listeJoueur = listeJoueur;
             return View();
         }
 
