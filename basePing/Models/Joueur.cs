@@ -12,8 +12,6 @@ namespace basePing.Models
         private string prenom;
         private DateTime dateNaissance;
         private string national;
-        //private List<PalmaresCivil> palmCivil;
-        //private List<PalmaresSportif> palmSportif;
 
         public int Id
         {

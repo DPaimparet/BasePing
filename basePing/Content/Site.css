@@ -1,12 +1,20 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-image: url(image/background5.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
 }
 
+a {
+    color: greenyellow;
+}
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    color: white;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -23,8 +31,17 @@ textarea {
     max-width: 280px;
 }
 
-#topPage {
-    position: fixed;
-    top: 50px;
-    left: 50px;
+img:before {
+    content: ' ';
+    display: block;
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    background-image: url(image/no-photo.jpg);
+}
+
+footer {
+    display: table-row;
+    color: white;
+    height: 50px;
 }

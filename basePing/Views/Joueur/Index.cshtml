@@ -1,7 +1,16 @@
-﻿
+﻿@using basePing.Models;
 @{
-    ViewBag.Title = "Joueur";
+    ViewBag.Title = "Liste de joueur(s)";
 }
 
 <h2>@ViewBag.Title</h2>
+<table>
+    <thead>Liste(s) de joueur(s)</thead>
+    @foreach(Joueur j in ViewBag.listejoueur)
+    {
+        <tr>
+            <td>@j.Nom</td><td>@j.Prenom</td><td>@j.National</td><td>@Html.ActionLink("Fiche joueur", "Joueur", "Joueur", new { id = j.Id }, new { @class = "btn" })</td>
 
+        </tr>
+    }
+</table>
