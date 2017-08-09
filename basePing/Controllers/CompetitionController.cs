@@ -13,16 +13,16 @@ namespace basePing.Controllers
         public ActionResult Index()
         {
             Categorie cat = new Categorie();
-            ViewBag.listCat = cat.getList();
+            ViewBag.listCat = cat.GetList();
             
             return View();
         }
 
-        public ActionResult getComp(int id)
+        public ActionResult GetComp(int id)
         {
             Competition comp = new Competition();
             List<Competition> triedList = new List<Competition>();
-            foreach (Competition c in comp.getList())
+            foreach (Competition c in comp.GetList())
             {
                 if (c.Cat.Id == id)
                     triedList.Add(c);
@@ -31,7 +31,7 @@ namespace basePing.Controllers
             return View();
         }
 
-        public ActionResult infoComp(int id)
+        public ActionResult InfoComp(int id)
         {
             Competition comp = new Competition(id);
             return View();

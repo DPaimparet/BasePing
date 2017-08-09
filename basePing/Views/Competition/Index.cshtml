@@ -5,7 +5,7 @@
 @{
     foreach(Categorie c in ViewBag.listCat)
     {
-        @Html.ActionLink(c.Nom, "getComp", "Competition",
+        @Html.ActionLink(c.Nom, "GetComp", "Competition",
                      new { id = c.Id }, new { @class = "btn" })
                      
             }

@@ -9,7 +9,7 @@ namespace basePing.DataContext
 {
     public class DCCompetition
     {
-        public List<Competition> find(int id)
+        public Competition find(int id)
         {
             List<Competition> lComp = new List<Competition>();
             DBConnection con = DBConnection.Instance();
@@ -24,7 +24,7 @@ namespace basePing.DataContext
                     lComp.Add(new Competition(reader.GetInt32(0), reader.GetString(1), reader.GetDateTime(2), reader.GetDateTime(3), reader.GetString(5), new Categorie(reader.GetInt32(6), reader.GetString(8), reader.GetString(9))));
                 }
                 reader.Close();
-                return lComp;
+                return null;
             }
             else
                 return null;

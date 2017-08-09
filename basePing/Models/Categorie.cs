@@ -28,7 +28,7 @@ namespace basePing.Models
         {
         }
 
-        public List<Categorie> getList()
+        public List<Categorie> GetList()
         {
             DCCategorie dc = new DCCategorie();
             return dc.findAll();

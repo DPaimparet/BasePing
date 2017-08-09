@@ -3,6 +3,6 @@
 
 @foreach (Competition c in ViewBag.listComp) {
     
-    @Html.ActionLink(c.Nom, "infoComp", "Competition",
+    @Html.ActionLink(c.Nom, "InfoComp", "Competition",
                      new { id = c.Id }, new { @class = "btn" })
 }

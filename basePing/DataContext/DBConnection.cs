@@ -12,7 +12,7 @@ namespace basePing.DataContext
         {
         }
 
-        private string databaseName = "dbPongiste";
+        private string databaseName = "dbbaseping";
         public string DatabaseName
         {
             get { return databaseName; }
