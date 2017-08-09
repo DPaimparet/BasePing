@@ -40,6 +40,12 @@ namespace basePing.Models
             get { return national; }
             set { national = value; }
         }
+
+        internal List<Joueur> GetListJoueur(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         //public List<PalmaresCivil> ListePalmCivil
         //{
         //    get { return ListePalmCivil; }

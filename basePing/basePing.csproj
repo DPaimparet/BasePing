@@ -178,15 +178,22 @@
     <Compile Include="DataContext\DCCategorie.cs" />
     <Compile Include="DataContext\DCCompetition.cs" />
     <Compile Include="DataContext\DCJoueur.cs" />
+    <Compile Include="DataContext\DCMatch.cs" />
+    <Compile Include="DataContext\DCPoule.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Categorie.cs" />
     <Compile Include="Models\Competition.cs" />
     <Compile Include="Models\Joueur.cs" />
+    <Compile Include="Models\Match.cs" />
     <Compile Include="Models\PalmaresCivil.cs" />
     <Compile Include="Models\PalmaresSportif.cs" />
+    <Compile Include="Models\Poule.cs" />
+    <Compile Include="Models\Serie.cs" />
+    <Compile Include="Models\Set.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\infoJoueur.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />

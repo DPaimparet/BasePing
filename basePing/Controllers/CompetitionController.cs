@@ -34,7 +34,9 @@ namespace basePing.Controllers
         public ActionResult InfoComp(int id)
         {
             Competition comp = new Competition(id);
-            return View();
+            comp = comp.GetInformation();
+            //ViewBag.comp = comp;
+            return View(comp);
         }
     }
 }

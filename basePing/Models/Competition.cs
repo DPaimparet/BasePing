@@ -14,6 +14,8 @@ namespace basePing.Models
         private DateTime dateFin;
         private string typeComp;
         private Categorie cat;
+        private List<Poule> lPoule= new List<Poule>();
+
 
         public int Id { get{ return id; } set { id = value; } }
         public string Nom { get { return nom; } set { nom = value; } }
@@ -21,6 +23,7 @@ namespace basePing.Models
         public DateTime DateFin { get { return dateFin; } set { dateFin = value; } }
         public string TypeComp { get { return typeComp; } set { typeComp = value; } }
         public Categorie Cat { get { return cat; } set { cat = value; } }
+        public List<Poule> LPoule{ get { return lPoule; } set { lPoule = value; } }
 
 
         public Competition(int id, string nom, DateTime dateDeb,DateTime dateFin, string typeComp,Categorie cat)
@@ -43,10 +46,24 @@ namespace basePing.Models
             this.id = id;
         }
 
+        public Competition(int id, string nom, DateTime dateDeb, DateTime dateFin, string typeComp)
+        {
+
+            this.id = id;
+            this.nom = nom;
+            this.dateDeb = dateDeb;
+            this.dateFin = dateFin;
+            this.typeComp = typeComp;
+        }
+
         public Competition GetInformation()
         {
             DCCompetition dc = new DCCompetition();
-            return dc.find(id);
+            Competition comp= dc.find(id);
+            
+            Poule p = new Poule();
+            comp.LPoule=p.GetListPoule(id);
+            return comp;
         }
 
         public List<Competition> GetList()
@@ -54,5 +71,7 @@ namespace basePing.Models
             DCCompetition dc = new DCCompetition();
             return dc.findAll();
         }
+
+       
     }
 }

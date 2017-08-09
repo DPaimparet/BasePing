@@ -11,20 +11,20 @@ namespace basePing.DataContext
     {
         public Competition find(int id)
         {
-            List<Competition> lComp = new List<Competition>();
+            Competition comp=null;
             DBConnection con = DBConnection.Instance();
             if (con.IsConnect())
             {
                 //recuperer la compet en entier et l information par equipe ou pas
-                string query = "SELECT * FROM Compétition INNER JOIN Match ON Compétition.idComp=Match.idCompet INNER JOIN ldjoueur ON Match.idMatch=ldjoueur.idMatch WHERE idComp="+id;
+                string query = "SELECT * FROM Competition WHERE idComp="+id;
                 var cmd = new MySqlCommand(query, con.Connection);
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    lComp.Add(new Competition(reader.GetInt32(0), reader.GetString(1), reader.GetDateTime(2), reader.GetDateTime(3), reader.GetString(5), new Categorie(reader.GetInt32(6), reader.GetString(8), reader.GetString(9))));
+                   comp=new Competition(reader.GetInt32(0), reader.GetString(1), reader.GetDateTime(2), reader.GetDateTime(3), reader.GetString(5));
                 }
                 reader.Close();
-                return null;
+                return comp;
             }
             else
                 return null;
@@ -35,7 +35,7 @@ namespace basePing.DataContext
             DBConnection con = DBConnection.Instance();
             if (con.IsConnect())
             {
-                string query = "SELECT * FROM Compétition INNER JOIN Categorie ON Compétition.idCat=Categorie.idCat";
+                string query = "SELECT * FROM Competition INNER JOIN Categorie ON Competition.idCat=Categorie.idCat";
                 var cmd = new MySqlCommand(query, con.Connection);
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
