@@ -7,6 +7,7 @@
     <title>@ViewBag.Title - BasePing</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" type="text/css" href="~/Content/Site.css"/>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -22,7 +23,6 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Accueil", "Index", "Home")</li>
-                    <li>@Html.ActionLink("À propos de", "About", "Home")</li>
                     <li>@Html.ActionLink("Compétition", "Index", "Competition")</li>
                     <li>@Html.ActionLink("Joueur", "Index", "Joueur")</li>
                     <li>@Html.ActionLink("Fédération", "Index", "Federation")</li>

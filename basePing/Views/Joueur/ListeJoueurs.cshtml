@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "ListeJoueurs";
+}
+<br />
+<table>
+    <tr>
+        <td>@Html.DropDownList("selectResponsable", (SelectList)ViewBag.listePays)</td>
+        @*<td>@Html.DropDownList("selectResponsable", (SelectList)ViewBag.ListePersonnel)</td>*@
+    </tr>
+    <tr>
+        <td>
+            <input type="submit" value="Recherche" />
+        </td>
+    </tr>
+</table>
+
+<table class="table table-striped">
+    <thead>Liste(s) de joueur(s)</thead>
+    @foreach (Joueur j in ViewBag.listejoueur)
+    {
+        <tr class="bg-info">
+            <td>@j.Nom</td>
+            <td>@j.Prenom</td>
+            <td>@j.National</td>
+            <td>@Html.ActionLink("Fiche joueur", "Joueur", "Joueur", new { id = j.Id }, new { @class = "btn btn-info" })</td>
+
+        </tr>
+    }
+</table>
+

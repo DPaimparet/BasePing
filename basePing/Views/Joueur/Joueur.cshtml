@@ -15,10 +15,12 @@
     <img src="~/Content/image/@(ViewBag.Joueur.Id).jpg" style="border: 2px solid #fff; width: 382px; height: 334px; border-radius: 80px;">
 </div>
 <div>
-    @Html.ActionLink("Retour", "Index", "Joueur", null, new { @class = "btn" })
+    <br />
+    @Html.ActionLink("Retour", "Index", "Joueur", null, new { @class = "btn btn-success" })
     <p>
-        <h3>Date de naissance : @ViewBag.Joueur.DateNaissance</h3> <br />
-        <h3>Nationalité : @ViewBag.Joueur.National</h3>
+        <h4>Date de naissance   : @ViewBag.dateNaissance</h4> <br />
+        <h4>Nationalité         : @ViewBag.Joueur.National</h4> <br />
+        <h4>Sexe                : @ViewBag.sexe</h4> <br />
     </p>
 
 </div>
@@ -39,7 +41,7 @@
     </div>
 </div>
 
-<div style="height: 240px; width: 450px; overflow: auto; padding:25px;">
+<div width: 500px; height:290px; overflow: hidden;">
     <a name="2"></a>
     <div style="text-align: center;">Palmarès Sportif</div>
     <div style="text-align: left;">
