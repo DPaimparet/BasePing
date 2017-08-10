@@ -7,10 +7,18 @@
     background-size: cover;
     background-color:black;
 }
-
-a {
-    color: greenyellow;
+a, a:visited {
+    /* Les liens "au repos" et déjà visités antérieurement */
+    color: greenyellow; /* couleur blanche */
+    text-decoration: none;
 }
+
+a:hover, a:focus, a:active {
+    /* Les liens au survol, au focus, et actifs */
+    color: honeydew;
+    text-decoration: none;
+}
+
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
@@ -52,4 +60,8 @@ footer {
     display: table-row;
     color: white;
     height: 50px;
+}
+
+table{
+    color: black;
 }

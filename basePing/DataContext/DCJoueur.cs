@@ -26,8 +26,9 @@ namespace basePing.DataContext
                         reader.GetInt32(0),
                         reader.GetString(1),
                         reader.GetString(2),
-                        reader.GetDateTime(3),
-                        reader.GetString(4))
+                        reader.GetChar(3),
+                        reader.GetDateTime(4),
+                        reader.GetString(5))
                     );
                 }
                 reader.Close();
@@ -51,8 +52,9 @@ namespace basePing.DataContext
                     player.Id = reader.GetInt32(0);
                     player.Nom = reader.GetString(1);
                     player.Prenom = reader.GetString(2);
-                    player.DateNaissance = reader.GetDateTime(3);
-                    player.National = reader.GetString(4);
+                    player.Sexe = reader.GetChar(3);
+                    player.DateNaissance = reader.GetDateTime(4);
+                    player.National = reader.GetString(5);
                 }
                 reader.Close();
                 return player;
@@ -76,8 +78,9 @@ namespace basePing.DataContext
                         reader.GetInt32(0),
                         reader.GetString(1),
                         reader.GetString(2),
-                        reader.GetDateTime(3),
-                        reader.GetString(4))
+                        reader.GetChar(3),
+                        reader.GetDateTime(4),
+                        reader.GetString(5))
                     );
                 }
                 reader.Close();
@@ -102,8 +105,9 @@ namespace basePing.DataContext
                         reader.GetInt32(0),
                         reader.GetString(1),
                         reader.GetString(2),
-                        reader.GetDateTime(3),
-                        reader.GetString(4))
+                        reader.GetChar(3),
+                        reader.GetDateTime(4),
+                        reader.GetString(5))
                     );
                 }
                 reader.Close();
@@ -112,32 +116,6 @@ namespace basePing.DataContext
             else
                 return null;
         }
-
-        // A faire
-        //public Joueur GetJoueurByNation(int id)
-        //{
-        //    Joueur player = new Joueur();
-        //    DBConnection con = DBConnection.Instance();
-        //    if (con.IsConnect())
-        //    {
-        //        //récupérer le joueur gràce à l'id
-        //        string query = "SELECT * FROM Joueur Where id=" + id;
-        //        var cmd = new MySqlCommand(query, con.Connection);
-        //        var reader = cmd.ExecuteReader();
-        //        while (reader.Read())
-        //        {
-        //            player.Id = reader.GetInt32(0);
-        //            player.Nom = reader.GetString(1);
-        //            player.Prenom = reader.GetString(2);
-        //            player.DateNaissance = reader.GetDateTime(3);
-        //            player.National = reader.GetString(4);
-        //        }
-        //        reader.Close();
-        //        return player;
-        //    }
-        //    else
-        //        return null;
-        //}
 
         public List<infoJoueur> GetinfoPouleJoueur(int id)
         {

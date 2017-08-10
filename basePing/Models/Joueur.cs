@@ -7,11 +7,12 @@ namespace basePing.Models
 {
     public class Joueur
     {
-        private int id;
-        private string nom;
-        private string prenom;
-        private DateTime dateNaissance;
-        private string national;
+        private int         id;
+        private string      nom;
+        private string      prenom;
+        private char        sexe;
+        private DateTime    dateNaissance;
+        private string      national;
 
         public int Id
         {
@@ -27,6 +28,11 @@ namespace basePing.Models
         {
             get { return prenom; }
             set { prenom = value; }
+        }
+        public char Sexe
+        {
+            get { return sexe; }
+            set { sexe = value; }
         }
         public DateTime DateNaissance
         {
@@ -53,11 +59,12 @@ namespace basePing.Models
         //    get { return ListePalmSportif; }
         //}
         public Joueur() { }
-        public Joueur(int id, string nom, string prenom, DateTime dateNaissance, string nationalite)
+        public Joueur(int id, string nom, string prenom,char sexe, DateTime dateNaissance, string nationalite)
         {
             this.id = id;
             this.nom = nom;
             this.prenom = prenom;
+            this.sexe = sexe;
             this.dateNaissance = dateNaissance;
             this.national = nationalite;
         }

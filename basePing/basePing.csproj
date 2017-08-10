@@ -178,6 +178,7 @@
     <Compile Include="DataContext\DBConnection.cs" />
     <Compile Include="DataContext\DCCategorie.cs" />
     <Compile Include="DataContext\DCCompetition.cs" />
+    <Compile Include="DataContext\DCPays.cs" />
     <Compile Include="DataContext\DCJoueur.cs" />
     <Compile Include="DataContext\DCLogin.cs" />
     <Compile Include="DataContext\DCMatch.cs" />
@@ -192,6 +193,7 @@
     <Compile Include="Models\Moderateur.cs" />
     <Compile Include="Models\PalmaresCivil.cs" />
     <Compile Include="Models\PalmaresSportif.cs" />
+    <Compile Include="Models\CPays.cs" />
     <Compile Include="Models\Poule.cs" />
     <Compile Include="Models\Serie.cs" />
     <Compile Include="Models\Set.cs" />
@@ -270,6 +272,7 @@
     <Content Include="Views\Competition\GetComp.cshtml" />
     <Content Include="Views\Competition\InfoComp.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Joueur\ListeJoueurs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

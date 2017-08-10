@@ -13,7 +13,12 @@ namespace basePing.Controllers
         // GET: Joueur
         public ActionResult Index()
         {
-            Session["admin"] = true;
+            List<CPays> listePays = new CPays().GetListPays();
+            ViewBag.listePays = listePays;
+            return View();
+        }
+        public ActionResult ListeJoueurs(int id)
+        {
             DCJoueur joueur = new DCJoueur();
             List<Joueur> listeJoueur = new List<Joueur>();
             listeJoueur = joueur.GetAllJoueur();
@@ -26,6 +31,15 @@ namespace basePing.Controllers
             DCJoueur joueur = new DCJoueur();
             Joueur player = new Joueur();
             player = joueur.GetJoueur(id);
+            ViewBag.dateNaissance =player.DateNaissance.ToString("dddd, le dd MMMM yyyy ");
+            if(player.Sexe == 'f')
+            {
+                ViewBag.sexe = "Féminin";
+            }
+            else
+            {
+                ViewBag.sexe = "Masculin";
+            }
             ViewBag.Joueur = player;
             return View();
         }
