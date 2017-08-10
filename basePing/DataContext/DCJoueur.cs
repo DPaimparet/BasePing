@@ -26,8 +26,8 @@ namespace basePing.DataContext
                         reader.GetInt32(0),
                         reader.GetString(1),
                         reader.GetString(2),
-                        reader.GetChar(3),
-                        reader.GetDateTime(4),
+                        reader.GetDateTime(3),
+                        reader.GetChar(4),
                         reader.GetString(5))
                     );
                 }
@@ -44,7 +44,7 @@ namespace basePing.DataContext
             if (con.IsConnect())
             {
                 //récupérer le joueur gràce à l'id
-                string query = "SELECT * FROM Joueur Where idJoueur=" + id;
+                string query = "SELECT * FROM Joueur Inner Join Pays On joueur.idPays = pays.id Where idJoueur="+id;
                 var cmd = new MySqlCommand(query, con.Connection);
                 var reader = cmd.ExecuteReader();
                 while(reader.Read())
@@ -52,9 +52,9 @@ namespace basePing.DataContext
                     player.Id = reader.GetInt32(0);
                     player.Nom = reader.GetString(1);
                     player.Prenom = reader.GetString(2);
-                    player.Sexe = reader.GetChar(3);
-                    player.DateNaissance = reader.GetDateTime(4);
-                    player.National = reader.GetString(5);
+                    player.Sexe = reader.GetChar(4);
+                    player.DateNaissance = reader.GetDateTime(3);
+                    player.National = reader.GetString(9);
                 }
                 reader.Close();
                 return player;
@@ -62,14 +62,14 @@ namespace basePing.DataContext
             else
                 return null;
         }
-        public List<Joueur> GetJoueurBySex(char sex)
+        public List<Joueur> GetJoueur(string nom)
         {
             List<Joueur> listeJoueur = new List<Joueur>();
             DBConnection con = DBConnection.Instance();
             if (con.IsConnect())
             {
-                //récupérer les joueurs grâce à leur sex
-                string query = "SELECT * FROM Joueur Where sex=" + sex;
+                //récupérer le joueur gràce au nom du joueur
+                string query = "SELECT * FROM Joueur Inner Join Pays On joueur.idPays = pays.id Where nom="+nom;
                 var cmd = new MySqlCommand(query, con.Connection);
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
@@ -78,8 +78,8 @@ namespace basePing.DataContext
                         reader.GetInt32(0),
                         reader.GetString(1),
                         reader.GetString(2),
-                        reader.GetChar(3),
-                        reader.GetDateTime(4),
+                        reader.GetDateTime(3),
+                        reader.GetChar(4),
                         reader.GetString(5))
                     );
                 }
@@ -89,14 +89,41 @@ namespace basePing.DataContext
             else
                 return null;
         }
-        public List<Joueur> GetJoueurByNation(string nation)
+        public List<Joueur> GetJoueurBySex(char sexe)
+        {
+            List<Joueur> listeJoueur = new List<Joueur>();
+            DBConnection con = DBConnection.Instance();
+            if (con.IsConnect())
+            {
+                //récupérer les joueurs grâce à leur sex
+                string query = "SELECT * FROM Joueur Where sexe="+sexe;
+                var cmd = new MySqlCommand(query, con.Connection);
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    listeJoueur.Add(new Joueur(
+                        reader.GetInt32(0),
+                        reader.GetString(1),
+                        reader.GetString(2),
+                        reader.GetDateTime(3),
+                        reader.GetChar(4),
+                        reader.GetString(5))
+                    );
+                }
+                reader.Close();
+                return listeJoueur;
+            }
+            else
+                return null;
+        }
+        public List<Joueur> GetJoueurByNation(int? nation, char sexe)
         {
             List<Joueur> listeJoueur = new List<Joueur>();
             DBConnection con = DBConnection.Instance();
             if (con.IsConnect())
             {
                 //récupérer les joueurs grâce à la nation
-                string query = "SELECT * FROM Joueur Where nationalite=" + nation;
+                string query = "SELECT * FROM Joueur Where nationalite=" + nation + "AND sexe =" + sexe;
                 var cmd = new MySqlCommand(query, con.Connection);
                 var reader = cmd.ExecuteReader();
                 while(reader.Read())
@@ -105,8 +132,8 @@ namespace basePing.DataContext
                         reader.GetInt32(0),
                         reader.GetString(1),
                         reader.GetString(2),
-                        reader.GetChar(3),
-                        reader.GetDateTime(4),
+                        reader.GetDateTime(3),
+                        reader.GetChar(4),
                         reader.GetString(5))
                     );
                 }
