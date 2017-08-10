@@ -10,8 +10,8 @@ namespace basePing.Models
         private int         id;
         private string      nom;
         private string      prenom;
+        private DateTime dateNaissance;
         private char        sexe;
-        private DateTime    dateNaissance;
         private string      national;
 
         public int Id
@@ -59,7 +59,7 @@ namespace basePing.Models
         //    get { return ListePalmSportif; }
         //}
         public Joueur() { }
-        public Joueur(int id, string nom, string prenom,char sexe, DateTime dateNaissance, string nationalite)
+        public Joueur(int id, string nom, string prenom, DateTime dateNaissance,char sexe , string nationalite)
         {
             this.id = id;
             this.nom = nom;

@@ -4,14 +4,28 @@
 }
 
 <br />
-<table>
-    <tr>
-        <td>@Html.DropDownList("selectResponsable", (SelectList)ViewBag.listePays)</td>
-        @*<td>@Html.DropDownList("selectResponsable", (SelectList)ViewBag.ListePersonnel)</td>*@
-    </tr>
-    <tr>
-        <td>
-            <input type="submit" value="Recherche" />
-        </td>
-    </tr>
-</table>
+<div class="form-inline">
+    @using (Html.BeginForm("ListeJoueurs", "Joueur"))
+    {
+        <div class="form-group">
+            <label>Joueur</label>
+            <input type="text" class="form-control" name="nom">
+        </div>
+
+        <div class="form-group">
+            <label>Nationalité</label>
+            @Html.DropDownList("pays", (SelectList)ViewBag.listePays,"" , new { @class = "form-control"})
+        </div>
+
+        <div class="form-group">
+            <label>Sexe:</label>
+            <select class="form-control" name="sexe">
+                <option>Masculin</option>
+                <option>Féminin</option>
+            </select>
+        </div>
+        <br />
+        <br />
+        <input type="submit" class="btn btn-warning" value="Recherche" />
+    }
+</div>

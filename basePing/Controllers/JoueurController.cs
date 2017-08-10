@@ -14,15 +14,41 @@ namespace basePing.Controllers
         public ActionResult Index()
         {
             List<CPays> listePays = new CPays().GetListPays();
-            ViewBag.listePays = listePays;
+            ViewBag.listePays = new SelectList(listePays, "Id", "Pays");
+
             return View();
         }
-        public ActionResult ListeJoueurs(int id)
+        [HttpPost]
+        public ActionResult ListeJoueurs(string nom, int? pays, string sexe)
         {
+            char sex = 'f';
             DCJoueur joueur = new DCJoueur();
             List<Joueur> listeJoueur = new List<Joueur>();
-            listeJoueur = joueur.GetAllJoueur();
-            ViewBag.listeJoueur = listeJoueur;
+            if (sexe == "Masculin")
+            {
+                sex = 'm';
+            }
+
+            if (nom == "" && pays == null)
+            {
+                listeJoueur = joueur.GetJoueurBySex(sex);
+                ViewBag.listeJoueur = listeJoueur;
+            }
+            if(nom == "" && pays != null)
+            {
+                listeJoueur = joueur.GetJoueurByNation(pays, sex);
+                ViewBag.listeJoueur = listeJoueur;
+            }
+            //if(nom != "" && pays == null)
+            //{
+            //    listeJoueur = joueur.GetJoueurByNation(pays, sex);
+            //    ViewBag.listeJoueur = listeJoueur;
+            //}
+            if(nom != "")
+            {
+                listeJoueur = joueur.GetJoueur(nom);
+                ViewBag.listeJoueur = listeJoueur;
+            }
             return View();
         }
 

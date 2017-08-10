@@ -16,8 +16,8 @@ namespace basePing.DataContext
                 DBConnection con = DBConnection.Instance();
                 if (con.IsConnect())
                 {
-                    Joueur j1= new Joueur(1,"a","a",'m', new DateTime(),"France");
-                    Joueur j2 = new Joueur(2, "b", "b", 'm', new DateTime(), "Belge");
+                    Joueur j1= new Joueur(1,"a","a", new DateTime(),'m',"France");
+                    Joueur j2 = new Joueur(2, "b", "b", new DateTime(), 'm', "Belge");
                     // string query = "SELECT Joueur,* FROM Rencontre INNER JOIN Joueur on Rencontre.idJ1=Joueur.id WHERE idSerie=" + idSerie;
                     string query = "SELECT * FROM Rencontre";
 
