@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using basePing.DataContext;
+using basePing.Models;
 
 namespace basePing.Controllers
 {
@@ -11,6 +12,9 @@ namespace basePing.Controllers
     {
         public ActionResult Index()
         {
+            Session["admin"] = false;
+            Categorie cat = new Categorie();
+            Session["lCat"] = cat.GetList();
             DBConnection con = DBConnection.Instance();
             if (con.IsConnect())
                 return View();
@@ -23,6 +27,12 @@ namespace basePing.Controllers
             ViewBag.Message = "Your application description page.";
 
             return View();
+        }
+
+        public ActionResult Connect()
+        {
+            
+            return View("Index");
         }
 
         public ActionResult Contact()

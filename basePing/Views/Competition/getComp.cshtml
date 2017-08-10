@@ -1,8 +1,21 @@
 ﻿@using basePing.Models;
 
-
-@foreach (Competition c in ViewBag.listComp) {
-    
-    @Html.ActionLink(c.Nom, "InfoComp", "Competition",
+<table border="1">
+    <tr><th>Nom de la compétition</th><th>Date des compétitions</th><th>Type de la compétition</th></tr>
+    @foreach (Competition c in ViewBag.listComp)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink(c.Nom, "InfoComp", "Competition",
                      new { id = c.Id }, new { @class = "btn" })
-}
+            </td>
+            <td>
+                @c.DateDeb.ToString("dd MMMM yyyy")
+            </td>
+            <td>
+                @c.TypeComp
+            </td>
+        </tr>
+    }
+
+</table>  

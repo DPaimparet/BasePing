@@ -174,10 +174,12 @@
     <Compile Include="Controllers\HandisportController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JoueurController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="DataContext\DBConnection.cs" />
     <Compile Include="DataContext\DCCategorie.cs" />
     <Compile Include="DataContext\DCCompetition.cs" />
     <Compile Include="DataContext\DCJoueur.cs" />
+    <Compile Include="DataContext\DCLogin.cs" />
     <Compile Include="DataContext\DCMatch.cs" />
     <Compile Include="DataContext\DCPoule.cs" />
     <Compile Include="Global.asax.cs">
@@ -187,6 +189,7 @@
     <Compile Include="Models\Competition.cs" />
     <Compile Include="Models\Joueur.cs" />
     <Compile Include="Models\Match.cs" />
+    <Compile Include="Models\Moderateur.cs" />
     <Compile Include="Models\PalmaresCivil.cs" />
     <Compile Include="Models\PalmaresSportif.cs" />
     <Compile Include="Models\Poule.cs" />
@@ -266,6 +269,7 @@
     <Content Include="Views\Joueur\Joueur.cshtml" />
     <Content Include="Views\Competition\GetComp.cshtml" />
     <Content Include="Views\Competition\InfoComp.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using basePing.Models;
+
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -23,12 +25,23 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Accueil", "Index", "Home")</li>
                     <li>@Html.ActionLink("À propos de", "About", "Home")</li>
-                    <li>@Html.ActionLink("Compétition", "Index", "Competition")</li>
+                    <li><a class="dropdown-toggle" data-toggle="dropdown" href="Competition">
+                          Compétition
+                        <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            @foreach (Categorie c in (List<Categorie>)Session["lCat"])
+                            {                           
+                                <li><a href="~/Competition/GetComp/@c.Id">@c.Nom</a></li>
+                            }         
+                        </ul>
+                    </li>
                     <li>@Html.ActionLink("Joueur", "Index", "Joueur")</li>
                     <li>@Html.ActionLink("Fédération", "Index", "Federation")</li>
                     <li>@Html.ActionLink("Handisport", "Index", "Handisport")</li>
                     <li>@Html.ActionLink("Club", "Index", "Club")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Connexion", "Index", "Login")</li>
                 </ul>
             </div>
         </div>

@@ -43,7 +43,7 @@ namespace basePing.DataContext
             if (con.IsConnect())
             {
                 //récupérer le joueur gràce à l'id
-                string query = "SELECT * FROM Joueur Where id=" + id;
+                string query = "SELECT * FROM Joueur Where idJoueur=" + id;
                 var cmd = new MySqlCommand(query, con.Connection);
                 var reader = cmd.ExecuteReader();
                 while(reader.Read())

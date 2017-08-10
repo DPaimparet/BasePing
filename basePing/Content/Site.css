@@ -30,7 +30,14 @@ input,
 select,
 textarea {
     max-width: 280px;
+    
 }
+
+input, select, textarea {
+    color: #000;
+}
+
+
 
 img:before {
     content: ' ';

@@ -12,8 +12,7 @@ namespace basePing.Controllers
         // GET: Competition
         public ActionResult Index()
         {
-            Categorie cat = new Categorie();
-            ViewBag.listCat = cat.GetList();
+           
             
             return View();
         }
