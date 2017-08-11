@@ -123,7 +123,7 @@ namespace basePing.DataContext
             if (con.IsConnect())
             {
                 //récupérer les joueurs grâce à la nation
-                string query = "SELECT * FROM Joueur Where nationalite=" + nation + "AND sexe =" + sexe;
+                string query = "SELECT * FROM Joueur Where idPays=" + nation + "AND sexe ='" + sexe+ "'";
                 var cmd = new MySqlCommand(query, con.Connection);
                 var reader = cmd.ExecuteReader();
                 while(reader.Read())

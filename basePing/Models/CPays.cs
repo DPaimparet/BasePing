@@ -12,9 +12,9 @@ namespace basePing.Models
         private string codePays;
         private string pays;
 
-        public int Id { get { return id; } }
+        public int Id { get { return id; } set{ id = value; } }
         public string CodePays { get; set; }
-        public string Pays { get {return pays; }}
+        public string Pays { get {return pays; } set { pays = value; } }
 
         public CPays() { }
         public CPays(int id,string codePays, string pays)
