@@ -14,7 +14,7 @@ namespace basePing.Controllers
         public ActionResult Index()
         {
             List<CPays> listePays = new CPays().GetListPays();
-            ViewBag.listePays = new SelectList(listePays, "Id", "Pays");
+            ViewBag.ListePays = new SelectList(listePays, "Id", "Pays");
 
             return View();
         }
