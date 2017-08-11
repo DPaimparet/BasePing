@@ -96,7 +96,7 @@ namespace basePing.DataContext
             if (con.IsConnect())
             {
                 //récupérer les joueurs grâce à leur sex
-                string query = "SELECT * FROM Joueur Where sexe="+sexe;
+                string query = "SELECT * FROM Joueur Where sexe='"+sexe+"'";
                 var cmd = new MySqlCommand(query, con.Connection);
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
