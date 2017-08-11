@@ -41,5 +41,11 @@ namespace basePing.Controllers
 
             return View();
         }
+
+        public ActionResult LogOut()
+        {
+            Session["admin"] = false;
+            return View("Index");
+        }
     }
 }

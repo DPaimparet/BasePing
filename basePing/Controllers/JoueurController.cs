@@ -14,41 +14,126 @@ namespace basePing.Controllers
         public ActionResult Index()
         {
             List<CPays> listePays = new CPays().GetListPays();
-            ViewBag.listePays = new SelectList(listePays, "Id", "Pays");
+            Session["listePays"] = new SelectList(listePays, "Id", "Pays");
             return View();
         }
         [HttpPost]
-        public ActionResult ListeJoueurs(string nom, string pays, string sexe)
+        public ActionResult ListeJoueurs(string nom, int? pays, string sexe)
         {
+            // Initialisation
             char sex = 'f';
-
             DCJoueur joueur = new DCJoueur();
             List<Joueur> listeJoueur = new List<Joueur>();
-            
+            ViewBag.alerte = 0;
+            ViewBag.Message = null;
+            // Vérification du sexe
             if (sexe == "Masculin")
             {
                 sex = 'm';
             }
 
-            if (nom == "" && pays == null)
+            // Appel des listes de joueurs selon les attribut sélectionnés
+            // 1) Nom est rempli
+            if (nom != "")
             {
-                listeJoueur = joueur.GetJoueurBySex(sex);
-                ViewBag.listeJoueur = listeJoueur;
+                // Pays remplis , sexe vide (Vérifier)
+                if (pays != null && sexe == "")
+                {
+                    listeJoueur = joueur.GetJoueurByNameAndCountry(nom,pays);
+                    if(listeJoueur.Count() != 0)
+                    {
+                        ViewBag.listeJoueur = listeJoueur;
+                    }
+                    else
+                    {
+                        return Redirect("Index?error=Aucune information trouvée");
+                    }
+                }
+                // Pays vide , sexe remplis
+                if (pays == null && sexe != "")
+                {
+                    listeJoueur = joueur.GetJoueurByNameAndSex(nom,sex);
+                    if (listeJoueur.Count() != 0)
+                    {
+                        ViewBag.listeJoueur = listeJoueur;
+                    }
+                    else
+                    {
+                        return Redirect("Index?error=Aucune information trouvée");
+                    }
+                }
+                // Pays remplis , sexe remplis (OK)
+                if (pays != null && sexe != "")
+                {
+                    listeJoueur = joueur.GetJoueurByNameCountryAndSex(nom, pays, sex);
+                    if (listeJoueur.Count() != 0)
+                    {
+                        ViewBag.listeJoueur = listeJoueur;
+                    }
+                    else
+                    {
+                        return Redirect("Index?error=Aucune information trouvée");
+                    }
+                }
+                // Pays vide , sexe vide (OK)
+                else
+                {
+                    listeJoueur = joueur.GetJoueur(nom);
+                    if (listeJoueur.Count() != 0)
+                    {
+                        ViewBag.listeJoueur = listeJoueur;
+                    }
+                    else
+                    {
+                        return Redirect("Index?error=Aucune information trouvée");
+                    }
+                }
             }
-            if(nom == "" && pays != null)
+            else // Nom est vide
             {
-                listeJoueur = joueur.GetJoueurByNation(id, sex);
-                ViewBag.listeJoueur = listeJoueur;
-            }
-            //if(nom != "" && pays == null)
-            //{
-            //    listeJoueur = joueur.GetJoueurByNation(id, sex);
-            //    ViewBag.listeJoueur = listeJoueur;
-            //}
-            if(nom != "")
-            {
-                listeJoueur = joueur.GetJoueur(nom);
-                ViewBag.listeJoueur = listeJoueur;
+                // Pays non sélectionné et Sexe sélectionné
+                if (pays == null && sexe != "")
+                {
+                    listeJoueur = joueur.GetJoueurBySex(sex);
+                    if (listeJoueur.Count() != 0)
+                    {
+                        ViewBag.listeJoueur = listeJoueur;
+                    }
+                    else
+                    {
+                        return Redirect("Index?error=Aucune information trouvée");
+                    }
+                }
+                // Pays sélectionné et Sexe non sélectionné
+                if (pays != null && sexe == "")
+                {
+                    listeJoueur = joueur.GetJoueurByNation(pays);
+                    if (listeJoueur.Count() != 0)
+                    {
+                        ViewBag.listeJoueur = listeJoueur;
+                    }
+                    else
+                    {
+                        return Redirect("Index?error=Aucune information trouvée");
+                    }
+                }
+                // Pays sélectionné et Sexe sélectionné
+                if (pays != null && sexe != "")
+                {
+                    listeJoueur = joueur.GetJoueurByNationAndSex(pays, sex);
+                    if (listeJoueur.Count() != 0)
+                    {
+                        ViewBag.listeJoueur = listeJoueur;
+                    }
+                    else
+                    {
+                        return Redirect("Index?error=Aucune information trouvée");
+                    }
+                }
+                if(pays == null && sexe == "") // Pays non sélectionné et Sexe non sélectionné
+                {
+                    return Redirect("Index?error=Un choix minimum est requis");
+                }
             }
             return View();
         }
