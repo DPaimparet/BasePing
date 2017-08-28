@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -216,12 +217,15 @@
     <Content Include="Content\image\background3.jpg" />
     <Content Include="Content\image\background4.png" />
     <Content Include="Content\image\background5.png" />
+    <Content Include="Content\image\banniereCompetition.jpg" />
+    <Content Include="Content\image\banniereFederation.jpg" />
     <Content Include="Content\image\bannierejoueur1.jpg" />
     <Content Include="Content\image\bannierejoueur2.jpg" />
     <Content Include="Content\image\FlorianVanAcker.jpg" />
     <Content Include="Content\image\fondPalette.jpg" />
     <Content Include="Content\image\logo_lhf.png" />
     <Content Include="Content\image\logo_parantee.png" />
+    <Content Include="Content\image\MarcLedoux2.jpg" />
     <Content Include="Content\image\no-photo.jpg" />
     <Content Include="Content\image\ParalympicLogoBelgian.png" />
     <Content Include="favicon.ico" />
