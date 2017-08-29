@@ -217,8 +217,10 @@
     <Content Include="Content\image\background3.jpg" />
     <Content Include="Content\image\background4.png" />
     <Content Include="Content\image\background5.png" />
+    <Content Include="Content\image\banniereClub.jpg" />
     <Content Include="Content\image\banniereCompetition.jpg" />
     <Content Include="Content\image\banniereFederation.jpg" />
+    <Content Include="Content\image\banniereJoueur.jpg" />
     <Content Include="Content\image\bannierejoueur1.jpg" />
     <Content Include="Content\image\bannierejoueur2.jpg" />
     <Content Include="Content\image\FlorianVanAcker.jpg" />
