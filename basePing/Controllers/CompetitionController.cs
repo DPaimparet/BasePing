@@ -1,9 +1,11 @@
-﻿using MySql.Data.MySqlClient;
-using System;
-using System.Web.Mvc;
-using basePing.DataContext;
-using basePing.Models;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using basePing.Models;
+using basePing.DataContext;
+using basePing.ViewModel;
 
 namespace basePing.Controllers
 {
@@ -19,6 +21,8 @@ namespace basePing.Controllers
         public ActionResult GetComp(int id)
         {
             Competition comp = new Competition();
+            List<CPays> listePays = new CPays().GetListPays();
+            Session["listePays"] = new SelectList(listePays, "Id", "Pays");
             List<Competition> triedList = new List<Competition>();
             foreach (Competition c in comp.GetList())
             {
@@ -141,15 +145,141 @@ namespace basePing.Controllers
             dc.Delete(id);
             return Redirect("~/Home/Connect");
         }
-
-        public ActionResult Participants()
-        {
-
-            return View();
-        }
         public ActionResult AjoutParticipant()
         {
+            // Liste des participants de la compétition
+            int idC = Convert.ToInt32(Session["idComp"]);
+            Joueur participant = new Joueur();
+            ViewBag.listeParticipant=participant.GetListJoueurComp(idC);
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ListeParticipant(string nom, int? pays, string sexe)
+        {
+            // Initialisation
+            char sex = 'f';
+            DCJoueur joueur = new DCJoueur();
+            List<Joueur> listeJoueur = new List<Joueur>();
+            ViewBag.alerte = 0;
+            ViewBag.Message = null;
+            // Vérification du sexe
+            if (sexe == "Masculin")
+            {
+                sex = 'm';
+            }
 
+            // Appel des listes de joueurs selon les attribut sélectionnés
+            // 1) Nom est rempli
+            if (nom != "")
+            {
+                // Pays remplis , sexe vide (Vérifier)
+                if (pays != null && sexe == "")
+                {
+                    listeJoueur = joueur.GetJoueurByNameAndCountry(nom, pays);
+                    if (listeJoueur.Count() != 0)
+                    {
+                        ViewBag.listeJoueur = listeJoueur;
+                    }
+                    else
+                    {
+                        return Redirect("~/Competition/AjoutParticipant/" + Session["idComp"] + "?error=Aucune information trouvée");
+                    }
+                }
+                // Pays vide , sexe remplis
+                if (pays == null && sexe != "")
+                {
+                    listeJoueur = joueur.GetJoueurByNameAndSex(nom, sex);
+                    if (listeJoueur.Count() != 0)
+                    {
+                        ViewBag.listeJoueur = listeJoueur;
+                    }
+                    else
+                    {
+                        return Redirect("~/Competition/AjoutParticipant/" + Session["idComp"] + "?error=Aucune information trouvée");
+                    }
+                }
+                // Pays remplis , sexe remplis (OK)
+                if (pays != null && sexe != "")
+                {
+                    listeJoueur = joueur.GetJoueurByNameCountryAndSex(nom, pays, sex);
+                    if (listeJoueur.Count() != 0)
+                    {
+                        ViewBag.listeJoueur = listeJoueur;
+                    }
+                    else
+                    {
+                        return Redirect("~/Competition/AjoutParticipant/" + Session["idComp"] + "?error=Aucune information trouvée");
+                    }
+                }
+                // Pays vide , sexe vide (OK)
+                else
+                {
+                    listeJoueur = joueur.GetJoueur(nom);
+                    if (listeJoueur.Count() != 0)
+                    {
+                        ViewBag.listeJoueur = listeJoueur;
+                    }
+                    else
+                    {
+                        return Redirect("~/Competition/AjoutParticipant/" + Session["idComp"] + "?error=Aucune information trouvée");
+                    }
+                }
+            }
+            else // Nom est vide
+            {
+                // Pays non sélectionné et Sexe sélectionné
+                if (pays == null && sexe != "")
+                {
+                    listeJoueur = joueur.GetJoueurBySex(sex);
+                    if (listeJoueur.Count() != 0)
+                    {
+                        ViewBag.listeJoueur = listeJoueur;
+                    }
+                    else
+                    {
+                        return Redirect("~/Competition/AjoutParticipant/" + Session["idComp"] + "?error=Aucune information trouvée");
+                    }
+                }
+                // Pays sélectionné et Sexe non sélectionné
+                if (pays != null && sexe == "")
+                {
+                    listeJoueur = joueur.GetJoueurByNation(pays);
+                    if (listeJoueur.Count() != 0)
+                    {
+                        ViewBag.listeJoueur = listeJoueur;
+                    }
+                    else
+                    {
+                        return Redirect("~/Competition/AjoutParticipant/" + Session["idComp"] + "?error=Aucune information trouvée");
+                    }
+                }
+                // Pays sélectionné et Sexe sélectionné
+                if (pays != null && sexe != "")
+                {
+                    listeJoueur = joueur.GetJoueurByNationAndSex(pays, sex);
+                    if (listeJoueur.Count() != 0)
+                    {
+                        ViewBag.listeJoueur = listeJoueur;
+                    }
+                    else
+                    {
+                        return Redirect("~/Competition/AjoutParticipant/" + Session["idComp"] + "?error=Aucune information trouvée");
+                    }
+                }
+                if (pays == null && sexe == "") // Pays non sélectionné et Sexe non sélectionné
+                {
+                    return Redirect("~/Competition/AjoutParticipant/" + Session["idComp"] + "?error=Aucune information trouvée");
+                }
+            }
+            return View();
+        }
+        public ActionResult AddNewJoueur()
+        {
+            return View();
+        }
+        public ActionResult AddParticipant()
+        {
+            // Ajouter le participant ici
             return View();
         }
         [HttpPost]
@@ -165,7 +295,7 @@ namespace basePing.Controllers
             string Pays = pays.ToString();
             Joueur joueur = new Joueur(0, nom, prenom, dateNaissance, sex, Pays);
             joueur.AjouterJoueur();
-            return Redirect("~/Competition/InfoComp/");
+            return Redirect("~/Competition/AjoutParticipant/" + Session["idComp"]);
         }
     }
 }

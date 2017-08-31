@@ -1,22 +1,13 @@
 ﻿@using basePing.Models;
+@using basePing.DataContext;
 @{
-    ViewBag.Title = "AjoutParticipant";
+    ViewBag.Title = "ListeParticipant";
 }
 
-<h2>Ajouter un/des participant(s)</h2>
-
+<h2>ListeParticipant</h2>
+<br />
 <div style="background-color: #199aca; width: auto; padding: 10px 50px;">
-    <table class="table table-striped">
-        <thead>Liste des participant(es)</thead>
-        @foreach (Joueur j in ViewBag.listeParticipant)
-        {
-            <tr class="bg-info">
-                <td>@j.Nom</td>
-                <td>@j.Prenom</td>
-                <td>@j.National</td>
-            </tr>
-        }
-     </table>
+
     <div class="form-inline">
         @using (Html.BeginForm("ListeParticipant", "Competition"))
         {
@@ -43,9 +34,20 @@
             <input type="submit" class="btn btn-warning" value="Recherche" />
         }
     </div>
-    @Html.ActionLink("Terminé", "InfoComp/" + Session["idComp"], new { area = "" }, new { @class = "btn btn-danger" })
-</div>
-<br />
-<div>
-    <h2>@Request.QueryString["error"]</h2>
+    <div>
+        <br />
+        <table class="table table-striped">
+            <thead>Liste de joueur(s)</thead>
+            @foreach (Joueur j in ViewBag.listejoueur)
+            {
+                <tr class="bg-info">
+                    <td>@j.Nom</td>
+                    <td>@j.Prenom</td>
+                    <td>@j.National</td>
+                    <td>@Html.ActionLink("Participe", "AddParticipant", "Competition", new { id = j.Id }, new { @class = "btn btn-info" })</td>
+                </tr>
+            }
+        </table>
+    </div>
+    @Html.ActionLink("Créer un joueur/joueuse", "AddNewJoueur", new { area = "" }, new { @class = "btn btn-success" })
 </div>
