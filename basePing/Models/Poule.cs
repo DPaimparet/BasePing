@@ -34,7 +34,7 @@ namespace basePing.Models
         {
             DCPoule dc = new DCPoule();
             infoJoueur m = new infoJoueur();
-            //lJoueur = m.GetListJoueur(Id);
+            
             List<Poule> listP= dc.findAll(idComp);
             foreach (Poule p in listP)
             {

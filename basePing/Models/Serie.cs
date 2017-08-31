@@ -22,5 +22,10 @@ namespace basePing.Models
         public Serie()
         {
         }
+
+        public Serie(int id)
+        {
+            this.id = id;
+        }
     }
 }

@@ -178,6 +178,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JoueurController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\SerieController.cs" />
     <Compile Include="DataContext\DBConnection.cs" />
     <Compile Include="DataContext\DCCategorie.cs" />
     <Compile Include="DataContext\DCCompetition.cs" />
@@ -186,6 +187,7 @@
     <Compile Include="DataContext\DCLogin.cs" />
     <Compile Include="DataContext\DCMatch.cs" />
     <Compile Include="DataContext\DCPoule.cs" />
+    <Compile Include="DataContext\DCTournoi.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -200,6 +202,7 @@
     <Compile Include="Models\Poule.cs" />
     <Compile Include="Models\Serie.cs" />
     <Compile Include="Models\Set.cs" />
+    <Compile Include="Models\Tournoi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\infoJoueur.cs" />
   </ItemGroup>
@@ -285,6 +288,14 @@
     <Content Include="Views\Joueur\ListeJoueurs.cshtml" />
     <Content Include="Views\Shared\_GridPager.cshtml" />
     <Content Include="Views\Shared\_Grid.cshtml" />
+    <Content Include="Views\Joueur\AjoutJoueurPoule.cshtml" />
+    <Content Include="Views\Competition\AjouterTypeCompForm.cshtml" />
+    <Content Include="Views\Competition\ModifCat.cshtml" />
+    <Content Include="Views\Competition\AjoutComp.cshtml" />
+    <Content Include="Views\Competition\ModifierComp.cshtml" />
+    <Content Include="Views\Competition\SupressionComp.cshtml" />
+    <Content Include="Views\Joueur\ModifierJoueurPoule.cshtml" />
+    <Content Include="Views\Serie\ModifPouleForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

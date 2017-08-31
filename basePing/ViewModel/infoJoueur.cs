@@ -19,5 +19,29 @@ namespace basePing.ViewModel
             DCJoueur dc = new DCJoueur();
             return dc.GetinfoPouleJoueur(id);
         }
+
+        public void AjouterAuPoule(infoJoueur j, int idPoule)
+        {
+            List<infoJoueur> lJoueur = new infoJoueur().GetListJoueur(idPoule);
+            int cpt = 1;
+            foreach (infoJoueur joueur in lJoueur)
+            {
+                if (j.matchGagné - j.matchPerdu > joueur.matchGagné - joueur.matchPerdu)
+                {
+                    joueur.position++;
+
+                }
+                else
+                    cpt++;
+            }
+            j.position = cpt;
+            DCJoueur dc = new DCJoueur();
+            foreach (infoJoueur joueur in lJoueur)
+            {
+                dc.UpdateLD(joueur, idPoule);
+            }
+            dc.InsertLD(j, idPoule);
+        }
+
     }
 }

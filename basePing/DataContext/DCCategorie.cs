@@ -29,5 +29,39 @@ namespace basePing.DataContext
             else
                 return null;
         }
+
+        public bool Insert(string nom, string desc)
+        {
+            DBConnection con = DBConnection.Instance();
+            if (con.IsConnect())
+            {
+                //récupérer les joueurs grâce à leur sex
+                string query = "INSERT INTO `categorie` (`idCat`, `nomCatégorie`, `descriptif`) VALUES (NULL, '" + nom + "', '" + desc + "')";
+                var cmd = new MySqlCommand(query, con.Connection);
+                var reader = cmd.ExecuteReader();
+
+                reader.Close();
+                return true;
+            }
+            else
+                return false;
+        }
+
+        public bool Update(string nom, string desc,int id)
+        {
+            DBConnection con = DBConnection.Instance();
+            if (con.IsConnect())
+            {
+                //récupérer les joueurs grâce à leur sex
+                string query = "UPDATE `categorie` SET `nomCatégorie` = '"+nom+"', `descriptif` = '"+desc+"' WHERE `categorie`.`idCat` ="+id;
+                var cmd = new MySqlCommand(query, con.Connection);
+                var reader = cmd.ExecuteReader();
+
+                reader.Close();
+                return true;
+            }
+            else
+                return false;
+        }
     }
 }

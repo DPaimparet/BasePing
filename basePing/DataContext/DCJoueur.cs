@@ -89,6 +89,58 @@ namespace basePing.DataContext
             else
                 return null;
         }
+
+        public bool InsertLD(infoJoueur j, int idPoule)
+        {
+            DBConnection con = DBConnection.Instance();
+            if (con.IsConnect())
+            {
+                //récupérer les joueurs grâce à leur sex
+                string query = "INSERT INTO `ld_joueur_serie` (`idJoueur`, `idSerie`, `position`, `matchGagne`, `matchPerdu`) VALUES ('"+j.Id+"', '"+idPoule+"', '"+j.position+"', '"+j.matchGagné+"', '"+j.matchPerdu+"')";
+                var cmd = new MySqlCommand(query, con.Connection);
+                var reader = cmd.ExecuteReader();
+
+                reader.Close();
+                return true;
+            }
+            else
+                return false;
+        }
+
+        public bool DeleteLD(int idJ, int idP)
+        {
+            DBConnection con = DBConnection.Instance();
+            if (con.IsConnect())
+            {
+                //récupérer les joueurs grâce à leur sex
+                string query = "DELETE FROM ld_joueur_serie WHERE idSerie="+idP+" AND idJoueur="+idJ;
+                var cmd = new MySqlCommand(query, con.Connection);
+                var reader = cmd.ExecuteReader();
+
+                reader.Close();
+                return true;
+            }
+            else
+                return false;
+        }
+
+        public bool UpdateLD(infoJoueur j, int idPoule)
+        {
+            DBConnection con = DBConnection.Instance();
+            if (con.IsConnect())
+            {
+                //récupérer les joueurs grâce à leur sex
+                string query = "UPDATE `ld_joueur_serie` SET `position` = '" + j.position + "', `matchGagne` = '"+j.matchGagné+"', `matchPerdu` = '"+j.matchPerdu+"' WHERE `ld_joueur_serie`.`idJoueur` = " + j.Id + " AND `ld_joueur_serie`.`idSerie` = " + idPoule;
+                var cmd = new MySqlCommand(query, con.Connection);
+                var reader = cmd.ExecuteReader();
+
+                reader.Close();
+                return true;
+            }
+            else
+                return false;
+        }
+
         public List<Joueur> GetJoueurBySex(char sexe)
         {
             List<Joueur> listeJoueur = new List<Joueur>();
@@ -151,7 +203,7 @@ namespace basePing.DataContext
             if (con.IsConnect())
             {
                 //récupérer le joueur gràce à l'id
-                string query = "SELECT ld_joueur_serie.*,joueur.* FROM Serie INNER JOIN ld_joueur_serie ON serie.idSerie=ld_joueur_serie.idSerie INNER JOIN joueur ON ld_joueur_serie.idJoueur=joueur.idJoueur Where serie.idSerie=" + id;
+                string query = "SELECT ld_joueur_serie.*,joueur.* FROM Serie INNER JOIN ld_joueur_serie ON serie.idSerie=ld_joueur_serie.idSerie INNER JOIN joueur ON ld_joueur_serie.idJoueur=joueur.idJoueur Where serie.idSerie=" + id+" ORDER BY position ASC";
                 var cmd = new MySqlCommand(query, con.Connection);
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())

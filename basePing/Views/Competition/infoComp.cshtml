@@ -3,74 +3,309 @@
 @model basePing.Models.Competition
 
 
-
+@if ((Boolean)Session["admin"] == false)
+{
 <h1>@Model.Nom  @Model.Cat</h1>
 
-<h2>du @Model.DateDeb.ToShortDateString() au @Model.DateDeb.ToShortDateString()</h2>
-<table border="1">
-    @foreach (Poule p in Model.LPoule)
-    {
-        <tr> <th colspan="4">@p.NomPoule</th></tr>
-        foreach (infoJoueur j in p.LJoueur)
-        {
-            <tr>
-                <td>@Html.ActionLink(j.nom, "Joueur", "Joueur", new { id = j.Id }, new { @class = "btn" })</td>
-                <td> @j.position </td>
-                <td>@j.matchGagné</td>
-                <td>@j.matchPerdu</td>
-            </tr>
-        }
-    }
 
-</table>
-<table>
-    <tr>
-            @{int[,] tab = new int[2,6] { { 0, 1, 3, 7, 15,31 }, { 2, 4, 8, 16, 32, 64 } };
-                int cpt = -1;
-                bool ligneOk = false;
-                for (int i = 0; i < 6; i++)
+
+<h2>du @Model.DateDeb.ToShortDateString() au @Model.DateFin.ToShortDateString()</h2>
+
+if (Model.LPoule.Count != 0)
+{
+        <table border="1">
+            @foreach (Poule p in Model.LPoule)
+            {
+                <tr> <th colspan="4">@p.NomPoule</th></tr>
+                <tr> <th>Joueur</th> <th>Position</th> <th>Match gagné</th> <th>Match perdu</th></tr>
+                foreach (infoJoueur j in p.LJoueur)
                 {
-                        <td>
-                        <table>
-                @{
-                        cpt = -1;
+                    <tr>
+                        <td>@Html.ActionLink(j.nom, "Joueur", "Joueur", new { id = j.Id }, new { @class = "btn" })</td>
+                        <td> @j.position </td>
+                        <td>@j.matchGagné</td>
+                        <td>@j.matchPerdu</td>
+                    </tr>
                 }
-               @for (int j = 0; j < 63; j++)
-                    {
-                   if (tab[0, i] == j || cpt == 0)
-                    {
-                       if (ligneOk) {
-                            ligneOk = false;
-                        }
-                        else {
-                                ligneOk = true;
-                            }
-                            cpt = tab[1, i];
-                        <tr><td style="border-right: 1px solid #cdd0d4;">Joueur dedans</td></tr>
-                    }
-                    else if(ligneOk && i!=5)
-                    {
-                    <tr><td style="border-right: 1px solid #cdd0d4;">.</td></tr>
-                   }
-                   else if (!ligneOk)
-                   {
-                    <tr><td>.</td></tr>
-                   }
-                   else
-                   {
-                    <tr><td>.</td></tr>
-                   }
-                   cpt--;
-               }
-
-
-            </table>
-           </td>
-                    }
             }
-    </tr>
-</table>
+
+        </table>
+        }
+
+        if (Model.Tournoi != null)
+        {
+        <table>
+            <tr>
+                @{int[,] tab = new int[2, 6] { { 0, 1, 3, 7, 15, 31 }, { 2, 4, 8, 16, 32, 64 } };
+                    int[] taille = { 1, 3, 7, 15, 31, 63 };
+                    int cpt = 0;
+                    for (int i = 0; i < Model.Tournoi.Taille; i++)
+                    {
+                        Match[] match = Model.Tournoi.getArrayMatch();
+                        <td>
+                            <table>
+                                @for (int u = 0; u < tab[0, i]; u++)
+                                {
+                                    <tr><td>.</td></tr>
+                                }
+
+
+                                @for (int j = 0; j < taille[Model.Tournoi.Taille - 1]; j = j + tab[1, i])
+                                {
+                                    if (@match[cpt] == null)
+                                    {
+                                        <tr><td style="border-right: 1px solid #cdd0d4;">INCONNU</td></tr>
+                                        for (int z = 0; z <= tab[1, i] - 2; z++)
+                                        {
+                                            <tr><td style="border-right: 1px solid #cdd0d4;">.</td></tr>
+                                        }
+                                        <tr><td style="border-right: 1px solid #cdd0d4;">INCONNU</td></tr>
+                                    }
+                                    else
+                                    {
+                                    <tr><td style="border-right: 1px solid #cdd0d4;">@match[cpt].Joueur1.Nom</td></tr>
+                                        for (int z = 0; z <= tab[1, i] - 2; z++)
+                                        {
+                                        <tr><td style="border-right: 1px solid #cdd0d4;">.</td></tr>
+                                        }
+                                    <tr><td style="border-right: 1px solid #cdd0d4;">@match[cpt].Joueur2.Nom</td></tr>
+                                    }
+                                    cpt++;
+                                    if (j < taille[Model.Tournoi.Taille - 1] - tab[1, i])
+                                    {
+                                        for (int k = 0; k <= tab[1, i] - 2; k++)
+                                        {
+                                            <tr><td>.</td></tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        for (int u = 0; u < tab[0, i]; u++)
+                                        {
+                                   <tr><td>.</td></tr>
+                                        }
+                                    }
+                                }
+
+
+                            </table>
+                        </td>
+
+                    }
+                    <td>
+                        <table>
+
+                            @for (int u = 0; u < tab[0, Model.Tournoi.Taille]; u++)
+                            {
+                                <tr><td>.</td></tr>
+                            }
+                            <tr><td>Finalliste</td></tr>
+                            @for (int u = 0; u < tab[0, Model.Tournoi.Taille]; u++)
+                            {
+                                <tr><td>.</td></tr>
+                            }
+                        </table>
+                    </td>
+                }
+            </tr>
+        </table>
+                        }
+
+                    }
+ else//PARTIE ADMINISTRATION
+         {
+
+                        <h1>@Model.Nom  @Model.Cat</h1>
+                        @Html.ActionLink("Modifier", "ModifierComp", "Competition",
+                          new { id = Model.Id }, new { @class = "btn" })
+                        @Html.ActionLink("Supprimer", "SuppressionComp", "Competition",
+                          new { id = Model.Id }, new { @class = "btn" })
+                        <h2>du @Model.DateDeb.ToShortDateString() au @Model.DateDeb.ToShortDateString()</h2>
+
+                        if (Model.LPoule.Count != 0)
+                        {
+                            <table border="1">
+                                @foreach (Poule p in Model.LPoule)
+                                {
+                                    <tr> <th colspan="4">@p.NomPoule</th></tr>
+                                    <tr> <th>Joueur</th> <th>Position</th> <th>Match gagné</th> <th>Match perdu</th></tr>
+                                    foreach (infoJoueur j in p.LJoueur)
+                                    {
+                                        <tr>
+                                            <td>@Html.ActionLink(j.nom, "Joueur", "Joueur", new { id = j.Id }, new { @class = "btn" })</td>
+                                            <td> @j.position </td>
+                                            <td>@j.matchGagné</td>
+                                            <td>@j.matchPerdu</td>
+                                           
+                                            <td>
+                                                @Html.ActionLink("Modifier", "ModifierJoueurPoule", "Joueur", new { idP = p.Id, idJ = @j.Id , matchG=@j.matchGagné, matchP=@j.matchPerdu,pos=@j.position }, new { @class = "btn" })
+                                                @Html.ActionLink("Supprimer", "SupprimerJoueurPoule", "Joueur", new { idP = p.Id ,idJ=@j.Id}, new { @class = "btn" })
+                                            </td>
+                                        </tr>
+
+                                    }
+                                    if (p.LJoueur.Count < p.Taille)
+                                    {
+                                    <tr>
+                                        <td colspan="4">
+                                            @Html.ActionLink("Ajouter un nouveau joueur", "AjoutJoueurPoule", "Joueur", new { id=p.Id }, new { @class = "btn" })
+                                        </td>
+
+                                    </tr>
+                                    }
+                                    <tr>
+                                        <td colspan="4">
+                                            @Html.ActionLink("Modifier Poule", "ModifPouleForm", "Serie", new { id = p.Id,desc=p.Descriptif,nom=p.NomPoule,taille=p.Taille }, new { @class = "btn" })
+                                            @Html.ActionLink("Suprimmer Poule", "SuppPoule", "Serie", new { id = p.Id }, new { @class = "btn" })
+                                        </td>
+
+                                    </tr>
+                                }
+
+                            </table>
+                            using (Html.BeginForm("AjoutPoule", "Serie"))
+                            {
+                                    <h2>Ajouter une poule</h2>
+                                    <label> Nom  Poule</label>
+                                    <input type="text" name="nom" required="required" />
+                                    <label>Taille Poule</label>
+                                    <input type="number" name="taille" required="required" />
+                                    <input type="hidden" name="idComp" value="@Model.Id" />
+                                    <input type="submit" value="Ajouter" required="required" />
+                              
+
+                            }
+                        }
+
+                        if (Model.Tournoi != null)
+                        {
+                            <table>
+                                <tr>
+                                    @{int[,] tab = new int[2, 6] { { 0, 1, 3, 7, 15, 31 }, { 2, 4, 8, 16, 32, 64 } };
+                    int[] taille = { 1, 3, 7, 15, 31, 63 };
+                    int cpt = 0;
+                    for (int i = 0; i < Model.Tournoi.Taille; i++)
+                    {
+                        Match[] match = Model.Tournoi.getArrayMatch();
+                                            <td>
+                                                <table>
+                                                    @for (int u = 0; u < tab[0, i]; u++)
+                                                    {
+                                                        <tr><td>.</td></tr>
+                                                    }
+
+
+                                                    @for (int j = 0; j < taille[Model.Tournoi.Taille - 1]; j = j + tab[1, i])
+                                                    {
+                                                        if (@match[cpt] == null)
+                                                        {
+                                                            <tr><td style="border-right: 1px solid #cdd0d4;">INCONNU</td></tr>
+                                                            for (int z = 0; z <= tab[1, i] - 2; z++)
+                                                            {
+                                                                <tr><td style="border-right: 1px solid #cdd0d4;">.</td></tr>
+                                                            }
+                                                            <tr><td style="border-right: 1px solid #cdd0d4;">INCONNU</td></tr>
+                                                        }
+                                                        else
+                                                        {
+                                                            <tr><td style="border-right: 1px solid #cdd0d4;">@match[cpt].Joueur1.Nom</td></tr>
+                                                            for (int z = 0; z <= tab[1, i] - 2; z++)
+                                                            {
+                                                                <tr><td style="border-right: 1px solid #cdd0d4;">.</td></tr>
+                                                            }
+                                                            <tr><td style="border-right: 1px solid #cdd0d4;">@match[cpt].Joueur2.Nom</td></tr>
+                                                        }
+                                                        cpt++;
+                                                        if (j < taille[Model.Tournoi.Taille - 1] - tab[1, i])
+                                                        {
+                                                            for (int k = 0; k <= tab[1, i] - 2; k++)
+                                                            {
+                                                                <tr><td>.</td></tr>
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            for (int u = 0; u < tab[0, i]; u++)
+                                                            {
+                                                                <tr><td>.</td></tr>
+                                                            }
+                                                        }
+                                                    }
+
+
+                                                </table>
+                                            </td>
+
+                                        }
+                                        <td>
+                                            <table>
+
+                                                @for (int u = 0; u < tab[0, Model.Tournoi.Taille]; u++)
+                                                {
+                                                    <tr><td>.</td></tr>
+                                                }
+                                                <tr><td>Finalliste</td></tr>
+                                                @for (int u = 0; u < tab[0, Model.Tournoi.Taille]; u++)
+                                                {
+                                                    <tr><td>.</td></tr>
+                                                }
+                                            </table>
+                                        </td>
+                                    }
+                                </tr>
+                            </table>
+                     }
+     }
+
+        @*
+    @if (Model.Tournoi != null) {
+    <table>
+        <tr>
+                @{int[,] tab = new int[2,6] { { 0, 1, 3, 7, 15,31 }, { 2, 4, 8, 16, 32, 64 } };
+                    int[] taille= {1,3,7,15,31,63 };
+                    int cpt = -1;
+                    //int cptM = 0;
+                    bool ligneOk = false;
+                    for (int i = 0; i <= Model.Tournoi.Taille; i++)
+                    {
+                        List<Match> match = Model.Tournoi.GetListMatch("Individuel");
+                            <td>
+                            <table>
+                            @{cpt = -1;}
+                                @for (int j = 0; j < taille[Model.Tournoi.Taille]; j++)
+                                {
+                                    @match.Count
+                                    foreach (Match m in match)
+                                    {
+
+                                        for (int k = 0; k <= tab[1, i]; k++) {
+                                        if (k == 0)
+                                        {
+                                        <tr><td style="border-right: 1px solid #cdd0d4;">@m.Joueur1.Nom</td></tr>
+                                        }
+                                        else if(k==tab[1, i])
+                                        {
+                                        <tr><td style="border-right: 1px solid #cdd0d4;">@m.Joueur2.Nom</td></tr>
+                                        }
+                                        else
+                                        {
+                                        <tr><td style="border-right: 1px solid #cdd0d4;"></td></tr>
+                                            }
+
+                                        }
+                                    }
+
+                                }
+
+
+                </table>
+               </td>
+                        }
+                    }
+        </tr>
+    </table>
+                        }
 
 
 
-
+*@
