@@ -30,6 +30,13 @@
         <input type="submit" class="btn btn-warning" value="Recherche" />
     }
 </div>
+<br />
+@if ((bool)Session["admin"])
+{
+    <div>
+        @Html.ActionLink("Ajouter un joueur ou une joueuse", "NewJoueur", "Joueur", new { area = "" }, new { @class = "btn btn-info" })
+    </div>
+}
 
 <div>
     <h2>@Request.QueryString["error"]</h2>

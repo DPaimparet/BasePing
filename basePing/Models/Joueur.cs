@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -15,7 +15,7 @@ namespace basePing.Models
         private DateTime dateNaissance;
         private char        sexe;
         private string      national;
-        private DCJoueur dc;
+
 
         public int Id
         {
@@ -94,7 +94,7 @@ namespace basePing.Models
 
          public void RecupererJoueur()
          {
-            Joueur j = new DCJoueur().GetJoueur(id);
+            Joueur j = new DataContext.DCJoueur().GetJoueur(id);
             this.nom = j.Nom;
             this.prenom = j.Prenom;
             this.sexe = j.Sexe;
@@ -103,5 +103,11 @@ namespace basePing.Models
         }
 
     
+
+        public void AjouterJoueur()
+        {
+            DataContext.DCJoueur dCJoueur = new DataContext.DCJoueur();
+            dCJoueur.AjoutJoueur(Nom, Prenom, DateNaissance, Sexe, National);
+        }
     }
 }

@@ -184,6 +184,7 @@
     <Compile Include="DataContext\DBConnection.cs" />
     <Compile Include="DataContext\DCCategorie.cs" />
     <Compile Include="DataContext\DCCompetition.cs" />
+    <Compile Include="DataContext\DCFederation.cs" />
     <Compile Include="DataContext\DCPays.cs" />
     <Compile Include="DataContext\DCJoueur.cs" />
     <Compile Include="DataContext\DCLogin.cs" />
@@ -195,6 +196,7 @@
     </Compile>
     <Compile Include="Models\Categorie.cs" />
     <Compile Include="Models\Competition.cs" />
+    <Compile Include="Models\Federation.cs" />
     <Compile Include="Models\Joueur.cs" />
     <Compile Include="Models\Match.cs" />
     <Compile Include="Models\Moderateur.cs" />
@@ -252,7 +254,6 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\controls.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -297,6 +298,7 @@
     <Content Include="Views\Competition\SupressionComp.cshtml" />
     <Content Include="Views\Joueur\ModifierJoueurPoule.cshtml" />
     <Content Include="Views\Serie\ModifPouleForm.cshtml" />
+    <Content Include="Views\Joueur\NewJoueur.cshtml" />
     <Content Include="Views\Serie\AjouterTournoi.cshtml" />
     <Content Include="Views\Match\AjoutMatch.cshtml" />
   </ItemGroup>

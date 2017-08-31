@@ -157,6 +157,25 @@ namespace basePing.Controllers
             return View();
         }
 
+        public ActionResult NewJoueur()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AddJoueur(string nom,string prenom, string sexe, DateTime dateNaissance, int? pays)
+        {
+            // Initialisation
+            char sex = 'f';
+            // Vérification du sexe
+            if (sexe == "Masculin")
+            {
+                sex = 'm';
+            }
+            string Pays = pays.ToString();
+            Joueur joueur = new Joueur(0,nom, prenom, dateNaissance , sex , Pays);
+            joueur.AjouterJoueur();
+            return Redirect("Index?error=Enregistrement effectuée");
+        }
         public ActionResult AjoutJoueurPoule(int id)
         {
             List<Joueur> listeJ = new Joueur().GetListJoueur();
