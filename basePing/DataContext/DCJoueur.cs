@@ -10,6 +10,7 @@ namespace basePing.DataContext
 {
     public class DCJoueur
     {
+        // Ajout d'un joueur dans la DB
         public bool AjoutJoueur(string nom, string prenom, DateTime dateNaiss, char sexe, string pays)
         {
             DBConnection con = DBConnection.Instance();
