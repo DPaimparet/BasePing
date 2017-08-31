@@ -298,6 +298,7 @@
     <Content Include="Views\Joueur\ModifierJoueurPoule.cshtml" />
     <Content Include="Views\Serie\ModifPouleForm.cshtml" />
     <Content Include="Views\Joueur\NewJoueur.cshtml" />
+    <Content Include="Views\Competition\AjoutParticipant.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

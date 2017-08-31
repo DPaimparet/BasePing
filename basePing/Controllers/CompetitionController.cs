@@ -12,8 +12,7 @@ namespace basePing.Controllers
         // GET: Competition
         public ActionResult Index()
         {
-           
-            
+
             return View();
         }
 
@@ -39,6 +38,7 @@ namespace basePing.Controllers
 
         public ActionResult InfoComp(int id)
         {
+            Session["idComp"] = id;
             Competition comp = new Competition(id);
             comp = comp.GetInformation();
             
@@ -135,6 +135,32 @@ namespace basePing.Controllers
             DCCompetition dc = new DCCompetition();
             dc.Delete(id);
             return Redirect("~/Home/Connect");
+        }
+
+        public ActionResult Participants()
+        {
+
+            return View();
+        }
+        public ActionResult AjoutParticipant()
+        {
+
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AddJoueur(string nom, string prenom, string sexe, DateTime dateNaissance, int? pays)
+        {
+            // Initialisation
+            char sex = 'f';
+            // Vérification du sexe
+            if (sexe == "Masculin")
+            {
+                sex = 'm';
+            }
+            string Pays = pays.ToString();
+            Joueur joueur = new Joueur(0, nom, prenom, dateNaissance, sex, Pays);
+            joueur.AjouterJoueur();
+            return Redirect("~/Competition/InfoComp/");
         }
     }
 }
