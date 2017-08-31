@@ -1,7 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using basePing.DataContext;
+using basePing.ViewModel;
 
 namespace basePing.Models
 {
@@ -13,6 +15,7 @@ namespace basePing.Models
         private DateTime dateNaissance;
         private char        sexe;
         private string      national;
+        private DCJoueur dc;
 
         public int Id
         {
@@ -45,10 +48,14 @@ namespace basePing.Models
             set { national = value; }
         }
 
-        internal List<Joueur> GetListJoueur(int id)
+        internal List<Joueur> GetListJoueur()
         {
-            throw new NotImplementedException();
+            DCJoueur dc = new DCJoueur();
+
+            return dc.GetAllJoueur();
         }
+
+      
 
         //public List<PalmaresCivil> ListePalmCivil
         //{
@@ -68,6 +75,24 @@ namespace basePing.Models
             this.dateNaissance = dateNaissance;
             this.national = nationalite;
         }
+
+        public Joueur(int id)
+        {
+            this.id = id;
+
+        }
+
+         public void RecupererJoueur()
+         {
+            Joueur j = new DCJoueur().GetJoueur(id);
+            this.nom = j.Nom;
+            this.prenom = j.Prenom;
+            this.sexe = j.Sexe;
+            this.dateNaissance = j.DateNaissance;
+            this.national = j.National;
+        }
+
+    
 
         public void AjouterJoueur()
         {

@@ -1,5 +1,12 @@
 ﻿@using basePing.Models;
 
+<h1>@ViewBag.cat.Nom</h1>
+@if ((bool)Session["admin"])
+{
+    @Html.ActionLink("Modifier", "ModifCat", "Competition",
+                     new { id = ViewBag.cat.Id }, new { @class = "btn" })
+}
+
 <table border="1">
     <tr><th>Nom de la compétition</th><th>Date des compétitions</th><th>Type de la compétition</th></tr>
     @foreach (Competition c in ViewBag.listComp)
@@ -15,7 +22,17 @@
             <td>
                 @c.TypeComp
             </td>
+           
         </tr>
     }
+
+    <tr>
+        <td colspan="3">
+            @Html.ActionLink("Crée une nouvelle compétition", "AjoutComp", "Competition",
+                    new { id = ViewBag.cat.Id }, new { @class = "btn" })
+        </td>
+       
+        
+    </tr>
 
 </table>  

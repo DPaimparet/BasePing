@@ -34,7 +34,11 @@
                             @foreach (Categorie c in (List<Categorie>)Session["lCat"])
                             {                           
                                 <li><a href="~/Competition/GetComp/@c.Id">@c.Nom</a></li>
-                            }         
+                            }    
+                            @if ((bool)Session["admin"])
+                            {
+                                <li><a href="~/Competition/AjouterTypeCompForm">Ajouter une nouvelle catégorie</a></li>
+                            }
                         </ul>
                     </li>
                     <li>@Html.ActionLink("Joueur", "Index", "Joueur")</li>

@@ -31,7 +31,8 @@ namespace basePing.Controllers
 
         public ActionResult Connect()
         {
-            
+            Categorie cat = new Categorie();
+            Session["lCat"] = cat.GetList();
             return View("Index");
         }
 

@@ -21,7 +21,7 @@ namespace basePing.DataContext
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                   comp=new Competition(reader.GetInt32(0), reader.GetString(1), reader.GetDateTime(2), reader.GetDateTime(3), reader.GetString(5));
+                   comp=new Competition(reader.GetInt32(0), reader.GetString(1), reader.GetDateTime(2), reader.GetDateTime(3), reader.GetString(5),reader.GetString(6));
                 }
                 reader.Close();
                 return comp;
@@ -35,18 +35,68 @@ namespace basePing.DataContext
             DBConnection con = DBConnection.Instance();
             if (con.IsConnect())
             {
+               //public Competition(int id, string nom, DateTime dateDeb, DateTime dateFin, string typeComp, string nbrJoueur, Categorie cat)
+
                 string query = "SELECT * FROM Competition INNER JOIN Categorie ON Competition.idCat=Categorie.idCat";
                 var cmd = new MySqlCommand(query, con.Connection);
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    lComp.Add(new Competition(reader.GetInt32(0), reader.GetString(1), reader.GetDateTime(2), reader.GetDateTime(3), reader.GetString(5), new Categorie(reader.GetInt32(6), reader.GetString(8), reader.GetString(9))));
+                    lComp.Add(new Competition(reader.GetInt32(0), reader.GetString(1), reader.GetDateTime(2), reader.GetDateTime(3), reader.GetString(5),reader.GetString(6), new Categorie(reader.GetInt32(8), reader.GetString(9), reader.GetString(10))));
                 }
                 reader.Close();
                 return lComp;
             }
             else
                 return null;
+        }
+
+        public bool Insert(String nom,DateTime dateD, DateTime dateF, string pays, string type, string nbrJ, int idCat)
+        {
+            DBConnection con = DBConnection.Instance();
+            if (con.IsConnect())
+            {
+                string query = "INSERT INTO `competition` (`idComp`, `nom`, `dateDeb`, `dateFin`, `idPays`, `typeCompetition`, `nbrJoueur`, `idCat`) VALUES(NULL, '" + nom + "', '" + dateD.ToString("yyyy-MM-dd") + "', '" + dateF.ToString("yyyy-MM-dd") + "', '" + Convert.ToInt32(pays) + "', '" + type + "', '" + nbrJ + "', '" + idCat + "')";
+                var cmd = new MySqlCommand(query, con.Connection);
+                var reader = cmd.ExecuteReader();
+
+                reader.Close();
+                return true;
+            }
+            else
+                return false;
+        }
+
+        public bool Update(int idcomp,string nom, DateTime dateD, DateTime dateF, string pays, string type, string nbrJ)
+        {
+           DBConnection con = DBConnection.Instance();
+            if (con.IsConnect())
+            {          
+                string query = "UPDATE `competition` SET `nom` = '" + nom + "', `dateDeb` = '" + dateD.ToString("yyyy-MM-dd") + "', `dateFin` = '" + dateF.ToString("yyyy-MM-dd") + "', `idPays` = '"+pays+"', `typeCompetition` = '"+type+"', `nbrJoueur` = '"+nbrJ+"' WHERE `competition`.`idComp` =" + idcomp;
+                var cmd = new MySqlCommand(query, con.Connection);
+                var reader = cmd.ExecuteReader();
+
+                reader.Close();
+                return true;
+            }
+            else
+                return false;
+        }
+
+        public bool Delete(int id)
+        {
+            DBConnection con = DBConnection.Instance();
+            if (con.IsConnect())
+            {
+                string query = "DELETE FROM competition WHERE idComp="+id;
+                var cmd = new MySqlCommand(query, con.Connection);
+                var reader = cmd.ExecuteReader();
+
+                reader.Close();
+                return true;
+            }
+            else
+                return false;
         }
     }
 }

@@ -1,0 +1,17 @@
+﻿  @using (Html.BeginForm("AjoutJoueurPoule", "Joueur"))
+  {
+
+    <label>Joueur</label>
+    @Html.DropDownList("joueur", ViewBag.listeJoueur as SelectList, string.Empty, new { @class = "form-control" })
+    <label>Position</label>
+    <input type="number" name="pos"  required="required" />
+
+    <label>Match gagné</label>
+    <input type="number" name="matchg" required="required" />
+    <label>Match perdu</label>
+    <input type="number" name="matchp" required="required" />
+
+    <input type="submit" value="Ajouter" />
+
+  }
+

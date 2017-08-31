@@ -1,0 +1,17 @@
+﻿@model basePing.Models.Poule
+
+
+@using (Html.BeginForm("ModifPoule", "Serie"))
+{
+
+    <input type="hidden" value="@Model.Id" name="id" />
+    <label>Nom</label>
+    <input type="text" name="nom" value="@Model.NomPoule" required="required" />
+    <label>Descriptif</label>
+    <input type="text" name="desc" value="@Model.Descriptif" required="required" />
+    <label>Taille</label>
+    <input type="number" name="taille" value="@Model.Taille" required="required" />
+
+    <input type="submit" value="Modifier" />
+
+}

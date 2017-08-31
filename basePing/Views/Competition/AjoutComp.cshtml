@@ -1,0 +1,23 @@
+﻿
+@using (Html.BeginForm("AjoutComp", "Competition"))
+{
+
+
+    <label>Nom de la compétition</label>
+    <input type="text" name="nom" required="required" />
+    <label>Date de début </label>
+    <input type="date" name="dateD" required="required" />
+    <label>Date de fin </label>
+    <input type="date" name="dateF" />
+    <label>Nationalité</label>
+    @Html.DropDownList("pays", (SelectList)ViewBag.listePays, string.Empty, new { @class = "form-control" })
+    <label>Type compétition</label>
+    @Html.DropDownList("type", (SelectList)ViewBag.listeType, new { @class = "form-control" })
+    <label>Equipe ou Individuel</label>
+    @Html.DropDownList("nbrJ", (SelectList)ViewBag.listeNbrJ, new { @class = "form-control" })
+    <input type="hidden" value="@ViewBag.idCat" name="idCat" />
+
+    <input type="submit" value="Ajouter Compétition" />
+
+}
+

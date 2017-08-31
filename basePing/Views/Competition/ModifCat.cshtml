@@ -1,0 +1,14 @@
+﻿
+@using (Html.BeginForm("ModifCat", "Competition"))
+{
+
+<input type="hidden" value="@ViewBag.idCat" name="id" />
+<label>Nom</label>
+<input type="text" name="nom" required="required" />
+<label>Descriptif</label>
+<input type="text" name="desc" required="required" />
+
+<input type="submit" value="Modifier" />
+
+}
+

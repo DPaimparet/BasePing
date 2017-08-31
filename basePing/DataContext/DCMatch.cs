@@ -9,29 +9,24 @@ namespace basePing.DataContext
 {
     public class DCMatch
     {
-        public List<Match> findAll(int idSerie)
+        public List<Match> findAllIndiv(int idSerie)
         {
           
                 List<Match> lMatch = new List<Match>();
                 DBConnection con = DBConnection.Instance();
                 if (con.IsConnect())
                 {
-                    Joueur j1= new Joueur(1,"a","a", new DateTime(),'m',"France");
-                    Joueur j2 = new Joueur(2, "b", "b", new DateTime(), 'm', "Belge");
-                    // string query = "SELECT Joueur,* FROM Rencontre INNER JOIN Joueur on Rencontre.idJ1=Joueur.id WHERE idSerie=" + idSerie;
-                    string query = "SELECT * FROM Rencontre";
+                    
+                    string query = "Select * FROM `serie` LEFT JOIN `rencontre` ON `rencontre`.`idSerie` = `serie`.`idSerie` LEFT JOIN `rencontre individuelle` ON `rencontre individuelle`.`idMatch` = `rencontre`.`idMatch` WHERE serie.idSerie="+idSerie;
 
                     var cmd = new MySqlCommand(query, con.Connection);
                     var reader = cmd.ExecuteReader();
-                    lMatch.Add(new Match(j1,j2,2,1));
-                    lMatch.Add(new Match(j1, j2, 4, 5));
-
                     while (reader.Read())
-                        {
-                        
-                        }
-                        reader.Close();
-                        return lMatch;
+                    {
+                            lMatch.Add(new Match(new Joueur(reader.GetInt32(11)),new Joueur(reader.GetInt32(12)),reader.GetInt32(4),reader.GetInt32(5),reader.GetInt32(7)));
+                    }
+                       reader.Close();
+                       return lMatch;
                     }
                 else
                     return null;
