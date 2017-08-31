@@ -33,5 +33,26 @@ namespace basePing.DataContext
             else
                 return null;
         }
+
+        public string GetPays(int id)
+        {
+            string pays = null;
+            DBConnection con = DBConnection.Instance();
+            if (con.IsConnect())
+            {
+                //récupérer tous les joueurs
+                string query = "SELECT nom FROM Pays WHERE id ="+id;
+                var cmd = new MySqlCommand(query, con.Connection);
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    pays = reader.GetString(1);
+                }
+                reader.Close();
+                return pays;
+            }
+            else
+                return null;
+        }
     }
 }

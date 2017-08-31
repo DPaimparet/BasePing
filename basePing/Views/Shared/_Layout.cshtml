@@ -10,8 +10,7 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <link rel="stylesheet" type="text/css" href="style.css" media="screen" />
-    <script type="text/javascript" src="../Scripts/decision-tree.js"></script>
-    <script type="text/javascript" src="../Scripts/controls.js"></script>
+     <script type="text/javascript" src="../Scripts/controls.js"></script>
     <link rel="stylesheet" type="text/css" href="~/Content/Site.css"/>
 </head>
 <body>
@@ -27,8 +26,6 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Accueil", "Index", "Home")</li>
-                    <li>@Html.ActionLink("À propos de", "About", "Home")</li>
                     <li><a class="dropdown-toggle" data-toggle="dropdown" href="Competition">
                           Compétition
                         <span class="caret"></span>
@@ -49,7 +46,19 @@
                     <li>@Html.ActionLink("Handisport", "Index", "Handisport")</li>
                     <li>@Html.ActionLink("Club", "Index", "Club")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Connexion", "Index", "Login")</li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    @{
+                        if ((bool)Session["admin"])
+                        {
+                            <li>@Html.ActionLink(" Déconnexion", "LogOut", "Home", null, new { @class = "glyphicon glyphicon-new-window" })</li>
+                        }
+                        else
+                        {
+                            <li>@Html.ActionLink(" Connexion", "Index", "Login", null, new { @class = "glyphicon glyphicon-log-in" })</li>
+                        }
+                    }
+                    
                 </ul>
             </div>
         </div>

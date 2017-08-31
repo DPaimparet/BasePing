@@ -16,6 +16,15 @@ namespace basePing.Models
         public string CodePays { get; set; }
         public string Pays { get {return pays; } set { pays = value; } }
 
+        public string this[int i]
+        {
+            get {
+                if(this.id==i)
+                    return pays;
+                return null;
+            }
+        }
+
         public CPays() { }
         public CPays(int id,string codePays, string pays)
         {

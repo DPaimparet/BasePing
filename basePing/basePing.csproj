@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -211,7 +212,6 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\Gridmvc.css" />
     <Content Include="Content\image\1.jpg" />
     <Content Include="Content\image\2.jpg" />
     <Content Include="Content\image\background.jpg" />
@@ -220,12 +220,17 @@
     <Content Include="Content\image\background3.jpg" />
     <Content Include="Content\image\background4.png" />
     <Content Include="Content\image\background5.png" />
+    <Content Include="Content\image\banniereClub.jpg" />
+    <Content Include="Content\image\banniereCompetition.jpg" />
+    <Content Include="Content\image\banniereFederation.jpg" />
+    <Content Include="Content\image\banniereJoueur.jpg" />
     <Content Include="Content\image\bannierejoueur1.jpg" />
     <Content Include="Content\image\bannierejoueur2.jpg" />
     <Content Include="Content\image\FlorianVanAcker.jpg" />
     <Content Include="Content\image\fondPalette.jpg" />
     <Content Include="Content\image\logo_lhf.png" />
     <Content Include="Content\image\logo_parantee.png" />
+    <Content Include="Content\image\MarcLedoux2.jpg" />
     <Content Include="Content\image\no-photo.jpg" />
     <Content Include="Content\image\ParalympicLogoBelgian.png" />
     <Content Include="favicon.ico" />
@@ -243,15 +248,10 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="Grid.mvc.readme" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\controls.js" />
-    <Content Include="Scripts\decision-tree.js" />
-    <Content Include="Scripts\gridmvc.js" />
-    <Content Include="Scripts\gridmvc.lang.ru.js" />
-    <Content Include="Scripts\gridmvc.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
