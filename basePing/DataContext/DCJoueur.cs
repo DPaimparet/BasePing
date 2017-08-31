@@ -10,6 +10,16 @@ namespace basePing.DataContext
 {
     public class DCJoueur
     {
+        public void AjoutJoueur(string nom, string prenom, DateTime dateNaiss, char sexe, string pays)
+        {
+            DBConnection con = DBConnection.Instance();
+            if (con.IsConnect())
+            {
+                string query = "INSERT INTO joueur (nom,prenom,dateNaiss,sexe,idPays) VALUES (nom, prenom, dateNaiss, sexe, pays)";
+                var cmd = new MySqlCommand(query, con.Connection);
+                var reader = cmd.ExecuteReader();
+            }
+        }
         // Sélectionne tous les joueurs
         public List<Joueur> GetAllJoueur()
         {

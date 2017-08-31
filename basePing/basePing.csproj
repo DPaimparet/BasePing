@@ -182,6 +182,7 @@
     <Compile Include="DataContext\DBConnection.cs" />
     <Compile Include="DataContext\DCCategorie.cs" />
     <Compile Include="DataContext\DCCompetition.cs" />
+    <Compile Include="DataContext\DCFederation.cs" />
     <Compile Include="DataContext\DCPays.cs" />
     <Compile Include="DataContext\DCJoueur.cs" />
     <Compile Include="DataContext\DCLogin.cs" />
@@ -192,6 +193,7 @@
     </Compile>
     <Compile Include="Models\Categorie.cs" />
     <Compile Include="Models\Competition.cs" />
+    <Compile Include="Models\Federation.cs" />
     <Compile Include="Models\Joueur.cs" />
     <Compile Include="Models\Match.cs" />
     <Compile Include="Models\Moderateur.cs" />

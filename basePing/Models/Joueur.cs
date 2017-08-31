@@ -68,5 +68,11 @@ namespace basePing.Models
             this.dateNaissance = dateNaissance;
             this.national = nationalite;
         }
+
+        public void AjouterJoueur()
+        {
+            DataContext.DCJoueur dCJoueur = new DataContext.DCJoueur();
+            dCJoueur.AjoutJoueur(Nom, Prenom, DateNaissance, Sexe, National);
+        }
     }
 }
