@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "AjoutParticipant";
+}
+
+<h2>Ajouter un/des participant(s)</h2>
+
+<div style="background-color: #199aca; width: auto; padding: 10px 50px;">
+    <div style="position: relative; left: 700px; top: -75px; height:0px;">
+        <img src="~/Content/image/no-photo.jpg" style="border: 2px solid #fff; width: 382px; height: 334px; border-radius: 80px;">
+
+    </div>
+    @using (Html.BeginForm("AddJoueur", "Competition"))
+    {
+        <div class="form-group">
+            <label>Nom </label>
+            <input type="text" class="form-control" name="nom">
+            <label>Prenom </label>
+            <input type="text" class="form-control" name="prenom">
+            <label>Sexe </label>
+            <select class="form-control" name="sexe">
+                <option></option>
+                <option>Masculin</option>
+                <option>Féminin</option>
+            </select>
+            <label>Date de naissance</label>
+            <input type="date" class="form-control" name="dateNaissance" />
+            <label>Nationalité </label>
+            @Html.DropDownList("Pays", Session["listePays"] as SelectList, string.Empty, new { @class = "form-control" })
+
+        </div>
+
+        <br />
+        <br />
+        <input type="submit" class="btn btn-warning" value="Enregistrer" />
+        @Html.ActionLink("Annuler", "InfoComp/" + Session["idComp"], "Competition", new { area = "" }, new { @class = "btn btn-danger" })
+    }
+</div>
