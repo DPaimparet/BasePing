@@ -161,13 +161,13 @@ namespace basePing.Controllers
         {
             List<Joueur> listeJ = new Joueur().GetListJoueur();
             Session["idPoule"] = id;
-            ViewBag.listeJoueur = new SelectList(listeJ, "Id", "Nom");
+            Session["listJ"]= new SelectList(listeJ, "Id", "Nom");
             return View();
         }
 
 
         [HttpPost]
-        public ActionResult AjoutJoueurPoule(string joueur, int pos, int matchg,int matchp)
+        public ActionResult AjoutJoueurPoule(int? joueur, int pos, int matchg,int matchp)
         {
 
             infoJoueur j = new infoJoueur{ position=pos,matchGagné=matchg,matchPerdu=matchp,Id=Convert.ToInt32(joueur) };
@@ -177,7 +177,7 @@ namespace basePing.Controllers
             return View();
         }
 
-        public ActionResult ModifierJoueurPoule(int idP, int idJ, int matchG, int matchP,int pos)
+        public ActionResult ModifierJoueurPoule(int id, int idP, int idJ, int matchG, int matchP,int pos)
         {
             infoJoueur j = new infoJoueur
             {
@@ -186,6 +186,7 @@ namespace basePing.Controllers
                 position=pos,
                 Id = idJ
             };
+            Session["idC"] = id;
             ViewBag.idP = idP;
             return View(j);
         }
@@ -200,16 +201,17 @@ namespace basePing.Controllers
                 position=pos,
                 Id = Convert.ToInt32(idJ)
             };
+            
             DCJoueur dc = new DCJoueur();
             dc.UpdateLD(j, idP);
-            return View();
+            return Redirect("~/Competition/InfoComp/"+Session["idC"]);
         }
 
-        public ActionResult SupprimerJoueurPoule(int idP,int idJ)
+        public ActionResult SupprimerJoueurPoule(int id,int idP,int idJ)
         {
             DCJoueur dc = new DCJoueur();
             dc.DeleteLD(idJ, idP);
-            return View();
+            return Redirect("~/Competition/InfoComp/"+id);
         }
     }
 }

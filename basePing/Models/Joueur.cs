@@ -22,6 +22,16 @@ namespace basePing.Models
             get { return id; }
             set { id = value; }
         }
+
+        public List<Joueur> GetListJoueurComp(int idC)
+        {
+           
+            DCJoueur dc = new DCJoueur();
+            List<Joueur> j = dc.findAllComp(idC);
+            return j;
+
+        }
+
         public string Nom
         {
             get { return nom; }

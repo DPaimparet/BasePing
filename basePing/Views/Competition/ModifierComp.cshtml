@@ -4,11 +4,11 @@
 
 
     <label>Nom de la compétition</label>
-    <input type="text" name="nom" required="required" />
+    <input type="text" name="nom" value="@ViewBag.Nom" required="required" />
     <label>Date de début </label>
-    <input type="date" name="dateD" required="required" />
+    <input type="date" name="dateD" value="@ViewBag.dateD" required="required" />
     <label>Date de fin </label>
-    <input type="date" name="dateF" />
+    <input type="date" name="dateF" value="@ViewBag.dateF" required="required"/>
     <label>Nationalité</label>
     @Html.DropDownList("pays", (SelectList)ViewBag.listePays, string.Empty, new { @class = "form-control" })
     <label>Type compétition</label>

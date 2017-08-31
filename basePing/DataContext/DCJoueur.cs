@@ -38,6 +38,35 @@ namespace basePing.DataContext
             else
                 return null;
         }
+
+        public List<Joueur> findAllComp(int id)
+        {
+            List<Joueur> listeJoueur = new List<Joueur>();
+            DBConnection con = DBConnection.Instance();
+            if (con.IsConnect())
+            {
+                //récupérer tous les joueurs
+                string query = "SELECT `joueur`.* FROM `joueur` LEFT JOIN `ld_joueur_comp` ON `ld_joueur_comp`.`idJoueur` = `joueur`.`idJoueur` WHERE `ld_joueur_comp`.`idComp`="+id;
+                var cmd = new MySqlCommand(query, con.Connection);
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    listeJoueur.Add(new Joueur(
+                        reader.GetInt32(0),
+                        reader.GetString(1),
+                        reader.GetString(2),
+                        reader.GetDateTime(3),
+                        reader.GetChar(4),
+                        reader.GetString(5))
+                    );
+                }
+                reader.Close();
+                return listeJoueur;
+            }
+            else
+                return null;
+        }
+
         // Sélectionne un joueur par son ID
         public Joueur GetJoueur(int id)
         {

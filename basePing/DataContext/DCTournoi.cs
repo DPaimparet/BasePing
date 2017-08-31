@@ -29,5 +29,42 @@ namespace basePing.DataContext
             else
                 return null;
         }
+
+        public bool Create(int idComp,int taille, string desc)
+        {
+            DBConnection con = DBConnection.Instance();
+            if (con.IsConnect())
+            {
+                int id = 0;
+                string query1 = "INSERT INTO `serie` (`idSerie`, `descriptif`, `idComp`) VALUES (NULL, 'Poule', '" + idComp+ "')";
+                var cmd1 = new MySqlCommand(query1, con.Connection);
+                var reader1 = cmd1.ExecuteReader();
+
+                reader1.Close();
+
+
+
+                string query2 = "SELECT MAX(idSerie) FROM serie";
+                var cmd2 = new MySqlCommand(query2, con.Connection);
+                var reader2 = cmd2.ExecuteReader();
+
+                while (reader2.Read())
+                {
+                    id = reader2.GetInt32(0);
+                }
+
+                reader2.Close();
+
+
+                string query3 = "INSERT INTO `Tournoi` (`idSerie`, `nbrTour`) VALUES ('" + id + "', '" + taille + "')";
+                var cmd3 = new MySqlCommand(query3, con.Connection);
+                var reader3 = cmd3.ExecuteReader();
+
+                reader3.Close();
+                return true;
+            }
+            else
+                return false;
+        }
     }
 }

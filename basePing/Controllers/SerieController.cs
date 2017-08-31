@@ -21,7 +21,7 @@ namespace basePing.Controllers
         {
             DCPoule dc = new DCPoule();
             dc.Create(nom,taille,idComp);
-            return View();
+            return Redirect("~/Competition/InfoComp/" + idComp);
         }
 
         public ActionResult ModifPouleForm(int id,string desc,string nom,int taille)
@@ -45,6 +45,20 @@ namespace basePing.Controllers
             DCPoule dc = new DCPoule();
             dc.Delete(id);
             return View();
+        }
+
+        public ActionResult AjouterTournoi(int id)
+        {
+            ViewBag.idComp = id;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AjouterPhaseFinale(int id,int taille, string desc)
+        {
+            DCTournoi dc = new DCTournoi();
+            dc.Create(id,taille,desc);
+            return Redirect("~/Competition/InfoComp/" + id);
         }
     }
 }

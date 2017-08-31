@@ -28,7 +28,7 @@ namespace basePing.Controllers
                     triedList.Add(c);
                 }
             }
-            foreach(Categorie c in (List<Categorie>)Session["lCat"])
+            foreach(Categorie c in Categorie.GetList())
             {
                 if (c.Id == id)
                     ViewBag.cat = c;
@@ -104,19 +104,24 @@ namespace basePing.Controllers
         }
 
 
-        public ActionResult ModifierComp(int id)
+        public ActionResult ModifierComp(int id, string nom, DateTime dateD, DateTime dateF, string type, string nbrJ)
         {
             List<CPays> listePays = new CPays().GetListPays();
             List<String> listeType = new List<String>();
+            listeType.Add(type);
             listeType.Add("Masculin");
             listeType.Add("Féminin");
             listeType.Add("Mixte");
             List<String> listeNbrJ = new List<String>();
+            listeNbrJ.Add(nbrJ);
             listeNbrJ.Add("Individuel");
             listeNbrJ.Add("Equipe");
             ViewBag.listePays = new SelectList(listePays, "Id", "Pays");
             ViewBag.listeType = new SelectList(listeType);
             ViewBag.listeNbrJ = new SelectList(listeNbrJ);
+            ViewBag.Nom = nom;
+            ViewBag.dateD = dateD.ToString();
+            ViewBag.dateF = dateF.ToString();
             ViewBag.idComp = id;
             return View();
         }

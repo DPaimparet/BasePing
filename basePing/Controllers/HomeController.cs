@@ -13,8 +13,6 @@ namespace basePing.Controllers
         public ActionResult Index()
         {
             Session["admin"] = false;
-            Categorie cat = new Categorie();
-            Session["lCat"] = cat.GetList();
             DBConnection con = DBConnection.Instance();
             if (con.IsConnect())
                 return View();
@@ -31,8 +29,6 @@ namespace basePing.Controllers
 
         public ActionResult Connect()
         {
-            Categorie cat = new Categorie();
-            Session["lCat"] = cat.GetList();
             return View("Index");
         }
 

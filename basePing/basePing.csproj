@@ -179,6 +179,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JoueurController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\MatchController.cs" />
     <Compile Include="Controllers\SerieController.cs" />
     <Compile Include="DataContext\DBConnection.cs" />
     <Compile Include="DataContext\DCCategorie.cs" />
@@ -296,6 +297,8 @@
     <Content Include="Views\Competition\SupressionComp.cshtml" />
     <Content Include="Views\Joueur\ModifierJoueurPoule.cshtml" />
     <Content Include="Views\Serie\ModifPouleForm.cshtml" />
+    <Content Include="Views\Serie\AjouterTournoi.cshtml" />
+    <Content Include="Views\Match\AjoutMatch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -2,7 +2,7 @@
   {
 
     <label>Joueur</label>
-    @Html.DropDownList("joueur", ViewBag.listeJoueur as SelectList, string.Empty, new { @class = "form-control" })
+    @Html.DropDownList("joueur", Session["listJ"] as SelectList, string.Empty, new { @class = "form-control" })
     <label>Position</label>
     <input type="number" name="pos"  required="required" />
 
