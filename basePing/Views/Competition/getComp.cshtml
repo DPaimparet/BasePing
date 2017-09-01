@@ -32,7 +32,7 @@
             @if ((bool)Session["admin"])
             {
                 @Html.ActionLink("Crée une nouvelle compétition", "AjoutComp", "Competition",
-                    new { id = ViewBag.cat.Id }, new { @class = "btn" })
+                    new { id = ViewBag.cat.Id }, new { @class = "btn btn-succes" })
             }
            
         </td>

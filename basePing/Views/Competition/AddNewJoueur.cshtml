@@ -1,16 +1,15 @@
 ﻿
 @{
-    ViewBag.Title = "NewJoueur";
+    ViewBag.Title = "AddNewJoueur";
 }
 
-<h2>Ajout d'un joueur ou d'une joueuse</h2>
-<br />
+<h2>Créer un nouveau joueur/joueuse</h2>
 <div style="background-color: #199aca; width: auto; padding: 10px 50px;">
     <div style="position: relative; left: 700px; top: -60px; height:0px;">
         <img src="~/Content/image/no-photo.jpg" style="border: 2px solid #fff; width: 382px; height: 334px; border-radius: 80px;">
 
     </div>
-    @using (Html.BeginForm("AddJoueur", "Joueur"))
+    @using (Html.BeginForm("AddJoueur", "Competition"))
     {
         <div class="form-group">
             <label>Nom </label>
@@ -27,15 +26,12 @@
             <input type="date" class="form-control" name="dateNaissance" />
             <label>Nationalité </label>
             @Html.DropDownList("Pays", Session["listePays"] as SelectList, string.Empty, new { @class = "form-control" })
-            
+
         </div>
 
         <br />
         <br />
         <input type="submit" class="btn btn-warning" value="Enregistrer" />
-        @Html.ActionLink("Annuler", "Index", "Joueur", new { area = "" }, new { @class = "btn btn-danger" })
+        @Html.ActionLink("Annuler", "AjoutParticipant/" + Session["idComp"], "Competition", new { area = "" }, new { @class = "btn btn-danger" })
     }
 </div>
-
-
-
