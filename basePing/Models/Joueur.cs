@@ -101,13 +101,21 @@ namespace basePing.Models
             this.dateNaissance = j.DateNaissance;
             this.national = j.National;
         }
-
-    
-
         public void AjouterJoueur()
         {
             DataContext.DCJoueur dCJoueur = new DataContext.DCJoueur();
             dCJoueur.AjoutJoueur(Nom, Prenom, DateNaissance, Sexe, National);
+        }
+
+        public void AjouteParticipant(int idJoueur, int idCompetition)
+        {
+            DataContext.DCCompetition participant = new DataContext.DCCompetition();
+            participant.insertJoueurIntoComp(idJoueur, idCompetition);
+        }
+        public void RetirerParticipant(int idJoueur, int idCompetition)
+        {
+            DataContext.DCCompetition participant = new DataContext.DCCompetition();
+            participant.DeleteJoueurInComp(idJoueur, idCompetition);
         }
     }
 }

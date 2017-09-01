@@ -98,5 +98,36 @@ namespace basePing.DataContext
             else
                 return false;
         }
+
+        public bool insertJoueurIntoComp(int idJoueur, int idCompetition)
+        {
+            DBConnection con = DBConnection.Instance();
+            if (con.IsConnect())
+            {
+                string query = "INSERT INTO ld_joueur_comp (idJoueur, idComp, position) VALUES ('" + idJoueur + "', '" + idCompetition + "', '0')";
+                var cmd = new MySqlCommand(query, con.Connection);
+                var reader = cmd.ExecuteReader();
+
+                reader.Close();
+                return true;
+            }
+            else
+                return false;
+        }
+        public bool DeleteJoueurInComp(int idJoueur, int idCompetition)
+        {
+            DBConnection con = DBConnection.Instance();
+            if (con.IsConnect())
+            {
+                string query = "DELETE FROM ld_joueur_comp WHERE idJoueur=" + idJoueur + " AND idComp=" + idCompetition;
+                var cmd = new MySqlCommand(query, con.Connection);
+                var reader = cmd.ExecuteReader();
+
+                reader.Close();
+                return true;
+            }
+            else
+                return false;
+        }
     }
 }

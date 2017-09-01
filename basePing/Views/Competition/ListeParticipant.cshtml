@@ -50,4 +50,5 @@
         </table>
     </div>
     @Html.ActionLink("Créer un joueur/joueuse", "AddNewJoueur", new { area = "" }, new { @class = "btn btn-success" })
+    @Html.ActionLink("Annuler", "InfoComp/" + Session["idComp"], new { area = "" }, new { @class = "btn btn-danger" })
 </div>

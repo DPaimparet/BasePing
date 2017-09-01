@@ -149,8 +149,16 @@ namespace basePing.Controllers
         {
             // Liste des participants de la compétition
             int idC = Convert.ToInt32(Session["idComp"]);
+            DCJoueur dCJoueur = new DCJoueur();
             Joueur participant = new Joueur();
-            ViewBag.listeParticipant=participant.GetListJoueurComp(idC);
+            Joueur joueur = new Joueur();
+            List<Joueur> listeParticipant = new List<Joueur>();
+            foreach(Joueur j in participant.GetListJoueurComp(idC))
+            {
+                joueur=dCJoueur.GetJoueur(j.Id);
+                listeParticipant.Add(joueur);
+            }
+            ViewBag.listeParticipant = listeParticipant;
             return View();
         }
         [HttpPost]
@@ -277,10 +285,21 @@ namespace basePing.Controllers
         {
             return View();
         }
-        public ActionResult AddParticipant()
+        public ActionResult AddParticipant(int id)
         {
             // Ajouter le participant ici
-            return View();
+            Joueur participant = new Joueur();
+            int idC = Convert.ToInt32(Session["idComp"]);
+            participant.AjouteParticipant(id,idC);
+            return Redirect("~/Competition/AjoutParticipant/" + Session["idComp"]);
+        }
+        public ActionResult SubJoueur(int id)
+        {
+            // Ajouter le participant ici
+            Joueur participant = new Joueur();
+            int idC = Convert.ToInt32(Session["idComp"]);
+            participant.RetirerParticipant(id, idC);
+            return Redirect("~/Competition/AjoutParticipant/" + Session["idComp"]);
         }
         [HttpPost]
         public ActionResult AddJoueur(string nom, string prenom, string sexe, DateTime dateNaissance, int? pays)

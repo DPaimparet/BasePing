@@ -14,6 +14,7 @@
                 <td>@j.Nom</td>
                 <td>@j.Prenom</td>
                 <td>@j.National</td>
+                <td>@Html.ActionLink("Retirer", "SubJoueur", "Competition", new { id = j.Id }, new { @class = "btn btn-danger" })</td>
             </tr>
         }
      </table>
@@ -43,9 +44,9 @@
             <input type="submit" class="btn btn-warning" value="Recherche" />
         }
     </div>
+    <br />
     @Html.ActionLink("Terminé", "InfoComp/" + Session["idComp"], new { area = "" }, new { @class = "btn btn-danger" })
-</div>
-<br />
-<div>
-    <h2>@Request.QueryString["error"]</h2>
+    <div>
+        <h2>@Request.QueryString["error"]</h2>
+    </div>
 </div>
