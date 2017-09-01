@@ -13,6 +13,8 @@ namespace basePing.Controllers
         public ActionResult Index()
         {
             Session["admin"] = false;
+            List<CPays> listePays = new CPays().GetListPays();
+            Session["listePays"] = new SelectList(listePays, "Id", "Pays");
             DBConnection con = DBConnection.Instance();
             if (con.IsConnect())
                 return View();

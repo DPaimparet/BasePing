@@ -42,7 +42,18 @@ namespace basePing.Models
             this.nomFederation = nomFederation;
             this.web = web;
         }
-
+        public List<Federation> GetList()
+        {
+            List<Federation> liste = new List<Federation>();
+            DataContext.DCFederation federation = new DataContext.DCFederation();
+            return liste= federation.GetAllFederation();
+        }
+        public void AddFederation(string nomFederation, string pays, string web)
+        {
+            DataContext.DCFederation federation = new DataContext.DCFederation();
+            string Pays = federation.GetPays(pays);
+            federation.AddFederation(nomFederation , Pays, web);
+        }
     }
 
 }

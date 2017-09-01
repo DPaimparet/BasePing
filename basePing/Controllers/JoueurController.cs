@@ -183,8 +183,6 @@ namespace basePing.Controllers
             Session["listJ"]= new SelectList(listeJ, "Id", "Nom");
             return View();
         }
-
-
         [HttpPost]
         public ActionResult AjoutJoueurPoule(int? joueur, int pos, int matchg,int matchp)
         {
@@ -195,7 +193,6 @@ namespace basePing.Controllers
             Session["idPoule"] = null;
             return View();
         }
-
         public ActionResult ModifierJoueurPoule(int id, int idP, int idJ, int matchG, int matchP,int pos)
         {
             infoJoueur j = new infoJoueur
