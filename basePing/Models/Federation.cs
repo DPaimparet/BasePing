@@ -46,13 +46,30 @@ namespace basePing.Models
         {
             List<Federation> liste = new List<Federation>();
             DataContext.DCFederation federation = new DataContext.DCFederation();
-            return liste= federation.GetAllFederation();
+            return liste = federation.GetAllFederation();
+        }
+        public Federation GetFederation(int id)
+        {
+            Federation federation = new Federation();
+            DataContext.DCFederation fede = new DataContext.DCFederation();
+            return federation = fede.GetFederation(id);
         }
         public void AddFederation(string nomFederation, string pays, string web)
         {
             DataContext.DCFederation federation = new DataContext.DCFederation();
             string Pays = federation.GetPays(pays);
             federation.AddFederation(nomFederation , Pays, web);
+        }
+        public void DeleteFederation(int id)
+        {
+            DataContext.DCFederation federation = new DataContext.DCFederation();
+            federation.DelFederation(id);
+        }
+        public void UpdateFederation(int id, string nomFedePays, int? pays, string web)
+        {
+            DataContext.DCFederation federation = new DataContext.DCFederation();
+            string Pays = federation.GetPays(pays);
+            federation.UpdateFederation(id,nomFedePays,Pays,web);
         }
     }
 

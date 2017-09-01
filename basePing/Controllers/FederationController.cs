@@ -25,5 +25,32 @@ namespace basePing.Controllers
             federation.AddFederation(nomFederation, pays, web);
             return Redirect("Index");
         }
+        public ActionResult UpdateFederation(int id)
+        {
+            Federation federation = new Federation();
+            ViewBag.federation = federation.GetFederation(id);
+            return View();
+        }
+        public ActionResult UpdateFede(int id, string nomFederation, int? Pays, string web)
+        {
+            if (Pays != null && nomFederation != "")
+            {
+                Federation federation = new Federation();
+                federation.UpdateFederation(id, nomFederation, Pays, web);
+                return Redirect("Index");
+            }
+            else
+            {
+                return Redirect("UpdateFederation/"+ id + "/?error=Tous les champs doivent être complétés");
+            }
+            
+        }
+
+        public ActionResult DeleteFederation(int id)
+        {
+            Federation federation = new Federation();
+            federation.DeleteFederation(id);
+            return Redirect("~/Federation/Index");
+        }
     }
 }

@@ -1,0 +1,36 @@
+﻿@using basePing.Models;
+@{
+    ViewBag.Title = "Update Federation";
+}
+
+<h2>Mise à jour fédération</h2>
+<br />
+<div class="form-inline">
+    @using (Html.BeginForm("UpdateFede", "Federation"))
+    {
+        <div class="form-group">
+            <input type="text" class="hidden" name="id" value="@ViewBag.federation.Id">
+            <label>Fédération </label>
+            <input type="text" class="form-control" name="nomFederation" value="@ViewBag.federation.NomFederation">
+        </div>
+
+            <div class="form-group">
+                <label>Nationalité </label>
+                @Html.DropDownList("Pays", Session["listePays"] as SelectList, string.Empty, new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                <label>Lien du site</label>
+                <input type="text" class="form-control" name="web" value="@ViewBag.federation.Web">
+            </div>
+            <br />
+            <br />
+            <input type="submit" class="btn btn-success" value="Modifier" />
+            <br />
+            <br />
+            @Html.ActionLink("Annuler", "Index", "Federation", null, new { @class = "btn btn-info" })
+    }
+</div>
+<div>
+    <h2>@Request.QueryString["error"]</h2>
+</div>

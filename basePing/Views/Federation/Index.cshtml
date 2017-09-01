@@ -38,6 +38,11 @@
                 <td>@f.NomFederation</td>
                 <td>@f.PaysFederation</td>
                 <td><a href="http://\@f.Web" class="btn btn-primary active" role="button" target="_blank">@f.Web</a></td>
+                @if ((bool)Session["admin"])
+                {
+                    <td>@Html.ActionLink("Modifier", "UpdateFederation", "Federation", new { id = f.Id }, new { @class = "btn btn-info" })</td>
+                    <td>@Html.ActionLink("Effacer", "DeleteFederation", "Federation", new { id = f.Id }, new { @class = "btn btn-danger" })</td>
+                }
             </tr>
         }
     </table>
