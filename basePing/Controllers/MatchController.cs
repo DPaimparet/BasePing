@@ -20,7 +20,7 @@ namespace basePing.Controllers
         {
             ViewBag.idComp = id;
             List<Joueur> j = new Joueur().GetListJoueurComp(id);
-            ViewBag.listeJoueur = new SelectList(j, "Id", "Nom");
+            Session["listJ"] = new SelectList(j, "Id", "Nom");
             return View();
         }
 
@@ -30,7 +30,7 @@ namespace basePing.Controllers
         {
             DCMatch dc = new DCMatch();
             dc.Create(id,joueur1,score1,joueur2,score2);
-            return View();
+            return Redirect("~/Competition/InfoComp/" + id);
         }
     }
 }

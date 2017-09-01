@@ -1,18 +1,18 @@
-﻿
+﻿@using basePing.Models;
 
-@using (Html.BeginForm("AjoutMatch", "Serie"))
+@using (Html.BeginForm("AjoutMatch", "Match"))
 {
 
     <input type="hidden" value="@ViewBag.idComp" name="id" />
     <label>Joueur 1</label>
-    @Html.DropDownList("joueur1", ViewBag.listeJoueur as SelectList, string.Empty, new { @class = "form-control" })
+    @Html.DropDownList("joueur1", Session["listJ"] as SelectList, new { @class = "form-control" })
 
     <label>Score joueur 1</label>
     <input type="number" name="score1" required="required" />
 
-    
+
     <label>Joueur 2</label>
-    @Html.DropDownList("joueur2", ViewBag.listeJoueur as SelectList, string.Empty, new { @class = "form-control" })
+    @Html.DropDownList("joueur2", Session["listJ"] as SelectList, new { @class = "form-control" })
 
     <label>Score joueur 2</label>
     <input type="number" name="score2" required="required" />
