@@ -6,9 +6,13 @@
 @if ((Boolean)Session["admin"] == false)
 {
 <h1>@Model.Nom du @Model.DateDeb.ToShortDateString() au @Model.DateFin.ToShortDateString()</h1>
-
-if (Model.LPoule.Count != 0)
-{
+<h2>Liste des participant</h2>
+    foreach(Joueur j in Model.GetListPart())
+    {
+        <li>@j.Nom  @j.Prenom @j.National</li>
+    }
+    if (Model.LPoule.Count != 0)
+    {
         <table border="1">
             @foreach (Poule p in Model.LPoule)
             {
@@ -115,7 +119,13 @@ else//PARTIE ADMINISTRATION
     @Html.ActionLink("Ajouter un participant", "AjoutParticipant", "Competition", new { id = Model.Id }, new { @class = "btn btn-success" })
     @Html.ActionLink("Ajouter un match", "AjoutMatch", "Match", new { id = Model.Id }, new { @class = "btn btn-success" })
     @Html.ActionLink("Supprimer", "SuppressionComp", "Competition", new { id = Model.Id }, new { @class = "btn btn-danger" })
+                
                         
+     foreach(Joueur j in Model.GetListPart())
+    {
+        <li>@Html.ActionLink(j.Nom+" " +j.Prenom, "Joueur", "Joueur", new { id = j.Id }, new { @class = "btn" })  @Html.ActionLink("Supprimer", "SupprimerParticipant", "Competition", new { idJ = @j.Id,idC=@Model.Id}, new { @class = "btn btn-info" })</li>
+    }
+
     if (Model.LPoule.Count != 0)
         {
         <table border="1">
@@ -143,15 +153,15 @@ else//PARTIE ADMINISTRATION
                 {
                 <tr>
                     <td colspan="4">
-                        @Html.ActionLink("Ajouter un nouveau joueur", "AjoutJoueurPoule", "Joueur", new { id=p.Id }, new { @class = "btn btn-success" })
+                        @Html.ActionLink("Ajouter un nouveau joueur", "AjoutJoueurPoule", "Joueur", new { id=p.Id,idC=Model.Id }, new { @class = "btn btn-success" })
                     </td>
 
                 </tr>
                 }
                 <tr>
                     <td colspan="4">
-                        @Html.ActionLink("Modifier Poule", "ModifPouleForm", "Serie", new { id = p.Id,desc=p.Descriptif,nom=p.NomPoule,taille=p.Taille }, new { @class = "btn btn-info" })
-                        @Html.ActionLink("Supprimmer Poule", "SuppPoule", "Serie", new { id = p.Id }, new { @class = "btn btn-danger" })
+                        @Html.ActionLink("Modifier Poule", "ModifPouleForm", "Serie", new {idC=Model.Id, id = p.Id,desc=p.Descriptif,nom=p.NomPoule,taille=p.Taille }, new { @class = "btn btn-info" })
+                        @Html.ActionLink("Supprimmer Poule", "SuppPoule", "Serie", new { id = p.Id,idC=Model.Id }, new { @class = "btn btn-danger" })
                     </td>
 
                 </tr>

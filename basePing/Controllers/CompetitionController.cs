@@ -290,8 +290,10 @@ namespace basePing.Controllers
             // Ajouter le participant ici
             Joueur participant = new Joueur();
             int idC = Convert.ToInt32(Session["idComp"]);
-            participant.AjouteParticipant(id,idC);
-            return Redirect("~/Competition/AjoutParticipant/" + Session["idComp"]);
+            if(participant.AjouteParticipant(id,idC))
+                return Redirect("~/Competition/AjoutParticipant/" + Session["idComp"]);
+            else
+                return Redirect("~/Competition/AjoutParticipant/" + Session["idComp"]+"?error=Ce joueur participe déjà a cette compétition");
         }
         public ActionResult SubJoueur(int id)
         {
@@ -315,6 +317,23 @@ namespace basePing.Controllers
             Joueur joueur = new Joueur(0, nom, prenom, dateNaissance, sex, Pays);
             joueur.AjouterJoueur();
             return Redirect("~/Competition/AjoutParticipant/" + Session["idComp"]);
+        }
+
+        public ActionResult SupprimerParticipant(int idJ,int idC)
+        {
+            DCJoueur dc = new DCJoueur();
+            DCPoule dcP = new DCPoule();
+            DCTournoi dcT = new DCTournoi();
+            dc.DeletePart(idJ,idC);
+            Competition comp = new Competition(idC);
+            comp = comp.GetInformation();
+            foreach(Poule p in comp.LPoule)
+            {
+                dcP.DeleteLD(idJ,p.Id);
+            }
+            if(comp.Tournoi!=null)
+                dcT.DeleteLD(idJ,comp.Tournoi.Id);
+            return Redirect("InfoComp/" + idC);
         }
     }
 }

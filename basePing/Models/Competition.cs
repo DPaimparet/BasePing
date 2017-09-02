@@ -85,10 +85,15 @@ namespace basePing.Models
             DCCompetition dc = new DCCompetition();
             return dc.findAll();
         }
-        internal void GetTournoi()
+        public void GetTournoi()
         {
             tournoi = new DCTournoi().find(id);
         }
 
+        public List<Joueur> GetListPart()
+        {
+            DCJoueur dc = new DCJoueur();
+            return dc.findAllComp(id);
+        }
     }
 }

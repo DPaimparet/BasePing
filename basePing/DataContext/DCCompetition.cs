@@ -104,11 +104,25 @@ namespace basePing.DataContext
             DBConnection con = DBConnection.Instance();
             if (con.IsConnect())
             {
-                string query = "INSERT INTO ld_joueur_comp (idJoueur, idComp, position) VALUES ('" + idJoueur + "', '" + idCompetition + "', '0')";
-                var cmd = new MySqlCommand(query, con.Connection);
-                var reader = cmd.ExecuteReader();
-
-                reader.Close();
+                string query1 = "Select * FROM ld_joueur_comp WHERE idJoueur="+idJoueur+" AND idComp="+idCompetition;
+                var cmd1 = new MySqlCommand(query1, con.Connection);
+                var reader1 = cmd1.ExecuteReader();
+                
+                if (!reader1.HasRows)
+                {
+                    reader1.Close();
+                    string query = "INSERT INTO ld_joueur_comp (idJoueur, idComp, position) VALUES ('" + idJoueur + "', '" + idCompetition + "', '0')";
+                    var cmd = new MySqlCommand(query, con.Connection);
+                    var reader = cmd.ExecuteReader();
+                    reader.Close();
+                }
+                else
+                {
+                    reader1.Close();
+                    return false;
+                }
+                    
+                
                 return true;
             }
             else

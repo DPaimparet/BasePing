@@ -1,11 +1,11 @@
 ﻿<br />
 <div class="form-inline">
-    @using (Html.BeginForm("AjoutMatch", "Serie"))
+    @using (Html.BeginForm("AjoutMatch", "Match"))
     {
         <div class="form-group">
             <input type="hidden" value="@ViewBag.idComp" name="id" />
             <label>Joueur 1</label>
-            @Html.DropDownList("joueur1", ViewBag.listeJoueur as SelectList, string.Empty, new { @class = "form-control" })
+            @Html.DropDownList("joueur1", Session["listJ"] as SelectList, string.Empty, new { @class = "form-control" })
             <label>Set</label>
             @Html.TextBox("score1", "Score joueur 1", new { type = "number", min = "0", max = "7", @class = "form-control" })
             
@@ -14,7 +14,7 @@
         <br />
         <div class="form-group">
             <label>Joueur 2</label>
-            @Html.DropDownList("joueur2", ViewBag.listeJoueur as SelectList, string.Empty, new { @class = "form-control" })
+            @Html.DropDownList("joueur2", Session["listJ"] as SelectList, string.Empty, new { @class = "form-control" })
 
             <label>Set</label>
             @Html.TextBox("score2","Score joueur 2", new { type="number", min="0", max="7", @class = "form-control" })

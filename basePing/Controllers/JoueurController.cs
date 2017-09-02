@@ -176,9 +176,9 @@ namespace basePing.Controllers
             joueur.AjouterJoueur();
             return Redirect("Index?error=Enregistrement effectuée");
         }
-        public ActionResult AjoutJoueurPoule(int id)
+        public ActionResult AjoutJoueurPoule(int id,int idC)
         {
-            List<Joueur> listeJ = new Joueur().GetListJoueur();
+            List<Joueur> listeJ = new Competition(idC).GetListPart();
             Session["idPoule"] = id;
             Session["listJ"]= new SelectList(listeJ, "Id", "Nom");
             return View();

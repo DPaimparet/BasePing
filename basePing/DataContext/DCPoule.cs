@@ -98,5 +98,23 @@ namespace basePing.DataContext
             else
                 return false;
         }
+
+        public bool DeleteLD(int idJ, int id)
+        {
+            DBConnection con = DBConnection.Instance();
+            if (con.IsConnect())
+            {
+                //récupérer les joueurs grâce à leur sex
+                string query = "DELETE FROM ld_joueur_serie WHERE idJoueur=" + idJ + " AND idSerie=" + id;
+                var cmd = new MySqlCommand(query, con.Connection);
+                var reader = cmd.ExecuteReader();
+
+                reader.Close();
+
+                return true;
+            }
+            else
+                return false;
+        }
     }
 }

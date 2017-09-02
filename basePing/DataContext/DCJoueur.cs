@@ -82,6 +82,11 @@ namespace basePing.DataContext
                 return null;
         }
 
+        public List<Joueur> GetJoueurComp(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         // Sélectionne un joueur par son ID
         public Joueur GetJoueur(int id)
         {
@@ -294,6 +299,25 @@ namespace basePing.DataContext
             else
                 return null;
         }
+
+        public bool DeletePart(int idJ, int idC)
+        {
+            DBConnection con = DBConnection.Instance();
+            if (con.IsConnect())
+            {
+                //récupérer les joueurs grâce à leur sex
+                string query = "DELETE FROM ld_joueur_comp WHERE idJoueur=" + idJ + " AND idComp=" + idC;
+                var cmd = new MySqlCommand(query, con.Connection);
+                var reader = cmd.ExecuteReader();
+
+                reader.Close();
+                
+                return true;
+            }
+            else
+                return false;
+        }
+
         // Sélectionne une liste de joueurs par leur pays et leur sexe
         public List<Joueur> GetJoueurByNationAndSex(int? nation, char sexe)
         {
