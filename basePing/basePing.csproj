@@ -305,6 +305,7 @@
     <Content Include="Views\Competition\AddNewJoueur.cshtml" />
     <Content Include="Views\Competition\ListeParticipant.cshtml" />
     <Content Include="Views\Federation\UpdateFederation.cshtml" />
+    <Content Include="Views\Match\LieMatch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

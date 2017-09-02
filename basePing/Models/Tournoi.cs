@@ -46,6 +46,8 @@ namespace basePing.Models
         
         public List<Match> GetListColumn(int col)
         {
+           
+
             List<Match> match = new List<Match>();
             foreach(Match m in lMatch)
             {
@@ -57,7 +59,11 @@ namespace basePing.Models
 
         public Match[] getArrayMatch()
         {
-            Match[] tab = new Match[100];
+            int e = 2;
+            for (int i = 0; i < taille; i++)
+                e *= 2;
+            Match[] tab = new Match[e];
+            
             foreach(Match m in lMatch)
                 tab[m.Position] = m;
             return tab;

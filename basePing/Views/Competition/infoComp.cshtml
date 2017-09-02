@@ -2,7 +2,6 @@
 @using basePing.ViewModel;
 @model basePing.Models.Competition
 
-
 @if ((Boolean)Session["admin"] == false)
 {
 <h1>@Model.Nom du @Model.DateDeb.ToShortDateString() au @Model.DateFin.ToShortDateString()</h1>
@@ -17,12 +16,11 @@
             @foreach (Poule p in Model.LPoule)
             {
                 <tr> <th colspan="4">@p.NomPoule</th></tr>
-                <tr> <th>Joueur</th> <th>Position</th> <th>Match gagné</th> <th>Match perdu</th></tr>
+                <tr> <th>Joueur</th> <th>Match gagné</th> <th>Match perdu</th></tr>
                 foreach (infoJoueur j in p.LJoueur)
                 {
                     <tr>
                         <td>@Html.ActionLink(j.nom, "Joueur", "Joueur", new { id = j.Id }, new { @class = "btn" })</td>
-                        <td>@j.position </td>
                         <td>@j.matchGagné</td>
                         <td>@j.matchPerdu</td>
                     </tr>
@@ -132,12 +130,11 @@ else//PARTIE ADMINISTRATION
             @foreach (Poule p in Model.LPoule)
             {
                 <tr> <th colspan="4">@p.NomPoule</th></tr>
-                <tr> <th>Joueur</th> <th>Position</th> <th>Match gagné</th> <th>Match perdu</th></tr>
+                <tr> <th>Joueur</th>  <th>Match gagné</th> <th>Match perdu</th></tr>
                 foreach (infoJoueur j in p.LJoueur)
                 {
                     <tr>
                         <td>@Html.ActionLink(j.nom, "Joueur", "Joueur", new { id = j.Id }, new { @class = "btn btn-succes" })</td>
-                        <td>@j.position </td>
                         <td>@j.matchGagné</td>
                         <td>@j.matchPerdu</td>
 
@@ -210,7 +207,7 @@ else//PARTIE ADMINISTRATION
                     if (@match[cpt] == null)
                     {
                                         <tr><td style="border: 1px solid #cdd0d4;">INCONNU</td></tr>
-                                        <tr><td style="border-right: 1px solid #cdd0d4;">@Html.ActionLink("Ajouter Match", "AjoutMatch", "Match", null, new { @class = "btn btn-success" })</td></tr>
+                                        <tr><td style="border-right: 1px solid #cdd0d4;">@Html.ActionLink("Ajouter Match", "LieMatch", "Match", new { pos=cpt,idC=Model.Id,idS=Model.Tournoi.Id}, new { @class = "btn btn-success" })</td></tr>
                                         for (int z = 0; z <= tab[1, i] - 3; z++)
                         {
                                             <tr><td style="border-right: 1px solid #cdd0d4;">.</td></tr>
