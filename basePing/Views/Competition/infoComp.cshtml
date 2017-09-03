@@ -2,6 +2,7 @@
 @using basePing.ViewModel;
 @model basePing.Models.Competition
 
+
 @if ((Boolean)Session["admin"] == false)
 {
 <h1>@Model.Nom du @Model.DateDeb.ToShortDateString() au @Model.DateFin.ToShortDateString()</h1>
@@ -21,8 +22,8 @@
                 {
                     <tr>
                         <td>@Html.ActionLink(j.nom, "Joueur", "Joueur", new { id = j.Id }, new { @class = "btn" })</td>
-                        <td>@j.matchGagné</td>
-                        <td>@j.matchPerdu</td>
+                        <td>@Html.ActionLink(j.matchGagné+" ", "ListMatchPoule", "Serie", new { idP=p.Id, idC=Model.Id,IdJ=j.Id}, new { @class = "btn" })</td>
+                        <td>@Html.ActionLink(j.matchPerdu+" ", "ListMatchPoule", "Serie", new { idP = p.Id, idC = Model.Id, IdJ = j.Id }, new { @class = "btn" })</td>
                     </tr>
                 }
             }
@@ -135,8 +136,8 @@ else//PARTIE ADMINISTRATION
                 {
                     <tr>
                         <td>@Html.ActionLink(j.nom, "Joueur", "Joueur", new { id = j.Id }, new { @class = "btn btn-succes" })</td>
-                        <td>@j.matchGagné</td>
-                        <td>@j.matchPerdu</td>
+                        <td>@Html.ActionLink(j.matchGagné + " ", "ListMatchPoule", "Serie", new { idP = p.Id, idC = Model.Id, IdJ = j.Id }, new { @class = "btn" })</td>
+                        <td>@Html.ActionLink(j.matchPerdu + " ", "ListMatchPoule", "Serie", new { idP = p.Id, idC = Model.Id, IdJ = j.Id }, new { @class = "btn" })</td>
 
 
                         <td>

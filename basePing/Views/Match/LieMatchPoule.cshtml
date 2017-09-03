@@ -7,11 +7,11 @@
     <div class="form-group">
         <input type="hidden" value="@ViewBag.pos" name="pos" />
         <label>Match existant</label>
-    
-            @Html.DropDownList("match", Session["listM"] as SelectList, String.Empty, new { @class = "form-control" })
+
+        @Html.DropDownList("match", Session["listM"] as SelectList, String.Empty, new { @class = "form-control" })
 
     </div>
-        <br />
+    <br />
         <br />
 
 
@@ -28,23 +28,23 @@
 <h1>Crée un nouveau Match</h1>
 <br />
 <div class="form-inline">
-    @using (Html.BeginForm("AjoutEtLieMatch", "Match"))
+    @using (Html.BeginForm("AjoutEtLieMatchPoule", "Match"))
+
+
     {
         <div class="form-group">
-            <label>Joueur 1</label>
-            @Html.DropDownList("joueur1", Session["listJ"] as SelectList, string.Empty, new { @class = "form-control" })
-            <label>Set</label>
+            <label>Set du joueur choisis</label>
             @Html.TextBox("score1", "Score joueur 1", new { type = "number", min = "0", max = "7", @class = "form-control" })
+
+
+            <label>Adversaire</label>
+            @Html.DropDownList("joueur", Session["listJ"] as SelectList, string.Empty, new { @class = "form-control" })
+            <label>Set</label>
+            @Html.TextBox("score2", "Score joueur 1", new { type = "number", min = "0", max = "7", @class = "form-control" })
 
         </div>
         <br />
-        <br />
-        <div class="form-group">
-            <label>Joueur 2</label>
-            @Html.DropDownList("joueur2", Session["listJ"] as SelectList, string.Empty, new { @class = "form-control" })
-            <label>Set</label>
-            @Html.TextBox("score2", "Score joueur 2", new { type = "number", min = "0", max = "7", @class = "form-control" })
-        </div>
+
         <br />
         <br />
         <br />

@@ -61,5 +61,20 @@ namespace basePing.Controllers
             dc.Create(id,taille,desc);
             return Redirect("~/Competition/InfoComp/" + id);
         }
+
+        public ActionResult ListMatchPoule(int idP ,int idC ,int IdJ)
+        {
+            Session["idC"] = idC;
+            Session["idS"] = idP;
+            Session["idJ"] = IdJ;
+            List<Match> listM = new Match().GetListMatch(idP,IdJ);
+            foreach (Match m in listM)
+            {
+                m.Joueur1.RecupererJoueur();
+                m.Joueur2.RecupererJoueur();
+            }
+            Session["listM"] =listM;
+            return View();
+        }
     }
 }

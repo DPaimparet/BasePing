@@ -23,13 +23,30 @@ namespace basePing.DataContext
                     var reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                            lMatch.Add(new Match(reader.GetInt32(4),new Joueur(reader.GetInt32(11)),new Joueur(reader.GetInt32(12)),reader.GetInt32(4),reader.GetInt32(5),reader.GetInt32(7)));
+                            lMatch.Add(new Match(reader.GetInt32(3),new Joueur(reader.GetInt32(11)),new Joueur(reader.GetInt32(12)),reader.GetInt32(4),reader.GetInt32(5),reader.GetInt32(7)));
                     }
                        reader.Close();
                        return lMatch;
                     }
                     return null;
             
+        }
+
+        public bool Delete(int id)
+        {
+            DBConnection con = DBConnection.Instance();
+            if (con.IsConnect())
+            {
+                //récupérer les joueurs grâce à leur sex
+                string query = "DELETE FROM rencontre WHERE idMatch=" + id;
+                var cmd = new MySqlCommand(query, con.Connection);
+                var reader = cmd.ExecuteReader();
+
+                reader.Close();
+                return true;
+            }
+            else
+                return false;
         }
 
         public bool Create(int id, int? joueur1, int score1, int? joueur2, int score2)
@@ -67,6 +84,48 @@ namespace basePing.DataContext
             }
             else
                 return false;
+        }
+
+        public List<Match> FindMatchNotLinked(int idC, int idJ)
+        {
+            List<Match> lMatch = new List<Match>();
+            DBConnection con = DBConnection.Instance();
+            if (con.IsConnect())
+            {
+                string query = "Select * FROM `rencontre`  LEFT JOIN `rencontre individuelle` ON `rencontre individuelle`.`idMatch` = `rencontre`.`idMatch` WHERE idSerie is NULL AND position is NULL AND idCompet=" + idC+" AND (idJ1="+idJ+" OR idJ2="+idJ+")";
+
+                var cmd = new MySqlCommand(query, con.Connection);
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    lMatch.Add(new Match(reader.GetInt32(0), new Joueur(reader.GetInt32(8)), new Joueur(reader.GetInt32(9)), reader.GetInt32(1), reader.GetInt32(2)));
+                }
+                reader.Close();
+                return lMatch;
+            }
+            return null;
+
+        }
+
+        public List<Match> findMatchJoueur(int idSerie, int idJoueur)
+        {
+            List<Match> lMatch = new List<Match>();
+            DBConnection con = DBConnection.Instance();
+            if (con.IsConnect())
+            {
+
+                string query = "Select * FROM `serie` LEFT JOIN `rencontre` ON `rencontre`.`idSerie` = `serie`.`idSerie` LEFT JOIN `rencontre individuelle` ON `rencontre individuelle`.`idMatch` = `rencontre`.`idMatch` WHERE rencontre.idSerie=" + idSerie+ " AND (`rencontre individuelle`.`idJ1`="+idJoueur+" OR `rencontre individuelle`.`idJ2`="+idJoueur+")";
+
+                var cmd = new MySqlCommand(query, con.Connection);
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    lMatch.Add(new Match(reader.GetInt32(3), new Joueur(reader.GetInt32(11)), new Joueur(reader.GetInt32(12)), reader.GetInt32(4), reader.GetInt32(5), reader.GetInt32(7)));
+                }
+                reader.Close();
+                return lMatch;
+            }
+            return null;
         }
 
         internal bool Create(int? joueur1, int score1, int? joueur2, int score2, int pos, int ids, int idC)

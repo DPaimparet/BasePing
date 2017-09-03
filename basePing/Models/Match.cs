@@ -16,7 +16,7 @@ namespace basePing.Models
         private int position;
         private List<Set> lSet = new List<Set>();
 
-        public int Id { get { return id; } set { id = id; } }
+        public int Id { get { return id; } set { id = value; } }
         public Joueur Joueur1 { get { return j1; } set { j1 = value; } }
         public Joueur Joueur2 { get { return j2; } set { j2 = value; } }
         public int Score1 { get { return scoreJ1; } set { scoreJ1 = value; } }
@@ -63,10 +63,31 @@ namespace basePing.Models
 
         }
 
+
+        public List<Match> GetListMatch(int idSerie,int idJoueur)
+        {
+            DCMatch dc = new DCMatch();
+            List<Match> match = new List<Match>();
+            foreach (Match m in dc.findMatchJoueur(idSerie,idJoueur))
+            {
+                m.Joueur1.RecupererJoueur();
+                m.Joueur2.RecupererJoueur();
+                match.Add(m);
+            }
+            return match;
+
+        }
+
         public List<Match> GetMatchComp(int idC)
         {
             DCMatch dc = new DCMatch();
             return dc.FindMatchNotLinked(idC);
+        }
+
+        internal List<Match> GetMatchComp(int idC, int idJ)
+        {
+            DCMatch dc = new DCMatch();
+            return dc.FindMatchNotLinked(idC,idJ);
         }
     }
 }
