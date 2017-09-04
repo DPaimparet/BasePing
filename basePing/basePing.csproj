@@ -190,6 +190,8 @@
     <Compile Include="DataContext\DCLogin.cs" />
     <Compile Include="DataContext\DCMatch.cs" />
     <Compile Include="DataContext\DCPoule.cs" />
+    <Compile Include="DataContext\DCSousCat.cs" />
+    <Compile Include="DataContext\DCSousCategorie.cs" />
     <Compile Include="DataContext\DCTournoi.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -206,6 +208,7 @@
     <Compile Include="Models\Poule.cs" />
     <Compile Include="Models\Serie.cs" />
     <Compile Include="Models\Set.cs" />
+    <Compile Include="Models\SousCategorie.cs" />
     <Compile Include="Models\Tournoi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\infoJoueur.cs" />

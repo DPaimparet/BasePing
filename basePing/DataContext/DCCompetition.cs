@@ -37,12 +37,12 @@ namespace basePing.DataContext
             {
                //public Competition(int id, string nom, DateTime dateDeb, DateTime dateFin, string typeComp, string nbrJoueur, Categorie cat)
 
-                string query = "SELECT * FROM Competition INNER JOIN Categorie ON Competition.idCat=Categorie.idCat";
+                string query = "SELECT `competition`.*,`sous_categorie`.*, `categorie`.*  FROM `categorie` LEFT JOIN `sous_categorie` ON `sous_categorie`.`idCat` = `categorie`.`idCat` LEFT JOIN `competition` ON `competition`.`idSousCat` = `sous_categorie`.`idSousCat` WHERE idComp is not NULL";
                 var cmd = new MySqlCommand(query, con.Connection);
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    lComp.Add(new Competition(reader.GetInt32(0), reader.GetString(1), reader.GetDateTime(2), reader.GetDateTime(3), reader.GetString(5),reader.GetString(6), new Categorie(reader.GetInt32(8), reader.GetString(9), reader.GetString(10))));
+                    lComp.Add(new Competition(reader.GetInt32(0), reader.GetString(1), reader.GetDateTime(2), reader.GetDateTime(3), reader.GetString(5),reader.GetString(6), new Categorie(reader.GetInt32(12), reader.GetString(13), reader.GetString(14)),new SousCategorie(reader.GetInt32(9),reader.GetString(11))));
                 }
                 reader.Close();
                 return lComp;
@@ -51,12 +51,12 @@ namespace basePing.DataContext
                 return null;
         }
 
-        public bool Insert(String nom,DateTime dateD, DateTime dateF, string pays, string type, string nbrJ, int idCat)
+        public bool Insert(String nom,DateTime dateD, DateTime dateF, string pays, string type, string nbrJ, int idCat,int idSCat)
         {
             DBConnection con = DBConnection.Instance();
             if (con.IsConnect())
             {
-                string query = "INSERT INTO `competition` (`idComp`, `nom`, `dateDeb`, `dateFin`, `idPays`, `typeCompetition`, `nbrJoueur`, `idCat`) VALUES(NULL, '" + nom + "', '" + dateD.ToString("yyyy-MM-dd") + "', '" + dateF.ToString("yyyy-MM-dd") + "', '" + Convert.ToInt32(pays) + "', '" + type + "', '" + nbrJ + "', '" + idCat + "')";
+                string query = "INSERT INTO `competition` (`idComp`, `nom`, `dateDeb`, `dateFin`, `idPays`, `typeCompetition`, `nbrJoueur`, `idCat`,`idSousCat`) VALUES(NULL, '" + nom + "', '" + dateD.ToString("yyyy-MM-dd") + "', '" + dateF.ToString("yyyy-MM-dd") + "', '" + Convert.ToInt32(pays) + "', '" + type + "', '" + nbrJ + "', '" + idCat + "','"+idSCat+"')";
                 var cmd = new MySqlCommand(query, con.Connection);
                 var reader = cmd.ExecuteReader();
 

@@ -82,8 +82,9 @@ namespace basePing.Controllers
         }
 
 
-        public ActionResult AjoutComp(int id)
+        public ActionResult AjoutComp(int id,int idSC)
         {
+            Session["idSC"] = idSC;
             List<CPays> listePays = new CPays().GetListPays();
             List<String> listeType = new List<String>();
             listeType.Add("Masculin");
@@ -100,10 +101,10 @@ namespace basePing.Controllers
         }
 
         [HttpPost]
-        public ActionResult AjoutComp(String nom,DateTime dateD,DateTime dateF, string pays,string type,string nbrJ,int idCat)
+        public ActionResult AjoutComp(String nom, DateTime dateD, DateTime dateF, string pays, string type, string nbrJ, int idCat)
         {
             DCCompetition dc = new DCCompetition();
-            dc.Insert(nom,dateD,dateF,pays,type,nbrJ,idCat);
+            dc.Insert(nom, dateD, dateF, pays, type, nbrJ, idCat, (int)Session["idSC"]);
             return Redirect("~/Competition/GetComp/"+idCat);
         }
 

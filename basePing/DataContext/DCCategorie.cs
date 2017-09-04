@@ -16,7 +16,7 @@ namespace basePing.DataContext
             DBConnection con = DBConnection.Instance();
             if (con.IsConnect())
             {
-                string query = "SELECT* FROM Categorie";
+                string query = "SELECT * FROM Categorie";
                 var cmd = new MySqlCommand(query, con.Connection);
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
