@@ -16,7 +16,13 @@
     <tr><th>Nom de la compétition</th><th>Date des compétitions</th><th>Type de la compétition</th></tr>
     foreach (SousCategorie s in ViewBag.cat.List)
     {
-        <tr><td colspan="3">@s.Nom</td></tr>
+        <tr><td colspan="3">@s.Nom  
+            @if ((bool)Session["admin"])
+            {
+                @Html.ActionLink("Supprimer sous catégorie", "SuppSousCat", "Competition",
+                    new { idC = ViewBag.cat.Id, idSC = s.Id }, new { @class = "btn btn-succes" })
+            }
+            </td></tr>
         foreach (Competition c in ViewBag.listComp)
         {
             if (s.Id == c.SousCat.Id)
@@ -46,19 +52,42 @@
                 }
             </td>
         </tr>
+        <tr></tr>
 
     }
 }
-    <tr>
+    <tr><td colspan="3">Sans catégorie</td></tr>
+   
  
+                @foreach (Competition c in ViewBag.listCompNoCat)
+                {
 
+                    <tr>
+                        <td>
+                            @Html.ActionLink(c.Nom, "InfoComp", "Competition",
+                              new { id = c.Id }, new { @class = "btn" })
+                        </td>
+                        <td>
+                            @c.DateDeb.ToString("dd MMMM yyyy")
+                        </td>
+                        <td>
+                            @c.TypeComp
+                        </td>
+
+                    </tr>
+                }
+
+                   
+    <tr>
         <td colspan="3">
-
-          
-           
+            @if ((bool)Session["admin"])
+            {
+                @Html.ActionLink("Crée une nouvelle compétition", "AjoutComp", "Competition",
+                    new { id = ViewBag.cat.Id, idSC =-1 }, new { @class = "btn btn-succes" })
+            }
         </td>
-       
-        
     </tr>
+
+
 
 </table>  

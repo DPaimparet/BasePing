@@ -30,5 +30,21 @@ namespace basePing.DataContext
             else
                 return null;
         }
+
+        public bool Delete(int id)
+        {
+            DBConnection con = DBConnection.Instance();
+            if (con.IsConnect())
+            {
+                string query = "DELETE FROM sous_categorie WHERE idSousCat=" + id;
+                var cmd = new MySqlCommand(query, con.Connection);
+                var reader = cmd.ExecuteReader();
+
+                reader.Close();
+                return true;
+            }
+            else
+                return false;
+        }
     }
 }

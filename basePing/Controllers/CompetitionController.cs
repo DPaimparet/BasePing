@@ -37,6 +37,8 @@ namespace basePing.Controllers
                     ViewBag.cat = c;
             }
             ViewBag.listComp = triedList;
+            List<Competition> listCompNoCat = comp.GetListNoSousCat(id);
+            ViewBag.listCompNoCat = listCompNoCat;
             return View();
         }
 
@@ -44,14 +46,7 @@ namespace basePing.Controllers
         {
             Session["idComp"] = id;
             Competition comp = new Competition(id);
-            comp = comp.GetInformation();
-            
-            //foreach(Match m in comp.Tournoi.LMatch)
-            //{
-            //    m.Joueur1.RecupererJoueur();
-            //    m.Joueur2.RecupererJoueur();
-            //}
-            
+            comp = comp.GetInformation();           
             return View(comp);
         }
 
@@ -71,6 +66,14 @@ namespace basePing.Controllers
         {
             ViewBag.idCat = id;
             return View();
+        }
+
+        public ActionResult SuppSousCat(int idC,int idSC)
+        {
+            DCSousCategorie dc = new DCSousCategorie();
+            dc.Delete(idSC);
+
+            return Redirect("GetComp/"+idC);
         }
 
         [HttpPost]
@@ -100,6 +103,9 @@ namespace basePing.Controllers
             return View();
         }
 
+
+
+
         [HttpPost]
         public ActionResult AjoutComp(String nom, DateTime dateD, DateTime dateF, string pays, string type, string nbrJ, int idCat)
         {
@@ -109,8 +115,11 @@ namespace basePing.Controllers
         }
 
 
-        public ActionResult ModifierComp(int id, string nom, DateTime dateD, DateTime dateF, string type, string nbrJ)
+        public ActionResult ModifierComp(int id, string nom, DateTime dateD, DateTime dateF, string type, string nbrJ,int idc)
         {
+            SousCategorie sc = new SousCategorie();
+            List<SousCategorie> lSC = new List<SousCategorie>();
+            lSC = sc.GetList(idc);
             List<CPays> listePays = new CPays().GetListPays();
             List<String> listeType = new List<String>();
             listeType.Add(type);
@@ -121,6 +130,7 @@ namespace basePing.Controllers
             listeNbrJ.Add(nbrJ);
             listeNbrJ.Add("Individuel");
             listeNbrJ.Add("Equipe");
+            ViewBag.listeSC = new SelectList(lSC, "Id", "Nom");
             ViewBag.listePays = new SelectList(listePays, "Id", "Pays");
             ViewBag.listeType = new SelectList(listeType);
             ViewBag.listeNbrJ = new SelectList(listeNbrJ);
@@ -132,10 +142,10 @@ namespace basePing.Controllers
         }
 
         [HttpPost]
-        public ActionResult ModifierComp(String nom, DateTime dateD, DateTime dateF, string pays, string type, string nbrJ,int idComp)
+        public ActionResult ModifierComp(String nom, DateTime dateD, DateTime dateF, string pays, string type, string nbrJ,int idSC,int idComp)
         {
             DCCompetition dc = new DCCompetition();
-            dc.Update(idComp,nom, dateD, dateF, pays, type, nbrJ);
+            dc.Update(idComp,nom, dateD, dateF, pays, type, nbrJ,idSC);
             return Redirect("~/Competition/InfoComp/" + idComp);
         }
 

@@ -190,7 +190,6 @@
     <Compile Include="DataContext\DCLogin.cs" />
     <Compile Include="DataContext\DCMatch.cs" />
     <Compile Include="DataContext\DCPoule.cs" />
-    <Compile Include="DataContext\DCSousCat.cs" />
     <Compile Include="DataContext\DCSousCategorie.cs" />
     <Compile Include="DataContext\DCTournoi.cs" />
     <Compile Include="Global.asax.cs">

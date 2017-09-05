@@ -114,7 +114,7 @@ else//PARTIE ADMINISTRATION
 {
 
     <h1>@Model.Nom du @Model.DateDeb.ToShortDateString() au @Model.DateFin.ToShortDateString()</h1>
-    @Html.ActionLink("Modifier", "ModifierComp", "Competition", new { id = Model.Id,nom=Model.Nom,dateD=Model.DateDeb,dateF=Model.DateFin,type=Model.TypeComp,nbrJ=Model.NbrJoueur }, new { @class = "btn btn-info" })
+    @Html.ActionLink("Modifier", "ModifierComp", "Competition", new { id = Model.Id,nom=Model.Nom,dateD=Model.DateDeb,dateF=Model.DateFin,type=Model.TypeComp,nbrJ=Model.NbrJoueur,idc=Model.Cat.Id }, new { @class = "btn btn-info" })
     @Html.ActionLink("Ajouter un participant", "AjoutParticipant", "Competition", new { id = Model.Id }, new { @class = "btn btn-success" })
     @Html.ActionLink("Ajouter un match", "AjoutMatch", "Match", new { id = Model.Id }, new { @class = "btn btn-success" })
     @Html.ActionLink("Supprimer", "SuppressionComp", "Competition", new { id = Model.Id }, new { @class = "btn btn-danger" })

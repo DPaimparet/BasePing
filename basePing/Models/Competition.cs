@@ -88,6 +88,12 @@ namespace basePing.Models
             DCCompetition dc = new DCCompetition();
             return dc.findAll();
         }
+
+        public List<Competition> GetListNoSousCat(int id)
+        {
+            DCCompetition dc = new DCCompetition();
+            return dc.findAllCompNoCat(id);
+        }
         public void GetTournoi()
         {
             tournoi = new DCTournoi().find(id);
