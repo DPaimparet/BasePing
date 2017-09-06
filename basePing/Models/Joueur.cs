@@ -107,10 +107,10 @@ namespace basePing.Models
             dCJoueur.AjoutJoueur(Nom, Prenom, DateNaissance, Sexe, National);
         }
 
-        public void AjouteParticipant(int idJoueur, int idCompetition)
+        public bool AjouteParticipant(int idJoueur, int idCompetition)
         {
             DataContext.DCCompetition participant = new DataContext.DCCompetition();
-            participant.insertJoueurIntoComp(idJoueur, idCompetition);
+            return participant.insertJoueurIntoComp(idJoueur, idCompetition);
         }
         public void RetirerParticipant(int idJoueur, int idCompetition)
         {

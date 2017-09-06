@@ -15,6 +15,7 @@ namespace basePing.Models
         private string typeComp;
         private string nbrJoueur;
         private Categorie cat;
+        private SousCategorie sousCat;
         private List<Poule> lPoule= new List<Poule>();
         private Tournoi tournoi=null;
 
@@ -29,11 +30,12 @@ namespace basePing.Models
         public string TypeComp { get { return typeComp; } set { typeComp = value; } }
         public string NbrJoueur { get { return nbrJoueur; } set { nbrJoueur = value; } }
         public Categorie Cat { get { return cat; } set { cat = value; } }
+        public SousCategorie SousCat { get { return sousCat; } set { sousCat = value; } }
         public List<Poule> LPoule{ get { return lPoule; } set { lPoule = value; } }
         public Tournoi Tournoi { get { return tournoi; } set { tournoi = value; } }
 
 
-        public Competition(int id, string nom, DateTime dateDeb,DateTime dateFin, string typeComp,string nbrJoueur,Categorie cat)
+        public Competition(int id, string nom, DateTime dateDeb,DateTime dateFin, string typeComp,string nbrJoueur,Categorie cat, SousCategorie sousCat)
         {
             this.id = id;
             this.nom = nom;
@@ -41,6 +43,7 @@ namespace basePing.Models
             this.dateFin = dateFin;
             this.typeComp = typeComp;
             this.cat = cat;
+            this.sousCat = sousCat;
             this.nbrJoueur = nbrJoueur;
 
         }
@@ -85,10 +88,21 @@ namespace basePing.Models
             DCCompetition dc = new DCCompetition();
             return dc.findAll();
         }
-        internal void GetTournoi()
+
+        public List<Competition> GetListNoSousCat(int id)
+        {
+            DCCompetition dc = new DCCompetition();
+            return dc.findAllCompNoCat(id);
+        }
+        public void GetTournoi()
         {
             tournoi = new DCTournoi().find(id);
         }
 
+        public List<Joueur> GetListPart()
+        {
+            DCJoueur dc = new DCJoueur();
+            return dc.findAllComp(id);
+        }
     }
 }

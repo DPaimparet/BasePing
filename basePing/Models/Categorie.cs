@@ -11,11 +11,12 @@ namespace basePing.Models
         private int id;
         private string nom;
         private string descriptif;
+        private List<SousCategorie> lSC = new List<SousCategorie>();
       
 
         public int Id { get { return id; } set { id = value; } }
         public string Nom { get { return nom; } set { nom = value; } }
-        public string Descriptif { get { return descriptif; } set { descriptif = value; } }
+        public List<SousCategorie> List { get { return lSC; } set { lSC = value; } }
 
         public Categorie(int id,string nom, string descriptif)
         {
@@ -28,6 +29,12 @@ namespace basePing.Models
         {
         }
 
+
+        public void GetListSousCat()
+        {
+            DCSousCategorie dc = new DCSousCategorie();
+            lSC = dc.findAll(id);
+        }
         public static List<Categorie> GetList()
         {
             DCCategorie dc = new DCCategorie();

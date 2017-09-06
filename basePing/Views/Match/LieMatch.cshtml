@@ -1,23 +1,49 @@
-﻿<br />
+﻿@using basePing.Models;
+
+
+<h1>Ajouter un match existant</h1>
+@using (Html.BeginForm("LieMatch", "Match"))
+{
+    <div class="form-group">
+        <input type="hidden" value="@ViewBag.pos" name="pos" />
+        <label>Match existant</label>
+    
+            @Html.DropDownList("match", Session["listM"] as SelectList, String.Empty, new { @class = "form-control" })
+
+    </div>
+        <br />
+        <br />
+
+
+        <br />
+        <br />
+        <br />
+        <div class="form-group">
+            <input type="submit" value="Enregistrer" class="btn btn-success" />
+            @Html.ActionLink("Annuler", "InfoComp", "Competition", new { id = Session["idComp"] }, new { @class = "btn btn-danger" })
+
+        </div>
+
+}
+<h1>Crée un nouveau Match</h1>
+<br />
 <div class="form-inline">
-    @using (Html.BeginForm("AjoutMatch", "Match"))
+    @using (Html.BeginForm("AjoutEtLieMatch", "Match"))
     {
         <div class="form-group">
-            <input type="hidden" value="@ViewBag.idComp" name="id" />
             <label>Joueur 1</label>
             @Html.DropDownList("joueur1", Session["listJ"] as SelectList, string.Empty, new { @class = "form-control" })
             <label>Set</label>
             @Html.TextBox("score1", "Score joueur 1", new { type = "number", min = "0", max = "7", @class = "form-control" })
-            
+
         </div>
         <br />
         <br />
         <div class="form-group">
             <label>Joueur 2</label>
             @Html.DropDownList("joueur2", Session["listJ"] as SelectList, string.Empty, new { @class = "form-control" })
-
             <label>Set</label>
-            @Html.TextBox("score2","Score joueur 2", new { type="number", min="0", max="7", @class = "form-control" })
+            @Html.TextBox("score2", "Score joueur 2", new { type = "number", min = "0", max = "7", @class = "form-control" })
         </div>
         <br />
         <br />
@@ -26,5 +52,5 @@
             <input type="submit" value="Enregistrer" class="btn btn-success" />
             @Html.ActionLink("Annuler", "InfoComp", "Competition", new { id = Session["idComp"] }, new { @class = "btn btn-danger" })
         </div>
-     }
+    }
 </div>

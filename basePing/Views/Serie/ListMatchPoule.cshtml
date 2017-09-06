@@ -1,0 +1,20 @@
+﻿@using basePing.Models;
+
+<h2>Liste des Match</h2>
+
+<table border="1">
+    <tr><th>Joueur 1</th><th>Score du joueur 1</th><th>VS</th><th>Score du joueur 2</th><th>Joueur 2</th></tr>
+    @foreach (Match m in (List<Match>)Session["listM"])
+    {
+        <tr><td>@m.Joueur1.Nom</td><td>@m.Score1</td><td>VS</td><td>@m.Score2</td><td>@m.Joueur2.Nom</td><td>@if ((bool)Session["admin"])
+        {   @Html.ActionLink("Supprimer", "SuppMatch", "Match", new { id=m.Id }, new { @class = "btn btn-success" })
+        }</td></tr>
+    }
+</table>
+
+@Html.ActionLink("Ajouter Match", "LieMatchPoule", "Match", new { idJ = Session["idJ"], idC = Session["idC"], idS = Session["idS"] }, new { @class = "btn btn-success" })
+
+<div>
+    @Html.ActionLink("Retour", "InfoComp/" + Session["idComp"],"Competition", new { area = "" }, new { @class = "btn btn-danger" })
+
+</div>

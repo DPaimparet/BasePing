@@ -24,9 +24,10 @@ namespace basePing.Controllers
             return Redirect("~/Competition/InfoComp/" + idComp);
         }
 
-        public ActionResult ModifPouleForm(int id,string desc,string nom,int taille)
+        public ActionResult ModifPouleForm(int idC, int id,string desc,string nom,int taille)
         {
             Poule p = new Poule(id,desc,taille,nom);
+            Session["idC"] = idC;
             return View(p);
         }
         [HttpPost]
@@ -35,16 +36,16 @@ namespace basePing.Controllers
             Poule p = new Poule(id, desc, taille, nom);
             DCPoule dc = new DCPoule();
             dc.Update(p);
-            return View();
+            return Redirect("~/Competition/InfoComp/" + Session["idC"]);
         }
 
 
-        public ActionResult SuppPoule(int id)
+        public ActionResult SuppPoule(int id,int idC)
         {
            
             DCPoule dc = new DCPoule();
             dc.Delete(id);
-            return View();
+            return Redirect("~/Competition/InfoComp/" + idC);
         }
 
         public ActionResult AjouterTournoi(int id)
@@ -59,6 +60,21 @@ namespace basePing.Controllers
             DCTournoi dc = new DCTournoi();
             dc.Create(id,taille,desc);
             return Redirect("~/Competition/InfoComp/" + id);
+        }
+
+        public ActionResult ListMatchPoule(int idP ,int idC ,int IdJ)
+        {
+            Session["idC"] = idC;
+            Session["idS"] = idP;
+            Session["idJ"] = IdJ;
+            List<Match> listM = new Match().GetListMatch(idP,IdJ);
+            foreach (Match m in listM)
+            {
+                m.Joueur1.RecupererJoueur();
+                m.Joueur2.RecupererJoueur();
+            }
+            Session["listM"] =listM;
+            return View();
         }
     }
 }

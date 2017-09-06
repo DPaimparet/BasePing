@@ -187,9 +187,10 @@ namespace basePing.Controllers
 
             
         }
-        public ActionResult AjoutJoueurPoule(int id)
+        public ActionResult AjoutJoueurPoule(int id,int idC)
         {
-            List<Joueur> listeJ = new Joueur().GetListJoueur();
+            List<Joueur> listeJ = new Competition(idC).GetListPart();
+            Session["idC"] = idC;
             Session["idPoule"] = id;
             Session["listJ"]= new SelectList(listeJ, "Id", "Nom");
             return View();
@@ -202,7 +203,7 @@ namespace basePing.Controllers
             DCJoueur dc = new DCJoueur();
             dc.InsertLD(j, (int)Session["idPoule"]);
             Session["idPoule"] = null;
-            return View();
+            return Redirect("~/Competition/InfoComp/"+Session["idC"]);
         }
         public ActionResult ModifierJoueurPoule(int id, int idP, int idJ, int matchG, int matchP,int pos)
         {

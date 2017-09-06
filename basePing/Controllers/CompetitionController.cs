@@ -37,6 +37,8 @@ namespace basePing.Controllers
                     ViewBag.cat = c;
             }
             ViewBag.listComp = triedList;
+            List<Competition> listCompNoCat = comp.GetListNoSousCat(id);
+            ViewBag.listCompNoCat = listCompNoCat;
             return View();
         }
 
@@ -44,14 +46,7 @@ namespace basePing.Controllers
         {
             Session["idComp"] = id;
             Competition comp = new Competition(id);
-            comp = comp.GetInformation();
-            
-            //foreach(Match m in comp.Tournoi.LMatch)
-            //{
-            //    m.Joueur1.RecupererJoueur();
-            //    m.Joueur2.RecupererJoueur();
-            //}
-            
+            comp = comp.GetInformation();           
             return View(comp);
         }
 
@@ -73,6 +68,14 @@ namespace basePing.Controllers
             return View();
         }
 
+        public ActionResult SuppSousCat(int idC,int idSC)
+        {
+            DCSousCategorie dc = new DCSousCategorie();
+            dc.Delete(idSC);
+
+            return Redirect("GetComp/"+idC);
+        }
+
         [HttpPost]
         public ActionResult ModifCat(int id, string nom , string desc)
         {
@@ -82,8 +85,9 @@ namespace basePing.Controllers
         }
 
 
-        public ActionResult AjoutComp(int id)
+        public ActionResult AjoutComp(int id,int idSC)
         {
+            Session["idSC"] = idSC;
             List<CPays> listePays = new CPays().GetListPays();
             List<String> listeType = new List<String>();
             listeType.Add("Masculin");
@@ -99,17 +103,23 @@ namespace basePing.Controllers
             return View();
         }
 
+
+
+
         [HttpPost]
-        public ActionResult AjoutComp(String nom,DateTime dateD,DateTime dateF, string pays,string type,string nbrJ,int idCat)
+        public ActionResult AjoutComp(String nom, DateTime dateD, DateTime dateF, string pays, string type, string nbrJ, int idCat)
         {
             DCCompetition dc = new DCCompetition();
-            dc.Insert(nom,dateD,dateF,pays,type,nbrJ,idCat);
+            dc.Insert(nom, dateD, dateF, pays, type, nbrJ, idCat, (int)Session["idSC"]);
             return Redirect("~/Competition/GetComp/"+idCat);
         }
 
 
-        public ActionResult ModifierComp(int id, string nom, DateTime dateD, DateTime dateF, string type, string nbrJ)
+        public ActionResult ModifierComp(int id, string nom, DateTime dateD, DateTime dateF, string type, string nbrJ,int idc)
         {
+            SousCategorie sc = new SousCategorie();
+            List<SousCategorie> lSC = new List<SousCategorie>();
+            lSC = sc.GetList(idc);
             List<CPays> listePays = new CPays().GetListPays();
             List<String> listeType = new List<String>();
             listeType.Add(type);
@@ -120,6 +130,7 @@ namespace basePing.Controllers
             listeNbrJ.Add(nbrJ);
             listeNbrJ.Add("Individuel");
             listeNbrJ.Add("Equipe");
+            ViewBag.listeSC = new SelectList(lSC, "Id", "Nom");
             ViewBag.listePays = new SelectList(listePays, "Id", "Pays");
             ViewBag.listeType = new SelectList(listeType);
             ViewBag.listeNbrJ = new SelectList(listeNbrJ);
@@ -131,10 +142,10 @@ namespace basePing.Controllers
         }
 
         [HttpPost]
-        public ActionResult ModifierComp(String nom, DateTime dateD, DateTime dateF, string pays, string type, string nbrJ,int idComp)
+        public ActionResult ModifierComp(String nom, DateTime dateD, DateTime dateF, string pays, string type, string nbrJ,int idSC,int idComp)
         {
             DCCompetition dc = new DCCompetition();
-            dc.Update(idComp,nom, dateD, dateF, pays, type, nbrJ);
+            dc.Update(idComp,nom, dateD, dateF, pays, type, nbrJ,idSC);
             return Redirect("~/Competition/InfoComp/" + idComp);
         }
 
@@ -290,8 +301,10 @@ namespace basePing.Controllers
             // Ajouter le participant ici
             Joueur participant = new Joueur();
             int idC = Convert.ToInt32(Session["idComp"]);
-            participant.AjouteParticipant(id,idC);
-            return Redirect("~/Competition/AjoutParticipant/" + Session["idComp"]);
+            if(participant.AjouteParticipant(id,idC))
+                return Redirect("~/Competition/AjoutParticipant/" + Session["idComp"]);
+            else
+                return Redirect("~/Competition/AjoutParticipant/" + Session["idComp"]+"?error=Ce joueur participe déjà a cette compétition");
         }
         public ActionResult SubJoueur(int id)
         {
@@ -315,6 +328,23 @@ namespace basePing.Controllers
             Joueur joueur = new Joueur(0, nom, prenom, dateNaissance, sex, Pays);
             joueur.AjouterJoueur();
             return Redirect("~/Competition/AjoutParticipant/" + Session["idComp"]);
+        }
+
+        public ActionResult SupprimerParticipant(int idJ,int idC)
+        {
+            DCJoueur dc = new DCJoueur();
+            DCPoule dcP = new DCPoule();
+            DCTournoi dcT = new DCTournoi();
+            dc.DeletePart(idJ,idC);
+            Competition comp = new Competition(idC);
+            comp = comp.GetInformation();
+            foreach(Poule p in comp.LPoule)
+            {
+                dcP.DeleteLD(idJ,p.Id);
+            }
+            if(comp.Tournoi!=null)
+                dcT.DeleteLD(idJ,comp.Tournoi.Id);
+            return Redirect("InfoComp/" + idC);
         }
     }
 }

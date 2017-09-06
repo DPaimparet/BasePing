@@ -15,6 +15,8 @@
     @Html.DropDownList("type", (SelectList)ViewBag.listeType, new { @class = "form-control" })
     <label>Equipe ou Individuel</label>
     @Html.DropDownList("nbrJ", (SelectList)ViewBag.listeNbrJ, new { @class = "form-control" })
+    <label>Sous catégorie</label>
+    @Html.DropDownList("idSC", (SelectList)ViewBag.listeSC, new { @class = "form-control" })
     <input type="hidden" value="@ViewBag.idComp" name="idComp" />
 
     <input type="submit" value="Ajouter Compétition" />
