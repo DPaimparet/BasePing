@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using basePing.Models;
 using basePing.DataContext;
 using basePing.ViewModel;
+using System.IO;
 
 namespace basePing.Controllers
 {
@@ -141,11 +142,29 @@ namespace basePing.Controllers
 
         public ActionResult Joueur(int id)
         {
-            DCJoueur joueur = new DCJoueur();
+            
+        DCJoueur joueur = new DCJoueur();
             Joueur player = new Joueur();
+            string[] ext = new string[]{ "jpg", "jpeg", "png", "gif" };
+            string file = "";
+            int i = 0;
+            string path = "";
+            bool trouve = false;
             player = joueur.GetJoueur(id);
             ViewBag.dateNaissance =player.DateNaissance.ToString("dddd, le dd MMMM yyyy ");
-            if(player.Sexe == 'f')
+            do
+            {
+                path = id + "." + ext[i];
+                if (System.IO.File.Exists(@"D:\ProjetWeb\basePing\basePing\Content\image\" + path))
+                {
+                    file = path;
+                    trouve = true;
+                }
+                i++;
+            } while (!trouve && i < ext.Length);
+            ViewBag.photo = file;
+
+            if (player.Sexe == 'f')
             {
                 ViewBag.sexe = "Féminin";
             }
@@ -171,10 +190,20 @@ namespace basePing.Controllers
             {
                 sex = 'm';
             }
-            string Pays = pays.ToString();
-            Joueur joueur = new Joueur(0,nom, prenom, dateNaissance , sex , Pays);
-            joueur.AjouterJoueur();
-            return Redirect("Index?error=Enregistrement effectuée");
+
+            if (nom != "" && prenom != "" && sexe != "" && dateNaissance != null && pays != null)
+            {
+                string Pays = pays.ToString();
+                Joueur joueur = new Joueur(0, nom, prenom, dateNaissance, sex, Pays);
+                joueur.AjouterJoueur();
+                return Redirect("Index?error=Enregistrement effectuée");
+            }
+            else
+            {
+                return Redirect("NewJoueur?error=Enregistrement effectuée");
+            }
+
+            
         }
         public ActionResult AjoutJoueurPoule(int id,int idC)
         {
@@ -229,6 +258,33 @@ namespace basePing.Controllers
             DCJoueur dc = new DCJoueur();
             dc.DeleteLD(idJ, idP);
             return Redirect("~/Competition/InfoComp/"+id);
+        }
+        [HttpPost]
+        public ActionResult AddPhoto(fichier model, int id)
+        {
+            string rep = @"D:\ProjetWeb\basePing\basePing\Content\image";
+            if (model.File != null && model.File.ContentLength > 0)
+            {
+                string[] ext = new string[] { "jpg", "jpeg", "png", "gif" };
+                string path = "";
+                bool trouve = false;
+                int i = 0;
+                string nomPhoto = Path.GetFileName(model.File.FileName);
+                int index = nomPhoto.LastIndexOf('.');
+                string newName = nomPhoto.Substring(index);
+                newName = id + newName;
+                do
+                {
+                    path = id + "." + ext[i];
+                    if (System.IO.File.Exists(@"D:\ProjetWeb\basePing\basePing\Content\image\" + path))
+                    {
+                        System.IO.File.Delete(@"D:\ProjetWeb\basePing\basePing\Content\image\" + path);
+                    }
+                    i++;
+                } while (!trouve && i < ext.Length);
+                model.File.SaveAs(Path.Combine(rep, newName));
+            }
+            return Redirect("~/Joueur/Joueur/"+id);
         }
     }
 }

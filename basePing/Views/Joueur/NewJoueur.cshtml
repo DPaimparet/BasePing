@@ -36,6 +36,9 @@
         @Html.ActionLink("Annuler", "Index", "Joueur", new { area = "" }, new { @class = "btn btn-danger" })
     }
 </div>
+<div>
+    <h2 class="alert-danger">@Request.QueryString["error"]</h2>
+</div>
 
 
 

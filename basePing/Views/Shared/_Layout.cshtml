@@ -52,6 +52,7 @@
                         if (Session["admin"] != null && (bool)Session["admin"])
                         {
                             <li>@Html.ActionLink(" Déconnexion", "LogOut", "Home", null, new { @class = "glyphicon glyphicon-new-window" })</li>
+                            <li class="navbar-text btn btn-danger"> Administration actif  </li>
                         }
                         else
                         {
@@ -64,7 +65,7 @@
         </div>
     </div>
     <div class="container body-content">
-
+        <br />
         @RenderBody()
         <hr />
         <footer>

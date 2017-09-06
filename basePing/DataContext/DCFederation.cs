@@ -23,7 +23,7 @@ namespace basePing.DataContext
                 {
                     federation.Id = reader.GetInt32(0);
                     federation.PaysFederation = reader.GetString(1);
-                    federation.PaysFederation = reader.GetString(2);
+                    federation.NomFederation = reader.GetString(2);
                     federation.Web = reader.GetString(3);
                 }
                 reader.Close();
@@ -40,7 +40,7 @@ namespace basePing.DataContext
             if (con.IsConnect())
             {
                 //récupérer tous les joueurs
-                string query = "SELECT * FROM federation";
+                string query = "SELECT * FROM federation ORDER BY pays";
                 var cmd = new MySqlCommand(query, con.Connection);
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
