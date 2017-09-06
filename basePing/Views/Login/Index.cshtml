@@ -9,6 +9,7 @@
             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
             <input id="email" type="text" class="form-control" name="login" placeholder="Email">
         </div>
+        <br />
         <div class="input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
             <input id="password" type="password" class="form-control" name="password" placeholder="Password">
@@ -16,9 +17,9 @@
        
         <br />
         <div class="input-group">
-            <input type="submit" class="btn-lg" value="connexion" />
+            <input type="submit" class="btn-success btn-lg" value="connexion" />
         </div>
         
 
-    <h1>@Request.QueryString["error"]</h1>
+    <h1 class="alert-danger">@Request.QueryString["error"]</h1>
 }

@@ -22,8 +22,15 @@ namespace basePing.Controllers
         {
             string pays = Pays.ToString();
             Federation federation = new Federation();
-            federation.AddFederation(nomFederation, pays, web);
-            return Redirect("Index");
+            if (Pays != null && nomFederation != "" && web != "")
+            {
+                federation.AddFederation(nomFederation, pays, web);
+                return Redirect("Index");
+            }
+            else
+            {
+                return Redirect("Index?error=Tous les champs doivent être complétés");
+            }
         }
         public ActionResult UpdateFederation(int id)
         {

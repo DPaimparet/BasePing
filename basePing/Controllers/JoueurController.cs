@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using basePing.Models;
 using basePing.DataContext;
 using basePing.ViewModel;
+using System.IO;
 
 namespace basePing.Controllers
 {
@@ -171,10 +172,20 @@ namespace basePing.Controllers
             {
                 sex = 'm';
             }
-            string Pays = pays.ToString();
-            Joueur joueur = new Joueur(0,nom, prenom, dateNaissance , sex , Pays);
-            joueur.AjouterJoueur();
-            return Redirect("Index?error=Enregistrement effectuée");
+
+            if (nom != "" && prenom != "" && sexe != "" && dateNaissance != null && pays != null)
+            {
+                string Pays = pays.ToString();
+                Joueur joueur = new Joueur(0, nom, prenom, dateNaissance, sex, Pays);
+                joueur.AjouterJoueur();
+                return Redirect("Index?error=Enregistrement effectuée");
+            }
+            else
+            {
+                return Redirect("NewJoueur?error=Enregistrement effectuée");
+            }
+
+            
         }
         public ActionResult AjoutJoueurPoule(int id)
         {
@@ -228,6 +239,19 @@ namespace basePing.Controllers
             DCJoueur dc = new DCJoueur();
             dc.DeleteLD(idJ, idP);
             return Redirect("~/Competition/InfoComp/"+id);
+        }
+        [HttpPost]
+        public ActionResult AddPhoto(fichier model, int id)
+        {
+            //if (ModelState.IsValid)
+            //{
+            //    // Use your file here
+            //    using (MemoryStream memoryStream = new MemoryStream())
+            //    {
+            //        model.File.InputStream.CopyTo(memoryStream);
+            //    }
+            //}
+            return Redirect("~/Joueur/Joueur/"+id);
         }
     }
 }
