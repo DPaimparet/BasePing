@@ -23,7 +23,7 @@ namespace basePing.DataContext
                 {
                     federation.Id = reader.GetInt32(0);
                     federation.PaysFederation = reader.GetString(1);
-                    federation.PaysFederation = reader.GetString(2);
+                    federation.NomFederation = reader.GetString(2);
                     federation.Web = reader.GetString(3);
                 }
                 reader.Close();

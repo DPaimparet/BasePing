@@ -35,8 +35,8 @@ namespace basePing.Controllers
         public ActionResult UpdateFederation(int id)
         {
             Federation federation = new Federation();
-            ViewBag.federation = federation.GetFederation(id);
-            return View();
+            federation = federation.GetFederation(id);
+            return View(federation);
         }
         public ActionResult UpdateFede(int id, string nomFederation, int? Pays, string web)
         {
