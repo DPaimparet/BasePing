@@ -1,4 +1,5 @@
 ﻿@using basePing.Models;
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,9 +33,9 @@
                         <ul class="dropdown-menu">
                             @foreach (Categorie c in Categorie.GetList())
                             {                           
-                                <li><a href="~/Competition/GetComp/@c.Id">@c.Nom</a></li>
+                                <li><a href="~/Competition/SousCategorie/@c.Id">@c.Nom</a></li>
                             }    
-                            @if ((bool)Session["admin"])
+                            @if (Session["admin"]!=null && (bool)Session["admin"])
                             {
                                 <li><a href="~/Competition/AjouterTypeCompForm">Ajouter une nouvelle catégorie</a></li>
                             }
@@ -48,7 +49,7 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     @{
-                        if ((bool)Session["admin"])
+                        if (Session["admin"] != null && (bool)Session["admin"])
                         {
                             <li>@Html.ActionLink(" Déconnexion", "LogOut", "Home", null, new { @class = "glyphicon glyphicon-new-window" })</li>
                         }
@@ -63,6 +64,7 @@
         </div>
     </div>
     <div class="container body-content">
+
         @RenderBody()
         <hr />
         <footer>

@@ -1,0 +1,29 @@
+﻿@using basePing.Models
+
+<h2>Catégorie</h2>
+
+
+<ul>
+
+    @foreach (SousCategorie cat in ViewBag.sousCat)
+    {
+        <li>
+            <a href="~/Competition/GetComp/@cat.Id">@cat.Nom</a>
+            @if ((bool)Session["admin"])
+            {
+            @Html.ActionLink("Supprimer sous catégorie", "SuppSousCat", "Competition",
+                    new { idSC = cat.Id }, new { @class = "btn btn-succes" })
+            }
+        </li>
+    }
+
+    @if ((bool)Session["admin"])
+    {
+        <li>@Html.ActionLink("Ajouter sous catégorie", "AjouterSousCatForm", "Competition",
+                    null, new { @class = "btn btn-succes" })</li>
+    }
+</ul>
+
+
+
+

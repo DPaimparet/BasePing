@@ -31,6 +31,23 @@ namespace basePing.DataContext
                 return null;
         }
 
+        internal bool Insert(string nom, int idC)
+        {
+            DBConnection con = DBConnection.Instance();
+            if (con.IsConnect())
+            {
+                //récupérer les joueurs grâce à leur sex
+                string query = "INSERT INTO `sous_categorie` (`idSousCat`, `idCat`, `nom`) VALUES (NULL, '" + idC + "', '" + nom + "')";
+                var cmd = new MySqlCommand(query, con.Connection);
+                var reader = cmd.ExecuteReader();
+
+                reader.Close();
+                return true;
+            }
+            else
+                return false;
+        }
+
         public bool Delete(int id)
         {
             DBConnection con = DBConnection.Instance();

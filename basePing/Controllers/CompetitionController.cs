@@ -18,15 +18,39 @@ namespace basePing.Controllers
             return View();
         }
 
+        public ActionResult AjouterSousCatForm()
+        {
+            return View();
+        }
+
+
+        public ActionResult AjouterSousCat(string nom)
+        {
+            DCSousCategorie dc = new DCSousCategorie();
+            dc.Insert(nom,(int)Session["idC"]);
+            return Redirect("SousCategorie/" + Session["idC"]);
+        }
+
+        public ActionResult SousCategorie(int id)
+        {
+            Session["idC"] = id;
+            SousCategorie Scat = new SousCategorie();
+            ViewBag.sousCat=Scat.GetList(id);
+            return View();
+        }
+
         public ActionResult GetComp(int id)
         {
+            
+            Session["idSC"] = id;
             Competition comp = new Competition();
+            if (id != -1) { 
             List<CPays> listePays = new CPays().GetListPays();
             Session["listePays"] = new SelectList(listePays, "Id", "Pays");
             List<Competition> triedList = new List<Competition>();
             foreach (Competition c in comp.GetList())
             {
-                if (c.Cat.Id == id) {
+                if (c.SousCat.Id== id) {
                     c.GetTournoi();
                     triedList.Add(c);
                 }
@@ -37,8 +61,7 @@ namespace basePing.Controllers
                     ViewBag.cat = c;
             }
             ViewBag.listComp = triedList;
-            List<Competition> listCompNoCat = comp.GetListNoSousCat(id);
-            ViewBag.listCompNoCat = listCompNoCat;
+            }
             return View();
         }
 
@@ -68,12 +91,13 @@ namespace basePing.Controllers
             return View();
         }
 
-        public ActionResult SuppSousCat(int idC,int idSC)
+        public ActionResult SuppSousCat(int idSC)
         {
+            System.Web.HttpContext.Current.Response.Write("<SCRIPT LANGUAGE=\"JavaScript\">alert(\"Hello this is an Alert\")</SCRIPT>");
             DCSousCategorie dc = new DCSousCategorie();
             dc.Delete(idSC);
 
-            return Redirect("GetComp/"+idC);
+            return Redirect("SousCategorie/"+Session["idC"]);
         }
 
         [HttpPost]
