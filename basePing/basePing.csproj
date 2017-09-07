@@ -186,6 +186,7 @@
     <Compile Include="DataContext\DCCategorie.cs" />
     <Compile Include="DataContext\DCCompetition.cs" />
     <Compile Include="DataContext\DCFederation.cs" />
+    <Compile Include="DataContext\DCPalmaresCivil.cs" />
     <Compile Include="DataContext\DCPays.cs" />
     <Compile Include="DataContext\DCJoueur.cs" />
     <Compile Include="DataContext\DCLogin.cs" />
@@ -213,6 +214,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\fichier.cs" />
     <Compile Include="ViewModel\infoJoueur.cs" />
+    <Compile Include="ViewModel\VMJoueur.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -312,6 +314,8 @@
     <Content Include="Views\Match\LieMatch.cshtml" />
     <Content Include="Views\Serie\ListMatchPoule.cshtml" />
     <Content Include="Views\Match\LieMatchPoule.cshtml" />
+    <Content Include="Views\Joueur\UpdatePalmares.cshtml" />
+    <Content Include="Views\Joueur\UpdateJoueur.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

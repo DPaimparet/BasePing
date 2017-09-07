@@ -25,6 +25,35 @@ namespace basePing.DataContext
             else
                 return false;
         }
+        // Supprimer un joueur
+        public bool DeleteJoueur(int id)
+        {
+            DBConnection con = DBConnection.Instance();
+            if (con.IsConnect())
+            {
+                string query = "DELETE FROM joueur WHERE idJoueur="+id;
+                var cmd = new MySqlCommand(query, con.Connection);
+                var reader = cmd.ExecuteReader();
+                reader.Close();
+                return true;
+            }
+            else
+                return false;
+        }
+        public bool UpdateJoueur(int idJoueur,string nom, string prenom, DateTime dateNaiss, char sexe, int pays)
+        {
+            DBConnection con = DBConnection.Instance();
+            if (con.IsConnect())
+            {
+                string query = "INSERT INTO joueur(nom,prenom,dateNaiss,sexe,idPays) VALUES (" + nom + ", '" + prenom + "', '" + dateNaiss.ToString("yyyy-MM-dd") + "', '" + sexe + "', "+ pays + ") WHERE idJoueur =" + idJoueur+ "";
+                var cmd = new MySqlCommand(query, con.Connection);
+                var reader = cmd.ExecuteReader();
+                reader.Close();
+                return true;
+            }
+            else
+                return false;
+        }
         // Sélectionne tous les joueurs
         public List<Joueur> GetAllJoueur()
         {

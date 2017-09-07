@@ -1,4 +1,4 @@
-﻿
+﻿@model basePing.ViewModel.VMJoueur
 @{
     ViewBag.Title = "NewJoueur";
 }
@@ -14,19 +14,19 @@
     {
         <div class="form-group">
             <label>Nom </label>
-            <input type="text" class="form-control" name="nom">
+            @Html.TextBoxFor(model => model.Nom, new { @class = "form-control", type = "text", required = "required"})
             <label>Prenom </label>
-            <input type="text" class="form-control" name="prenom">
+            @Html.TextBoxFor(model => model.Prenom, new { @class = "form-control", type = "text", required = "required" })
             <label>Sexe </label>
-            <select class="form-control" name="sexe">
+            <select class="form-control" name="sexe" required="required">
                 <option></option>
                 <option>Masculin</option>
                 <option>Féminin</option>
             </select>
             <label>Date de naissance</label>
-            <input type="date" class="form-control" name="dateNaissance" />
+            <input type="date" class="form-control" name="dateNaissance" required="required" />
             <label>Nationalité </label>
-            @Html.DropDownList("Pays", Session["listePays"] as SelectList, string.Empty, new { @class = "form-control" })
+            @Html.DropDownList("Pays", Session["listePays"] as SelectList, string.Empty, new { @class = "form-control" , required = "required" })
             
         </div>
 

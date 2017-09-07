@@ -143,13 +143,14 @@ namespace basePing.Controllers
         public ActionResult Joueur(int id)
         {
             
-        DCJoueur joueur = new DCJoueur();
+            DCJoueur joueur = new DCJoueur();
             Joueur player = new Joueur();
             string[] ext = new string[]{ "jpg", "jpeg", "png", "gif" };
             string file = "";
             int i = 0;
             string path = "";
             bool trouve = false;
+            // Récupère les informations du joueur 
             player = joueur.GetJoueur(id);
             ViewBag.dateNaissance =player.DateNaissance.ToString("dddd, le dd MMMM yyyy ");
             do
@@ -173,6 +174,10 @@ namespace basePing.Controllers
                 ViewBag.sexe = "Masculin";
             }
             ViewBag.Joueur = player;
+            // Récupère le palmarès civic du joueur
+            PalmaresCivil palmares = new PalmaresCivil();
+            ViewBag.listePalmaresCivic = palmares.GetListPalmaresCivic(id);
+
             return View();
         }
 
@@ -180,6 +185,13 @@ namespace basePing.Controllers
         {
             return View();
         }
+        public ActionResult DeleteJoueur(int idJoueur)
+        {
+            Joueur joueur = new Joueur();
+            joueur.DeleteJoueur(idJoueur);
+            return View("Index");
+        }
+        
         [HttpPost]
         public ActionResult AddJoueur(string nom,string prenom, string sexe, DateTime dateNaissance, int? pays)
         {
@@ -200,11 +212,45 @@ namespace basePing.Controllers
             }
             else
             {
-                return Redirect("NewJoueur?error=Enregistrement effectuée");
+                return Redirect("NewJoueur?error=L'enregistrement n'a pas pu être effectué");
             }
-
-            
         }
+        public ActionResult UpdateJoueur(int idJoueur)
+        {
+            Joueur player = new Joueur();
+            ViewBag.Joueur = player.RecupererJoueur(idJoueur);
+            string[] ext = new string[] { "jpg", "jpeg", "png", "gif" };
+            string file = "";
+            int i = 0;
+            string path = "";
+            bool trouve = false;
+            ViewBag.dateNaissance = player.DateNaissance.ToString("dddd, le dd MMMM yyyy ");
+            do
+            {
+                path = idJoueur + "." + ext[i];
+                if (System.IO.File.Exists(@"D:\ProjetWeb\basePing\basePing\Content\image\" + path))
+                {
+                    file = path;
+                    trouve = true;
+                }
+                i++;
+            } while (!trouve && i < ext.Length);
+            ViewBag.photo = file;
+            return View();
+        }
+        [HttpPost]
+        public ActionResult UpdateJoueur(int idJoueur, string nom, string prenom, DateTime dateNaiss, string sexe, int pays)
+        {
+            char sex = 'm';
+            Joueur joueur = new Joueur();
+            if (sexe == "Féminin")
+            {
+                ViewBag.sex = 'f';
+            }
+            joueur.UpdateJoueur(idJoueur, nom, prenom, dateNaiss, sex, pays);
+            return View();
+        }
+
         public ActionResult AjoutJoueurPoule(int id,int idC)
         {
             List<Joueur> listeJ = new Competition(idC).GetListPart();
@@ -285,6 +331,42 @@ namespace basePing.Controllers
                 model.File.SaveAs(Path.Combine(rep, newName));
             }
             return Redirect("~/Joueur/Joueur/"+id);
+        }
+        public ActionResult UpdatePalmares(int idJoueur, int idPalmares)
+        {
+            PalmaresCivil palmares = new PalmaresCivil();
+            palmares=palmares.GetPalmaresCivic(idPalmares);
+            ViewBag.palmares = palmares;
+            ViewBag.idJoueur = idJoueur;
+            return View();
+        }
+        [HttpPost]
+        public ActionResult UpdatePalmares(int idJoueur, int idPalmares, string recompense, DateTime date)
+        {
+            PalmaresCivil palmares = new PalmaresCivil();
+            if(recompense != "" || date != null)
+            {
+                palmares.Update(idPalmares, recompense, date);
+                return Redirect("~/Joueur/Joueur/" + idJoueur);
+            }
+            else
+            {
+                return Redirect("UpdatePalmares/"+idJoueur+"?error=Aucune information trouvée");
+            }
+        }
+        public ActionResult Delete(int idJoueur,int idPalmares)
+        {
+            PalmaresCivil palmares = new PalmaresCivil();
+            palmares.Delete(idPalmares);
+            return Redirect("~/Joueur/Joueur/" + idJoueur);
+        }
+
+        public ActionResult AjoutPalmares(int idJoueur, string recompense, DateTime date)
+        {
+            PalmaresCivil palmares = new PalmaresCivil();
+            recompense = HttpUtility.HtmlEncode(recompense);
+            palmares.AjoutPalmares(idJoueur, recompense, date);
+            return Redirect("~/Joueur/Joueur/" + idJoueur);
         }
     }
 }
