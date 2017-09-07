@@ -44,7 +44,7 @@
                 @if ((bool)Session["admin"])
                 {
                     <td>@Html.ActionLink("Modifier", "UpdateFederation", "Federation", new { id = f.Id }, new { @class = "btn btn-info" })</td>
-                    <td>@Html.ActionLink("Effacer", "DeleteFederation", "Federation", new { id = f.Id }, new { @class = "btn btn-danger" })</td>
+                    <td>@Html.ActionLink("Effacer", "DeleteFederation", "Federation", new { id = f.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Confirmez-vous la suppression?')" })</td>
                 }
             </tr>
         }

@@ -65,16 +65,7 @@ namespace basePing.Models
             return dc.GetAllJoueur();
         }
 
-      
 
-        //public List<PalmaresCivil> ListePalmCivil
-        //{
-        //    get { return ListePalmCivil; }
-        //}
-        //public List<PalmaresSportif> ListePalmSportif
-        //{
-        //    get { return ListePalmSportif; }
-        //}
         public Joueur() { }
         public Joueur(int id, string nom, string prenom, DateTime dateNaissance,char sexe , string nationalite)
         {
@@ -101,10 +92,26 @@ namespace basePing.Models
             this.dateNaissance = j.DateNaissance;
             this.national = j.National;
         }
+        public Joueur RecupererJoueur(int id)
+        {
+            Joueur j = new DataContext.DCJoueur().GetJoueur(id);
+            return j;
+        }
         public void AjouterJoueur()
         {
             DataContext.DCJoueur dCJoueur = new DataContext.DCJoueur();
             dCJoueur.AjoutJoueur(Nom, Prenom, DateNaissance, Sexe, National);
+        }
+
+        public void DeleteJoueur(int id)
+        {
+            DataContext.DCJoueur dCJoueur = new DCJoueur();
+            dCJoueur.DeleteJoueur(id);
+        }
+        public void UpdateJoueur(int idJoueur, string nom, string prenom, DateTime dateNaiss, char sexe, int pays)
+        {
+            DataContext.DCJoueur dCJoueur = new DCJoueur();
+            dCJoueur.UpdateJoueur(idJoueur,nom,prenom,dateNaiss,sexe,pays);
         }
 
         public bool AjouteParticipant(int idJoueur, int idCompetition)
@@ -117,5 +124,6 @@ namespace basePing.Models
             DataContext.DCCompetition participant = new DataContext.DCCompetition();
             participant.DeleteJoueurInComp(idJoueur, idCompetition);
         }
+        
     }
 }

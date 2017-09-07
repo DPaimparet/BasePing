@@ -1,0 +1,51 @@
+﻿@using basePing.Models;
+@model basePing.ViewModel.fichier
+@{
+    ViewBag.Title = "UpdateJoueur";
+}
+
+<h2>Mise à jour du joueur </h2>
+<br />
+<div style="background-color: #199aca; width: auto; padding: 10px 50px;">
+    <div style="position: relative; left: 700px; top: -75px; height:0px;">
+        <img src="~/Content/image/@ViewBag.photo" onerror="this.error=null;src='../../Content/image/no-photo.jpg';" style="border: 2px solid #fff; width: 382px; height: 334px; border-radius: 80px;" />
+        @using (Html.BeginForm("AddPhoto", "Joueur", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.TextBoxFor(m => m.File, new { type = "file" })
+            @Html.ValidationMessageFor(m => m.File)
+            <input type="text" class="hidden" name="id" value="@ViewBag.Joueur.Id">
+            <input type="submit" class="btn btn-success" value="Envoyer" />
+        }
+
+    </div>
+    @using (Html.BeginForm("UpdateJoueur", "Joueur"))
+    {
+        <div class="form-group">
+            <label>Nom </label>
+            <input type="hidden" class="form-control" name="idJoueur" value="@ViewBag.Joueur.Id">
+            <input type="text" class="form-control" name="nom" value="@ViewBag.Joueur.Nom" required="required">
+            <label>Prenom </label>
+            <input type="text" class="form-control" name="prenom" value="@ViewBag.Joueur.Prenom" required="required">
+            <label>Sexe </label>
+            <select class="form-control" name="sexe" required="required">
+                <option></option>
+                <option>Masculin</option>
+                <option>Féminin</option>
+            </select>
+            <label>Date de naissance</label>
+            <input type="date" class="form-control" name="dateNaiss" value="@ViewBag.Joueur.DateNaissance.ToString("yyyy-MM-dd")" required="required" />
+            <label>Nationalité </label>
+            @Html.DropDownList("Pays", Session["listePays"] as SelectList, string.Empty, new { @class = "form-control", required = "required" })
+
+        </div>
+
+        <br />
+        <br />
+        <input type="submit" class="btn btn-warning" value="Enregistrer" />
+        @Html.ActionLink("Annuler", "Joueur", "Joueur", new { id = ViewBag.Joueur.Id }, new { @class = "btn btn-danger" })
+    }
+</div>
+<div>
+    <h2 class="alert-danger">@Request.QueryString["error"]</h2>
+</div>
+

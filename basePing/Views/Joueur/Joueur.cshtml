@@ -1,4 +1,5 @@
 ﻿@model basePing.ViewModel.fichier
+@using basePing.Models
 @{
     ViewBag.Title = "Joueur";
 }
@@ -11,8 +12,8 @@
         @if ((bool)Session["admin"])
         {
             <div>
-                @Html.ActionLink("Modifier", "UpdateJoueur", "Joueur", new { area = "" }, new { @class = "btn btn-info" })
-                @Html.ActionLink("Supprimer", "DeleteJoueur", "Joueur", new { area = "" }, new { @class = "btn btn-danger" })
+                @Html.ActionLink("Modifier", "UpdateJoueur", "Joueur", new { idJoueur = ViewBag.joueur.Id }, new { @class = "btn btn-info" })
+                @Html.ActionLink("Supprimer", "DeleteJoueur", "Joueur", new { idJoueur = ViewBag.joueur.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Confirmez-vous la suppression?')" })
             </div>
         }
     </div>
@@ -20,16 +21,6 @@
 
 <div style="position: relative; left: 700px; top: -75px; height:0px;">
     <img src="~/Content/image/@ViewBag.photo" onerror="this.error=null;src='../../Content/image/no-photo.jpg';" style="border: 2px solid #fff; width: 382px; height: 334px; border-radius: 80px;" />
-    @if ((bool)Session["admin"])
-    {
-        using (Html.BeginForm("AddPhoto", "Joueur", FormMethod.Post, new { enctype = "multipart/form-data" }))
-        {
-            @Html.TextBoxFor(m => m.File, new { type = "file" })
-            @Html.ValidationMessageFor(m => m.File)
-            <input type="text" class="hidden" name="id" value="@ViewBag.Joueur.Id">
-            <input type="submit" class="btn btn-success" value="Envoyer" />
-        }
-    }
 </div>
 <div>
     <br />
@@ -52,15 +43,58 @@
 
 <div width: 500px; height:290px; overflow: hidden;">
     <a name="1"></a>
-    <div style="text-align: center;">Palmarès Civil</div>
-    <div style="text-align: left;">
+    <div style="text-align: center;"><h2>Palmarès Civil</h2></div>
+    <div style="text-align: left;" font size="6" color="#FFFFFF">
+
        @*Liste des palmarès civic*@
-    </div>
+        <br />
+        <br />
+        @if ((bool)Session["admin"])
+        {
+            <font size="6" color="#FFFFFF" face="arial">
+                <div class=" alert alert-info"><strong>Ajouter une récompense civil</strong> </div>
+                <div class="form-inline">
+                    @using (Html.BeginForm("AjoutPalmares", "Joueur"))
+                    {
+                        <div class="form-group">
+                            <label>Récompense reçue</label>
+                            <input type="hidden" class="form-control" name="idJoueur" value="@ViewBag.Joueur.Id">
+                            <input type="text" class="form-control" name="recompense" required="required">
+                        </div>
+                        <div class="form-group">
+                            <label>Date</label>
+                            <input type="date" class="form-control" name="date" required="required">
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-success" value="Créer" />
+                        </div>
+                    }
+                </div>
+             </font>
+         }
+                <br />
+                <table class="table table-striped">
+
+                    @foreach (PalmaresCivil p in ViewBag.listePalmaresCivic)
+                    {
+                        <tr class="bg-info">
+                            <td>@HttpUtility.HtmlDecode(p.Recompense)</td>
+                            <td>@p.Annee.Year</td>
+                            @if ((bool)Session["admin"])
+                    {
+                                <td>@Html.ActionLink("Modifier", "UpdatePalmares", "Joueur", new { idJoueur = ViewBag.joueur.Id, idPalmares = p.IdPalmares }, new { @class = "btn btn-info" })</td>
+                                <td>@Html.ActionLink("Effacer", "Delete", "Joueur", new { idJoueur = ViewBag.joueur.Id, idPalmares = p.IdPalmares }, new { @class = "btn btn-danger" , onclick = "return confirm('Confirmez-vous la suppression?')" })</td>
+                            }
+
+                        </tr>
+                    }
+                </table>
+</div>
 </div>
 
 <div width: 500px; height:290px; overflow: hidden;">
     <a name="2"></a>
-    <div style="text-align: center;">Palmarès Sportif</div>
+    <div style="text-align: center;"><h2>Palmarès Sportif</h2></div>
     <div style="text-align: left;">
        @*Liste des palmarès sportifs*@
     </div>
