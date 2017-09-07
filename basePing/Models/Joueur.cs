@@ -34,12 +34,12 @@ namespace basePing.Models
 
         public string Nom
         {
-            get { return nom; }
+            get { return HttpUtility.HtmlDecode(nom); }
             set { nom = value; }
         }
         public string Prenom
         {
-            get { return prenom; }
+            get { return HttpUtility.HtmlDecode(prenom); }
             set { prenom = value; }
         }
         public char Sexe

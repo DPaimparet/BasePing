@@ -38,9 +38,9 @@
         @foreach (Federation f in ViewBag.liste)
         {
             <tr class="bg-info">
-                <td>@f.NomFederation</td>
+                <td>@HttpUtility.HtmlDecode(f.NomFederation)</td>
                 <td>@f.PaysFederation</td>
-                <td><a href="http://\@f.Web" class="btn btn-primary active" role="button" target="_blank">@f.Web</a></td>
+                <td><a href="http://\@HttpUtility.HtmlDecode(f.Web)" class="btn btn-primary active" role="button" target="_blank">@HttpUtility.HtmlDecode(f.Web)</a></td>
                 @if ((bool)Session["admin"])
                 {
                     <td>@Html.ActionLink("Modifier", "UpdateFederation", "Federation", new { id = f.Id }, new { @class = "btn btn-info" })</td>

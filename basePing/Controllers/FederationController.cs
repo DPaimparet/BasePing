@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using basePing.Models;
+using basePing.DataContext;
 
 namespace basePing.Controllers
 {
@@ -22,6 +23,8 @@ namespace basePing.Controllers
         {
             string pays = Pays.ToString();
             Federation federation = new Federation();
+            nomFederation = HttpUtility.HtmlEncode(nomFederation);
+            web = HttpUtility.HtmlEncode(web);
             if (Pays != null && nomFederation != "" && web != "")
             {
                 federation.AddFederation(nomFederation, pays, web);
@@ -35,11 +38,26 @@ namespace basePing.Controllers
         public ActionResult UpdateFederation(int id)
         {
             Federation federation = new Federation();
+            List<CPays> listP = new CPays().GetListPays();
+            CPays pays = null;
+      
             federation = federation.GetFederation(id);
+            foreach (CPays P in listP)
+            {
+                if (P.Pays == federation.PaysFederation)
+                {
+                    pays = P;
+                }
+            }
+            listP.Insert(0, pays);
+       
+            Session["listP"] = new SelectList(listP,"Id","Pays");
             return View(federation);
         }
         public ActionResult UpdateFede(int id, string nomFederation, int? Pays, string web)
         {
+            nomFederation = HttpUtility.HtmlEncode(nomFederation);
+            web = HttpUtility.HtmlEncode(web);
             if (Pays != null && nomFederation != "")
             {
                 Federation federation = new Federation();

@@ -11,17 +11,17 @@
         <div class="form-group">
             <input type="text" class="hidden" name="id" value="@Model.Id">
             <label>Fédération </label>
-            <input type="text" class="form-control" name="nomFederation" value="@Model.NomFederation">
+            <input type="text" class="form-control" name="nomFederation" value="@HttpUtility.HtmlDecode(Model.NomFederation)">
         </div>
 
             <div class="form-group">
                 <label>Nationalité </label>
-                @Html.DropDownList("Pays", Session["listePays"] as SelectList, Model.PaysFederation, new { @class = "form-control" })
+                @Html.DropDownList("Pays", Session["listP"] as SelectList , new { @class = "form-control" })
             </div>
 
             <div class="form-group">
                 <label>Lien du site</label>
-                <input type="text" class="form-control" name="web" value="@Model.Web">
+                <input type="text" class="form-control" name="web" value="@HttpUtility.HtmlDecode(Model.Web)">
             </div>
             <br />
             <br />
