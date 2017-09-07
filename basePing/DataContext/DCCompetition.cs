@@ -16,12 +16,12 @@ namespace basePing.DataContext
             if (con.IsConnect())
             {
                 //recuperer la compet en entier et l information par equipe ou pas
-                string query = "SELECT * FROM Competition LEFT JOIN Categorie ON competition.idCat=Categorie.idCat WHERE idComp="+id;
+                string query = "SELECT * FROM Competition LEFT JOIN Categorie ON competition.idCat=Categorie.idCat LEFT JOIN Pays on competition.idPays=Pays.id WHERE idComp="+id;
                 var cmd = new MySqlCommand(query, con.Connection);
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                   comp=new Competition(reader.GetInt32(0), reader.GetString(1), reader.GetDateTime(2), reader.GetDateTime(3), reader.GetString(5),reader.GetString(6), new Categorie(reader.GetInt32(9), reader.GetString(10), reader.GetString(11)), null);
+                   comp=new Competition(reader.GetInt32(0), reader.GetString(1), reader.GetDateTime(2), reader.GetDateTime(3), reader.GetString(5),reader.GetString(6), new Categorie(reader.GetInt32(9), reader.GetString(10), reader.GetString(11)), null, new CPays(reader.GetInt32(12),reader.GetString(13),reader.GetString(14)));
                 }
                 reader.Close();
                 return comp;
@@ -37,12 +37,12 @@ namespace basePing.DataContext
             {
                //public Competition(int id, string nom, DateTime dateDeb, DateTime dateFin, string typeComp, string nbrJoueur, Categorie cat)
 
-                string query = "SELECT `competition`.*,`sous_categorie`.*, `categorie`.*  FROM `categorie` LEFT JOIN `sous_categorie` ON `sous_categorie`.`idCat` = `categorie`.`idCat` LEFT JOIN `competition` ON `competition`.`idSousCat` = `sous_categorie`.`idSousCat` WHERE idComp is not NULL AND `competition`.`idSousCat` is not NULL";
+                string query = "SELECT `competition`.*,`sous_categorie`.*, `categorie`.* ,Pays.* FROM `categorie` LEFT JOIN `sous_categorie` ON `sous_categorie`.`idCat` = `categorie`.`idCat` LEFT JOIN `competition` ON `competition`.`idSousCat` = `sous_categorie`.`idSousCat` LEFT JOIN Pays on competition.idPays=Pays.id  WHERE idComp is not NULL AND `competition`.`idSousCat` is not NULL";
                 var cmd = new MySqlCommand(query, con.Connection);
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    lComp.Add(new Competition(reader.GetInt32(0), reader.GetString(1), reader.GetDateTime(2), reader.GetDateTime(3), reader.GetString(5),reader.GetString(6), new Categorie(reader.GetInt32(12), reader.GetString(13), reader.GetString(14)),new SousCategorie(reader.GetInt32(9),reader.GetString(11))));
+                    lComp.Add(new Competition(reader.GetInt32(0), reader.GetString(1), reader.GetDateTime(2), reader.GetDateTime(3), reader.GetString(5),reader.GetString(6), new Categorie(reader.GetInt32(12), reader.GetString(13), reader.GetString(14)),new SousCategorie(reader.GetInt32(9),reader.GetString(11)),new CPays(reader.GetInt32(15), reader.GetString(16), reader.GetString(17))));
                 }
                 reader.Close();
                 return lComp;
@@ -60,12 +60,12 @@ namespace basePing.DataContext
             {
                
 
-                string query = "SELECT `competition`.*, `categorie`.*  FROM `categorie` LEFT JOIN `competition` ON `competition`.`idCat` = `categorie`.`idCat` WHERE  `competition`.`idSousCat` is NULL AND `competition`.`idCat`=" + id;
+                string query = "SELECT `competition`.*, `categorie`.*,Pays.*  FROM `categorie` LEFT JOIN `competition` ON `competition`.`idCat` = `categorie`.`idCat` LEFT JOIN Pays on competition.idPays=Pays.id WHERE  `competition`.`idSousCat` is NULL AND `competition`.`idCat`=" + id;
                 var cmd = new MySqlCommand(query, con.Connection);
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    lComp.Add(new Competition(reader.GetInt32(0), reader.GetString(1), reader.GetDateTime(2), reader.GetDateTime(3), reader.GetString(5), reader.GetString(6), new Categorie(reader.GetInt32(9), reader.GetString(10), reader.GetString(11)),null));
+                    lComp.Add(new Competition(reader.GetInt32(0), reader.GetString(1), reader.GetDateTime(2), reader.GetDateTime(3), reader.GetString(5), reader.GetString(6), new Categorie(reader.GetInt32(9), reader.GetString(10), reader.GetString(11)),null, new CPays(reader.GetInt32(12), reader.GetString(13), reader.GetString(14))));
                 }
                 reader.Close();
                 return lComp;

@@ -6,8 +6,11 @@
     <tr><th>Joueur 1</th><th>Score du joueur 1</th><th>VS</th><th>Score du joueur 2</th><th>Joueur 2</th></tr>
     @foreach (Match m in (List<Match>)Session["listM"])
     {
-        <tr><td>@m.Joueur1.Nom</td><td>@m.Score1</td><td>VS</td><td>@m.Score2</td><td>@m.Joueur2.Nom</td><td>@if ((bool)Session["admin"])
-        {   @Html.ActionLink("Supprimer", "SuppMatch", "Match", new { id=m.Id }, new { @class = "btn btn-success" })
+      
+        <tr><td>@m.Joueur1.Nom</td><td>@m.Score1</td><td>VS</td><td>@m.Score2</td><td>@m.Joueur2.Nom</td><td>@Html.ActionLink("Détail","InfoMatch","Match", new { id = m.Id },null)</td><td>
+        @if ((bool)Session["admin"])
+        { 
+            @Html.ActionLink("Supprimer", "SuppMatch", "Match", new { id=m.Id }, new { @class = "btn btn-success", onclick = "return confirm('Etes vous sur de vouloir supprimer ce match')" })
         }</td></tr>
     }
 </table>

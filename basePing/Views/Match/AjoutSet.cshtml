@@ -1,0 +1,18 @@
+﻿
+
+
+<h2>Enregistrer un set</h2>
+
+@using (Html.BeginForm("AjoutSet", "Match"))
+{
+<label>Point du joueur :@ViewBag.j1</label>
+<input type="number"  min="0" max="100" value="0" required="required" name="point1"/>
+
+<label>Point du joueur :@ViewBag.j2</label>
+<input type="number" min="0" max="100" value="0" required="required" name="point2" />
+
+<input type="submit" value="Ajouter" />
+
+}
+
+

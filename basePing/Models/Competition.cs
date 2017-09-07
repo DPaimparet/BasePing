@@ -14,6 +14,7 @@ namespace basePing.Models
         private DateTime dateFin;
         private string typeComp;
         private string nbrJoueur;
+        private CPays pays;
         private Categorie cat;
         private SousCategorie sousCat;
         private List<Poule> lPoule= new List<Poule>();
@@ -24,7 +25,7 @@ namespace basePing.Models
         public string Nom { get { return nom; } set { nom = value; } }
         public DateTime DateDeb { get { return dateDeb; } set { dateDeb = value; } }
         public DateTime DateFin { get { return dateFin; } set { dateFin = value; } }
-
+        public CPays Pays { get { return pays;  } }
         
 
         public string TypeComp { get { return typeComp; } set { typeComp = value; } }
@@ -35,7 +36,7 @@ namespace basePing.Models
         public Tournoi Tournoi { get { return tournoi; } set { tournoi = value; } }
 
 
-        public Competition(int id, string nom, DateTime dateDeb,DateTime dateFin, string typeComp,string nbrJoueur,Categorie cat, SousCategorie sousCat)
+        public Competition(int id, string nom, DateTime dateDeb,DateTime dateFin, string typeComp,string nbrJoueur,Categorie cat, SousCategorie sousCat,CPays pays)
         {
             this.id = id;
             this.nom = nom;
@@ -45,6 +46,7 @@ namespace basePing.Models
             this.cat = cat;
             this.sousCat = sousCat;
             this.nbrJoueur = nbrJoueur;
+            this.pays = pays;
 
         }
 
@@ -58,7 +60,7 @@ namespace basePing.Models
             this.id = id;
         }
 
-        public Competition(int id, string nom, DateTime dateDeb, DateTime dateFin, string typeComp, string nbrJoueur)
+        public Competition(int id, string nom, DateTime dateDeb, DateTime dateFin, string typeComp, string nbrJoueur,CPays pays)
         {
 
             this.id = id;
@@ -67,6 +69,7 @@ namespace basePing.Models
             this.dateFin = dateFin;
             this.typeComp = typeComp;
             this.nbrJoueur = nbrJoueur;
+            this.pays = pays;
 
         }
 

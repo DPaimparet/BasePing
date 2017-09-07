@@ -192,6 +192,7 @@
     <Compile Include="DataContext\DCLogin.cs" />
     <Compile Include="DataContext\DCMatch.cs" />
     <Compile Include="DataContext\DCPoule.cs" />
+    <Compile Include="DataContext\DCSet.cs" />
     <Compile Include="DataContext\DCSousCategorie.cs" />
     <Compile Include="DataContext\DCTournoi.cs" />
     <Compile Include="Global.asax.cs">
@@ -316,6 +317,8 @@
     <Content Include="Views\Match\LieMatchPoule.cshtml" />
     <Content Include="Views\Competition\SousCategorie.cshtml" />
     <Content Include="Views\Competition\AjouterSousCatForm.cshtml" />
+    <Content Include="Views\Match\InfoMatch.cshtml" />
+    <Content Include="Views\Match\AjoutSet.cshtml" />
     <Content Include="Views\Joueur\UpdatePalmares.cshtml" />
     <Content Include="Views\Joueur\UpdateJoueur.cshtml" />
   </ItemGroup>

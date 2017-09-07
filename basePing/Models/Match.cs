@@ -23,7 +23,7 @@ namespace basePing.Models
         public int Score2 { get { return scoreJ2; } set { scoreJ2 = value; } }
         public int Position { get { return position; }set { position = value; } }
         public string Info { get { return j1.Nom + " " + j1.Prenom + " |" + scoreJ1 + " Contre " + j2.Nom + " " + j2.Prenom + " |" + scoreJ2; } }
-
+        public List<Set> LSet { get { return lSet; } set { lSet = value; } }
 
 
         public Match()

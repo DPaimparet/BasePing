@@ -43,6 +43,7 @@ namespace basePing.Controllers
         {
             
             Session["idSC"] = id;
+            
             Competition comp = new Competition();
             if (id != -1) { 
             List<CPays> listePays = new CPays().GetListPays();
@@ -69,7 +70,9 @@ namespace basePing.Controllers
         {
             Session["idComp"] = id;
             Competition comp = new Competition(id);
-            comp = comp.GetInformation();           
+            
+            comp = comp.GetInformation();
+            Session["CPays"] = comp.Pays;
             return View(comp);
         }
 
@@ -93,7 +96,6 @@ namespace basePing.Controllers
 
         public ActionResult SuppSousCat(int idSC)
         {
-            System.Web.HttpContext.Current.Response.Write("<SCRIPT LANGUAGE=\"JavaScript\">alert(\"Hello this is an Alert\")</SCRIPT>");
             DCSousCategorie dc = new DCSousCategorie();
             dc.Delete(idSC);
 
@@ -145,6 +147,7 @@ namespace basePing.Controllers
             List<SousCategorie> lSC = new List<SousCategorie>();
             lSC = sc.GetList(idc);
             List<CPays> listePays = new CPays().GetListPays();
+            listePays.Insert(0, (CPays)Session["CPays"]);
             List<String> listeType = new List<String>();
             listeType.Add(type);
             listeType.Add("Masculin");
@@ -159,8 +162,8 @@ namespace basePing.Controllers
             ViewBag.listeType = new SelectList(listeType);
             ViewBag.listeNbrJ = new SelectList(listeNbrJ);
             ViewBag.Nom = nom;
-            ViewBag.dateD = dateD.ToString();
-            ViewBag.dateF = dateF.ToString();
+            ViewBag.dateD = dateD;
+            ViewBag.dateF = dateF;
             ViewBag.idComp = id;
             return View();
         }

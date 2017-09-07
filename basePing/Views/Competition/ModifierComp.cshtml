@@ -2,15 +2,18 @@
 @using (Html.BeginForm("ModifierComp", "Competition"))
 {
 
-
+   
+    <h1>Modification de la compétition</h1>
+    <br />
     <label>Nom de la compétition</label>
     <input type="text" name="nom" value="@ViewBag.Nom" required="required" />
     <label>Date de début </label>
-    <input type="date" name="dateD" value="@ViewBag.dateD" required="required" />
+    <input type="date" name="dateD" value="@ViewBag.dateD.ToString("yyyy-MM-dd")" required="required" />
     <label>Date de fin </label>
-    <input type="date" name="dateF" value="@ViewBag.dateF" required="required"/>
+    <input type="date" name="dateF" value="@ViewBag.dateF.ToString("yyyy-MM-dd")" required="required"/>
+    <br />
     <label>Nationalité</label>
-    @Html.DropDownList("pays", (SelectList)ViewBag.listePays, string.Empty, new { @class = "form-control" })
+    @Html.DropDownList("pays", (SelectList)ViewBag.listePays, new { @class = "form-control" })
     <label>Type compétition</label>
     @Html.DropDownList("type", (SelectList)ViewBag.listeType, new { @class = "form-control" })
     <label>Equipe ou Individuel</label>
