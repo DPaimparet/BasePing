@@ -245,6 +245,9 @@ namespace basePing.Controllers
         [HttpPost]
         public ActionResult UpdateJoueur(int idJoueur, string nom, string prenom, DateTime dateNaiss, string sexe, int pays)
         {
+            // Empêché les injections
+            nom = HttpUtility.HtmlEncode(nom);
+            prenom = HttpUtility.HtmlEncode(prenom);
             char sex = 'm';
             Joueur joueur = new Joueur();
             if (sexe == "Féminin")
@@ -252,7 +255,7 @@ namespace basePing.Controllers
                 ViewBag.sex = 'f';
             }
             joueur.UpdateJoueur(idJoueur, nom, prenom, dateNaiss, sex, pays);
-            return View();
+            return Redirect("~/Joueur/Joueur/" + idJoueur);
         }
 
         public ActionResult AjoutJoueurPoule(int id,int idC)

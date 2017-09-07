@@ -45,7 +45,7 @@ namespace basePing.DataContext
             DBConnection con = DBConnection.Instance();
             if (con.IsConnect())
             {
-                string query = "INSERT INTO joueur(nom,prenom,dateNaiss,sexe,idPays) VALUES (" + nom + ", '" + prenom + "', '" + dateNaiss.ToString("yyyy-MM-dd") + "', '" + sexe + "', "+ pays + ") WHERE idJoueur =" + idJoueur+ "";
+                string query = "UPDATE joueur SET nom ='" + nom + "',prenom = '" + prenom + "', dateNaiss = '" + dateNaiss.ToString("yyyy-MM-dd") + "',sexe =  '" + sexe + "' ,idPays = '" + pays + "' WHERE idJoueur=" + idJoueur ;
                 var cmd = new MySqlCommand(query, con.Connection);
                 var reader = cmd.ExecuteReader();
                 reader.Close();
