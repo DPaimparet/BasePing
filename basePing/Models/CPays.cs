@@ -14,7 +14,7 @@ namespace basePing.Models
 
         public int Id { get { return id; } set{ id = value; } }
         public string CodePays { get; set; }
-        public string Pays { get {return pays; } set { pays = value; } }
+        public string Pays { get {return HttpUtility.HtmlDecode(pays); } set { pays = value; } }
 
         public string this[int i]
         {

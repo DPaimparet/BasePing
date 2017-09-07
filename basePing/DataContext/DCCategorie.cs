@@ -9,7 +9,27 @@ namespace basePing.DataContext
 {
     public class DCCategorie
     {
-        
+
+        public Categorie find(int id)
+        {
+            Categorie cat = new Categorie();
+            DBConnection con = DBConnection.Instance();
+            if (con.IsConnect())
+            {
+                string query = "SELECT * FROM Categorie WHERE idCat="+id;
+                var cmd = new MySqlCommand(query, con.Connection);
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    cat=new Categorie(reader.GetInt32(0), reader.GetString(1), reader.GetString(2));
+                }
+                reader.Close();
+                return cat;
+            }
+            else
+                return null;
+        }
+
         public List<Categorie> findAll()
         {
             List<Categorie> lCat = new List<Categorie>();

@@ -45,5 +45,20 @@ namespace basePing.DataContext
             else
                 return false;
         }
+
+        public bool Delete(int idS)
+        {
+            DBConnection con = DBConnection.Instance();
+            if (con.IsConnect())
+            {
+                string query = "DELETE FROM `set` WHERE idSet=" + idS;
+                var cmd = new MySqlCommand(query, con.Connection);
+                var reader = cmd.ExecuteReader();
+                reader.Close();
+                return true;
+            }
+            else
+                return false;
+        }
     }
 }

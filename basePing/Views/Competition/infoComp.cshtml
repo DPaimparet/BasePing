@@ -13,7 +13,7 @@
     }
     if (Model.LPoule.Count != 0)
     {
-        <table border="1">
+        <table border="1" class="table table-striped">
             @foreach (Poule p in Model.LPoule)
             {
                 <tr> <th colspan="4">@p.NomPoule</th></tr>
@@ -21,9 +21,9 @@
                 foreach (infoJoueur j in p.LJoueur)
                 {
                     <tr>
-                        <td>@Html.ActionLink(j.nom, "Joueur", "Joueur", new { id = j.Id }, new { @class = "btn" })</td>
-                        <td>@Html.ActionLink(j.matchGagné+" ", "ListMatchPoule", "Serie", new { idP=p.Id, idC=Model.Id,IdJ=j.Id}, new { @class = "btn" })</td>
-                        <td>@Html.ActionLink(j.matchPerdu+" ", "ListMatchPoule", "Serie", new { idP = p.Id, idC = Model.Id, IdJ = j.Id }, new { @class = "btn" })</td>
+                        <td>@Html.ActionLink(j.nom, "Joueur", "Joueur", new { id = j.Id }, new { @class = "btn btn-success" })</td>
+                        <td>@Html.ActionLink(j.matchGagné+" ", "ListMatchPoule", "Serie", new { idP=p.Id, idC=Model.Id,IdJ=j.Id}, new { @class = "btn btn-success" })</td>
+                        <td>@Html.ActionLink(j.matchPerdu+" ", "ListMatchPoule", "Serie", new { idP = p.Id, idC = Model.Id, IdJ = j.Id }, new { @class = "btn btn-success" })</td>
                     </tr>
                 }
             }
@@ -127,7 +127,7 @@ else//PARTIE ADMINISTRATION
 
     if (Model.LPoule.Count != 0)
         {
-        <table border="1">
+        <table border="1" class="table table-striped">
             @foreach (Poule p in Model.LPoule)
             {
                 <tr> <th colspan="4">@p.NomPoule</th></tr>
@@ -136,8 +136,8 @@ else//PARTIE ADMINISTRATION
                 {
                     <tr>
                         <td>@Html.ActionLink(j.nom, "Joueur", "Joueur", new { id = j.Id }, new { @class = "btn btn-succes" })</td>
-                        <td>@Html.ActionLink(j.matchGagné + " ", "ListMatchPoule", "Serie", new { idP = p.Id, idC = Model.Id, IdJ = j.Id }, new { @class = "btn" })</td>
-                        <td>@Html.ActionLink(j.matchPerdu + " ", "ListMatchPoule", "Serie", new { idP = p.Id, idC = Model.Id, IdJ = j.Id }, new { @class = "btn" })</td>
+                        <td>@Html.ActionLink(j.matchGagné + " ", "ListMatchPoule", "Serie", new { idP = p.Id, idC = Model.Id, IdJ = j.Id }, new { @class = "btn btn-success" })</td>
+                        <td>@Html.ActionLink(j.matchPerdu + " ", "ListMatchPoule", "Serie", new { idP = p.Id, idC = Model.Id, IdJ = j.Id }, new { @class = "btn btn-success" })</td>
 
 
                         <td>
@@ -217,12 +217,12 @@ else//PARTIE ADMINISTRATION
                                     }
                     else
                     {
-                                        <tr><td style="border: 1px solid #cdd0d4;">@match[cpt].Joueur1.Nom | @match[cpt].Score1</td></tr>
+                                        <tr><td style="border: 1px solid #cdd0d4;">@Html.ActionLink(@match[cpt].Joueur1.Nom+" | "+@match[cpt].Score1, "Joueur", "Joueur", new { id = @match[cpt].Joueur1.Id }, new { @class = "btn btn-succes" })</td></tr>
                                         for (int z = 0; z <= tab[1, i] - 2; z++)
                         {
                                             <tr><td style="border-right: 1px solid #cdd0d4;">.</td></tr>
                                         }
-                                        <tr><td style="border: 1px solid #cdd0d4;">@match[cpt].Joueur2.Nom | @match[cpt].Score2</td></tr>
+                                        <tr><td style="border: 1px solid #cdd0d4;">@Html.ActionLink(@match[cpt].Joueur2.Nom + " | " + @match[cpt].Score2, "Joueur", "Joueur", new { id = @match[cpt].Joueur2.Id }, new { @class = "btn btn-succes" })</td></tr>
                                     }
                     cpt++;
                     if (j < taille[Model.Tournoi.Taille - 1] - tab[1, i])

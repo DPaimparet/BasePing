@@ -38,6 +38,13 @@ namespace basePing.Controllers
             return View();
         }
 
+        public ActionResult SupprimerSet(int idS,int idM)
+        {
+            DCSet dc = new DCSet();
+            dc.Delete(idS);
+            return Redirect("~/Match/InfoMatch/" + idM);
+        }
+
         [HttpPost]
         public ActionResult AjoutSet(int point1, int point2)
         {

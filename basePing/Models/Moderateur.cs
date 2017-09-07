@@ -12,9 +12,9 @@ namespace basePing.Models
         private string email;
         
         public int Id { get { return id; } set { id = value; } }
-        public string Login { get { return login; } set {  login = value; } }
+        public string Login { get { return HttpUtility.HtmlDecode(login); } set {  login = value; } }
 
-        public string Email{ get { return email; } set { email = value; } }
+        public string Email{ get { return HttpUtility.HtmlDecode(email); } set { email = value; } }
 
 
         public Moderateur(int id, string login, string email)

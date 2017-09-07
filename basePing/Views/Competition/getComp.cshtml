@@ -1,48 +1,46 @@
 ﻿@using basePing.Models;
 
-<h1>@ViewBag.cat.Nom</h1>
-@if ((bool)Session["admin"])
-{
-    @Html.ActionLink("Modifier", "ModifCat", "Competition",
-                     new { id = ViewBag.cat.Id }, new { @class = "btn" })
-}
 
-<table border="1">
-@{
+
+
+<table border="1" class="table table-striped">
+    @{
 ((Categorie)ViewBag.cat).GetListSousCat();
 
-    <tr><th>Nom de la compétition</th><th>Date des compétitions</th><th>Type de la compétition</th></tr>
-   
+        <tr><th>Nom de la compétition</th><th>Date des compétitions</th><th>Type de la compétition</th></tr>
+
         foreach (Competition c in ViewBag.listComp)
-        {         
-        <tr>
-            <td>
-                @Html.ActionLink(c.Nom, "InfoComp", "Competition",
-                              new { id = c.Id }, new { @class = "btn" })
-            </td>
-            <td>
-                @c.DateDeb.ToString("dd MMMM yyyy")
-            </td>
-            <td>
-                @c.TypeComp
-            </td>
+        {
+            <tr class="bg-info">
+                <td>
+                    @Html.ActionLink(c.Nom, "InfoComp", "Competition",
+                              new { id = c.Id }, new { @class = "btn btn-info" })
+                </td>
+                <td>
+                    @c.DateDeb.ToString("dd MMMM yyyy")
+                </td>
+                <td>
+                    @c.TypeComp
+                </td>
 
 
-        </tr>
+            </tr>
         }
-        <tr>
-            <td colspan="3">
-                @if ((bool)Session["admin"])
-                {
+
+        if ((bool)Session["admin"])
+        {
+            <tr class="bg-info">
+                <td colspan="3">
                     @Html.ActionLink("Crée une nouvelle compétition", "AjoutComp", "Competition",
-                    new { id = ViewBag.cat.Id, idSC = Session["idSC"] }, new { @class = "btn btn-succes" })
-                }
-            </td>
-        </tr>
-        <tr></tr>
+                    new { id = ViewBag.cat.Id, idSC = Session["idSC"] }, new { @class = "btn btn-info" })
+
+                </td>
+            </tr>
+        }
+
 
     }
- 
+
 
 
 

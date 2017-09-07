@@ -27,7 +27,7 @@ namespace basePing.Controllers
         public ActionResult AjouterSousCat(string nom)
         {
             DCSousCategorie dc = new DCSousCategorie();
-            dc.Insert(nom,(int)Session["idC"]);
+            dc.Insert(HttpUtility.HtmlEncode(nom),(int)Session["idC"]);
             return Redirect("SousCategorie/" + Session["idC"]);
         }
 
@@ -35,6 +35,8 @@ namespace basePing.Controllers
         {
             Session["idC"] = id;
             SousCategorie Scat = new SousCategorie();
+            Categorie cat = new DCCategorie().find(id);
+            ViewBag.Cat = cat;
             ViewBag.sousCat=Scat.GetList(id);
             return View();
         }
@@ -58,7 +60,7 @@ namespace basePing.Controllers
             }
             foreach(Categorie c in Categorie.GetList())
             {
-                if (c.Id == id)
+                if (c.Id == (int)Session["idC"])
                     ViewBag.cat = c;
             }
             ViewBag.listComp = triedList;
@@ -106,7 +108,7 @@ namespace basePing.Controllers
         public ActionResult ModifCat(int id, string nom , string desc)
         {
             DCCategorie dc = new DCCategorie();
-            dc.Update(nom, desc,id);
+            dc.Update(HttpUtility.HtmlEncode(nom), HttpUtility.HtmlEncode(desc),id);
             return Redirect("~/Home/Connect");
         }
 
@@ -121,7 +123,7 @@ namespace basePing.Controllers
             listeType.Add("Mixte");
             List<String> listeNbrJ= new List<String>();
             listeNbrJ.Add("Individuel");
-            listeNbrJ.Add("Equipe");
+           // listeNbrJ.Add("Equipe");
             ViewBag.listePays = new SelectList(listePays, "Id", "Pays");
             ViewBag.listeType = new SelectList(listeType);
             ViewBag.listeNbrJ = new SelectList(listeNbrJ);
@@ -136,8 +138,8 @@ namespace basePing.Controllers
         public ActionResult AjoutComp(String nom, DateTime dateD, DateTime dateF, string pays, string type, string nbrJ, int idCat)
         {
             DCCompetition dc = new DCCompetition();
-            dc.Insert(nom, dateD, dateF, pays, type, nbrJ, idCat, (int)Session["idSC"]);
-            return Redirect("~/Competition/GetComp/"+idCat);
+            dc.Insert(HttpUtility.HtmlEncode(nom), dateD, dateF, pays, HttpUtility.HtmlEncode(type), HttpUtility.HtmlEncode(nbrJ), idCat, (int)Session["idSC"]);
+            return Redirect("~/Competition/GetComp/"+ Session["idSC"]);
         }
 
 
@@ -172,7 +174,7 @@ namespace basePing.Controllers
         public ActionResult ModifierComp(String nom, DateTime dateD, DateTime dateF, string pays, string type, string nbrJ,int idSC,int idComp)
         {
             DCCompetition dc = new DCCompetition();
-            dc.Update(idComp,nom, dateD, dateF, pays, type, nbrJ,idSC);
+            dc.Update(idComp, HttpUtility.HtmlEncode(nom), dateD, dateF, pays, HttpUtility.HtmlEncode(type), HttpUtility.HtmlEncode(nbrJ),idSC);
             return Redirect("~/Competition/InfoComp/" + idComp);
         }
 
@@ -352,7 +354,7 @@ namespace basePing.Controllers
                 sex = 'm';
             }
             string Pays = pays.ToString();
-            Joueur joueur = new Joueur(0, nom, prenom, dateNaissance, sex, Pays);
+            Joueur joueur = new Joueur(0, HttpUtility.HtmlEncode(nom), HttpUtility.HtmlEncode(prenom), dateNaissance, sex, Pays);
             joueur.AjouterJoueur();
             return Redirect("~/Competition/AjoutParticipant/" + Session["idComp"]);
         }

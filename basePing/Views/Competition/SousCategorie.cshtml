@@ -1,13 +1,18 @@
 ﻿@using basePing.Models
 
-<h2>Catégorie</h2>
+<h2>@ViewBag.Cat.Nom</h2>
 
+@if ((bool)Session["admin"])
+{
+    @Html.ActionLink("Modifier", "ModifCat", "Competition",
+                     new { id = ViewBag.Cat.Id }, new { @class = "btn" })
+}
 
-<ul>
+<ul class="list-group">
 
     @foreach (SousCategorie cat in ViewBag.sousCat)
     {
-        <li>
+        <li class="list-group-item list-group-item-success">
             <a href="~/Competition/GetComp/@cat.Id">@cat.Nom</a>
             @if ((bool)Session["admin"])
             {

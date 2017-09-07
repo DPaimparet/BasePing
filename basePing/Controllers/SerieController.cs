@@ -26,14 +26,14 @@ namespace basePing.Controllers
 
         public ActionResult ModifPouleForm(int idC, int id,string desc,string nom,int taille)
         {
-            Poule p = new Poule(id,desc,taille,nom);
+            Poule p = new Poule(id, HttpUtility.HtmlEncode(desc),taille, HttpUtility.HtmlEncode(nom));
             Session["idC"] = idC;
             return View(p);
         }
         [HttpPost]
         public ActionResult ModifPoule(int id, string nom, string desc, int taille)
         {
-            Poule p = new Poule(id, desc, taille, nom);
+            Poule p = new Poule(id, HttpUtility.HtmlEncode(desc), taille, HttpUtility.HtmlEncode(nom));
             DCPoule dc = new DCPoule();
             dc.Update(p);
             return Redirect("~/Competition/InfoComp/" + Session["idC"]);
@@ -58,7 +58,7 @@ namespace basePing.Controllers
         public ActionResult AjouterPhaseFinale(int id,int taille, string desc)
         {
             DCTournoi dc = new DCTournoi();
-            dc.Create(id,taille,desc);
+            dc.Create(id,taille, HttpUtility.HtmlEncode(desc));
             return Redirect("~/Competition/InfoComp/" + id);
         }
 

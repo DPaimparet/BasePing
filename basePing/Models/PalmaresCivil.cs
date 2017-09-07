@@ -19,7 +19,7 @@ namespace basePing.Models
 
         public string Recompense
         {
-            get { return recompense; }
+            get { return HttpUtility.HtmlDecode(recompense); }
             set { recompense = value; }
         }
 

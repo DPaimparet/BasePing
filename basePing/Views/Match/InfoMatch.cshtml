@@ -29,8 +29,9 @@
            {
                cpt2++;
            }
-           <tr><td>Set @cpt</td><td>@s.PointJ1</td><td>@s.PointJ2</td></tr>
+           <tr><td>Set @cpt</td><td>@s.PointJ1</td><td>@s.PointJ2</td> <td>@Html.ActionLink("Ajouter un set", "SupprimerSet", "Match", new { idS = s.Id,idM=Model.Id}, null)</td></tr>
            cpt++;
+           
 
        }
         @if ((bool)Session["admin"] && cpt-1<Model.Score1+Model.Score2)
