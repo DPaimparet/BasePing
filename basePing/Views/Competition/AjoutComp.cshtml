@@ -1,16 +1,18 @@
 ﻿
 @using (Html.BeginForm("AjoutComp", "Competition"))
 {
-
+    <h1>Ajouter une nouvelle compétition</h1>
 
     <label>Nom de la compétition</label>
     <input type="text" name="nom" required="required" />
+    <br />
     <label>Date de début </label>
     <input type="date" name="dateD" required="required" />
     <label>Date de fin </label>
     <input type="date" name="dateF" />
+    <br />
     <label>Nationalité</label>
-    @Html.DropDownList("pays", (SelectList)ViewBag.listePays, string.Empty, new { @class = "form-control" })
+    @Html.DropDownList("pays", (SelectList)ViewBag.listePays, new { @class = "form-control" })
     <label>Type compétition</label>
     @Html.DropDownList("type", (SelectList)ViewBag.listeType, new { @class = "form-control" })
     <label>Equipe ou Individuel</label>

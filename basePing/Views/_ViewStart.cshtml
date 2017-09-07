@@ -1,9 +1,8 @@
 ﻿
 @if (Session["admin"] == null)
 {
+    Session["admin"] = false;
     <h2>Vous avez été deconnecté pour cause d'inactivité.</h2>
-            @Html.Action("Index", "Home")
-            
 }
 
 
