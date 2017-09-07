@@ -1,3 +1,12 @@
-﻿@{
+﻿
+@if (Session["admin"] == null)
+{
+    <h2>Vous avez été deconnecté pour cause d'inactivité.</h2>
+            @Html.Action("Index", "Home")
+            
+}
+
+
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }

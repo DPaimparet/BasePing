@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" />
@@ -314,6 +314,8 @@
     <Content Include="Views\Match\LieMatch.cshtml" />
     <Content Include="Views\Serie\ListMatchPoule.cshtml" />
     <Content Include="Views\Match\LieMatchPoule.cshtml" />
+    <Content Include="Views\Competition\SousCategorie.cshtml" />
+    <Content Include="Views\Competition\AjouterSousCatForm.cshtml" />
     <Content Include="Views\Joueur\UpdatePalmares.cshtml" />
     <Content Include="Views\Joueur\UpdateJoueur.cshtml" />
   </ItemGroup>
