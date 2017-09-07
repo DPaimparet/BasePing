@@ -26,6 +26,7 @@ namespace basePing.Controllers
             char sex = 'f';
             DCJoueur joueur = new DCJoueur();
             List<Joueur> listeJoueur = new List<Joueur>();
+            nom = HttpUtility.HtmlEncode(nom);
             ViewBag.alerte = 0;
             ViewBag.Message = null;
             // Vérification du sexe
@@ -197,6 +198,9 @@ namespace basePing.Controllers
         {
             // Initialisation
             char sex = 'f';
+            // Empêché les injections
+            nom = HttpUtility.HtmlEncode(nom);
+            prenom = HttpUtility.HtmlEncode(prenom);
             // Vérification du sexe
             if (sexe == "Masculin")
             {

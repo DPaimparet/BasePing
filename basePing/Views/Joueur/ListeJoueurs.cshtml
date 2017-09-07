@@ -39,8 +39,8 @@
         @foreach (Joueur j in ViewBag.listejoueur)
         {
             <tr class="bg-info">
-                <td>@j.Nom</td>
-                <td>@j.Prenom</td>
+                <td>@HttpUtility.HtmlDecode(j.Nom)</td>
+                <td>@HttpUtility.HtmlDecode(j.Prenom)</td>
                 <td>@j.National</td>
                 <td>@Html.ActionLink("Fiche joueur", "Joueur", "Joueur", new { id = j.Id }, new { @class = "btn btn-info" })</td>
 

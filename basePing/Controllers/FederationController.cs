@@ -22,6 +22,8 @@ namespace basePing.Controllers
         {
             string pays = Pays.ToString();
             Federation federation = new Federation();
+            nomFederation = HttpUtility.HtmlEncode(nomFederation);
+            web = HttpUtility.HtmlEncode(web);
             if (Pays != null && nomFederation != "" && web != "")
             {
                 federation.AddFederation(nomFederation, pays, web);
@@ -40,6 +42,8 @@ namespace basePing.Controllers
         }
         public ActionResult UpdateFede(int id, string nomFederation, int? Pays, string web)
         {
+            nomFederation = HttpUtility.HtmlEncode(nomFederation);
+            web = HttpUtility.HtmlEncode(web);
             if (Pays != null && nomFederation != "")
             {
                 Federation federation = new Federation();
