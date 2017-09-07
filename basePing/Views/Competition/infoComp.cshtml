@@ -3,8 +3,10 @@
 @model basePing.Models.Competition
 
 
+
 @if ((Boolean)Session["admin"] == false)
 {
+    Joueur finaliste = null;
 <h1>@Model.Nom du @Model.DateDeb.ToShortDateString() au @Model.DateFin.ToShortDateString()</h1>
 <h2>Liste des participant</h2>
     foreach(Joueur j in Model.GetListPart())
@@ -40,6 +42,16 @@
                     for (int i = 0; i < Model.Tournoi.Taille; i++)
                     {
                         Match[] match = Model.Tournoi.getArrayMatch();
+                        if (match.Last() != null && match.Last().Score1 > match.Last().Score2)
+                        {
+                            finaliste = match.Last().Joueur1;
+
+                        }
+                        else if (match.Last() != null && match.Last().Score1 < match.Last().Score2)
+                        {
+                            finaliste = match.Last().Joueur2;
+                        }
+
                         <td>
                             <table>
                                 @for (int u = 0; u < tab[0, i]; u++)
@@ -97,7 +109,15 @@
                             {
                                 <tr><td>.</td></tr>
                             }
-                            <tr><td>Finalliste</td></tr>
+                            @if (finaliste == null)
+                            {
+                                <tr><td>.</td></tr>
+
+                            }
+                            else
+                            {
+                                <tr><td>@finaliste.Nom</td></tr>
+                            }
                             @for (int u = 0; u < tab[0, Model.Tournoi.Taille]; u++)
                             {
                                 <tr><td>.</td></tr>
@@ -107,12 +127,12 @@
                 }
             </tr>
         </table>
-    }
+       }
 
- }
-else//PARTIE ADMINISTRATION
-{
-
+      }
+   else//PARTIE ADMINISTRATION
+    {
+   Joueur finaliste = null;
     <h1>@Model.Nom du @Model.DateDeb.ToShortDateString() au @Model.DateFin.ToShortDateString()</h1>
     @Html.ActionLink("Modifier", "ModifierComp", "Competition", new { id = Model.Id,nom=Model.Nom,dateD=Model.DateDeb,dateF=Model.DateFin,type=Model.TypeComp,nbrJ=Model.NbrJoueur,idc=Model.Cat.Id }, new { @class = "btn btn-info" })
     @Html.ActionLink("Ajouter un participant", "AjoutParticipant", "Competition", new { id = Model.Id }, new { @class = "btn btn-success" })
@@ -159,7 +179,7 @@ else//PARTIE ADMINISTRATION
                 <tr>
                     <td colspan="4">
                         @Html.ActionLink("Modifier Poule", "ModifPouleForm", "Serie", new {idC=Model.Id, id = p.Id,desc=p.Descriptif,nom=p.NomPoule,taille=p.Taille }, new { @class = "btn btn-info" })
-                        @Html.ActionLink("Supprimmer Poule", "SuppPoule", "Serie", new { id = p.Id,idC=Model.Id }, new { @class = "btn btn-danger" })
+                        @Html.ActionLink("Supprimmer Poule", "SuppPoule", "Serie", new { id = p.Id,idC=Model.Id }, new { @class = "btn btn-danger" , onclick = "return confirm('Attention , la supression de la catégorie entrainera la supression de toutes informations liée a cette dernière, êtes vous sur.')" })
                     </td>
 
                 </tr>
@@ -190,11 +210,20 @@ else//PARTIE ADMINISTRATION
         <table>
             <tr>
                     @{int[,] tab = new int[2, 6] { { 0, 1, 3, 7, 15, 31 }, { 2, 4, 8, 16, 32, 64 } };
-                int[] taille = { 1, 3, 7, 15, 31, 63 };
-                int cpt = 0;
-                for (int i = 0; i < Model.Tournoi.Taille; i++)
-                {
-                    Match[] match = Model.Tournoi.getArrayMatch();
+                        int[] taille = { 1, 3, 7, 15, 31, 63 };
+                        int cpt = 0;
+                        for (int i = 0; i < Model.Tournoi.Taille; i++)
+                        {
+                            Match[] match = Model.Tournoi.getArrayMatch();
+                            if (match.Last()!=null && match.Last().Score1 > match.Last().Score2) {
+                                finaliste = match.Last().Joueur1;
+
+                            }
+                            else if(match.Last() != null && match.Last().Score1 < match.Last().Score2)
+                            {
+                                finaliste = match.Last().Joueur2;
+                            }
+
                         <td>
                             <table>
                                 @for (int u = 0; u < tab[0, i]; u++)
@@ -203,43 +232,44 @@ else//PARTIE ADMINISTRATION
                                 }
 
 
-                @for (int j = 0; j < taille[Model.Tournoi.Taille - 1]; j = j + tab[1, i])
+                                @for (int j = 0; j < taille[Model.Tournoi.Taille - 1]; j = j + tab[1, i])
                                 {
-                    if (@match[cpt] == null)
-                    {
+                                    if (@match[cpt] == null)
+                                    {
                                         <tr><td style="border: 1px solid #cdd0d4;">.</td></tr>
-                                        <tr><td style="border-right: 1px solid #cdd0d4;">@Html.ActionLink("Ajouter Match", "LieMatch", "Match", new { pos=cpt,idC=Model.Id,idS=Model.Tournoi.Id}, new { @class = "btn btn-success" })</td></tr>
+                                        <tr><td style="border-right: 1px solid #cdd0d4;">@Html.ActionLink("Ajouter Match", "LieMatch", "Match", new { pos = cpt, idC = Model.Id, idS = Model.Tournoi.Id }, new { @class = "btn btn-success" })</td></tr>
                                         for (int z = 0; z <= tab[1, i] - 3; z++)
-                        {
+                                        {
                                             <tr><td style="border-right: 1px solid #cdd0d4;">.</td></tr>
                                         }
                                         <tr><td style="border: 1px solid #cdd0d4;">.</td></tr>
                                     }
-                    else
-                    {
-                                        <tr><td style="border: 1px solid #cdd0d4;">@Html.ActionLink(@match[cpt].Joueur1.Nom+" | "+@match[cpt].Score1, "Joueur", "Joueur", new { id = @match[cpt].Joueur1.Id }, new { @class = "btn btn-succes" })</td></tr>
-                                        for (int z = 0; z <= tab[1, i] - 2; z++)
-                        {
+                                    else
+                                    {
+                                        <tr><td style="border: 1px solid #cdd0d4;">@Html.ActionLink(@match[cpt].Joueur1.Nom + " | " + @match[cpt].Score1 +" "+@cpt+" "+@match.Length , "Joueur", "Joueur", new { id = @match[cpt].Joueur1.Id }, new { @class = "btn btn-succes" })</td></tr>
+                                        <tr><td style="border-right: 1px solid #cdd0d4;">@Html.ActionLink("Supprimer Match", "SuppMatch", "Match", new {id= @match[cpt].Id}, new { @class = "btn btn-danger" })</td></tr>
+                                        for (int z = 0; z <= tab[1, i] - 3; z++)
+                                        {
                                             <tr><td style="border-right: 1px solid #cdd0d4;">.</td></tr>
                                         }
                                         <tr><td style="border: 1px solid #cdd0d4;">@Html.ActionLink(@match[cpt].Joueur2.Nom + " | " + @match[cpt].Score2, "Joueur", "Joueur", new { id = @match[cpt].Joueur2.Id }, new { @class = "btn btn-succes" })</td></tr>
                                     }
-                    cpt++;
-                    if (j < taille[Model.Tournoi.Taille - 1] - tab[1, i])
-                    {
-                        for (int k = 0; k <= tab[1, i] - 2; k++)
-                        {
+                                    cpt++;
+                                    if (j < taille[Model.Tournoi.Taille - 1] - tab[1, i])
+                                    {
+                                        for (int k = 0; k <= tab[1, i] - 2; k++)
+                                        {
                                             <tr><td>.</td></tr>
                                         }
-                    }
-                    else
-                    {
-                        for (int u = 0; u < tab[0, i]; u++)
-                        {
+                                    }
+                                    else
+                                    {
+                                        for (int u = 0; u < tab[0, i]; u++)
+                                        {
                                             <tr><td>.</td></tr>
                                         }
-                    }
-                }
+                                    }
+                                }
 
 
                             </table>
@@ -253,7 +283,16 @@ else//PARTIE ADMINISTRATION
                             {
                                 <tr><td>.</td></tr>
                             }
-                            <tr><td>Finalliste</td></tr>
+                            @if (finaliste == null)
+                            {
+                                <tr><td>.</td></tr>
+
+                            }
+                            else
+                            {
+                                <tr><td>@finaliste.Nom</td></tr>
+
+                            }
                             @for (int u = 0; u < tab[0, Model.Tournoi.Taille]; u++)
                             {
                                 <tr><td>.</td></tr>

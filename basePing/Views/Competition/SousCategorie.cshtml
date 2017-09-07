@@ -6,8 +6,11 @@
 {
     @Html.ActionLink("Modifier", "ModifCat", "Competition",
                      new { id = ViewBag.Cat.Id }, new { @class = "btn" })
+    @Html.ActionLink("Supprimer", "SuppressionComp", "Competition", new { id = ViewBag.Cat.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Attention , la supression de la catégorie entrainera la supression de toutes informations liée à cette dernière, êtes vous sur.')" })
 }
-
+<br />
+<br />
+<br />
 <ul class="list-group">
 
     @foreach (SousCategorie cat in ViewBag.sousCat)
