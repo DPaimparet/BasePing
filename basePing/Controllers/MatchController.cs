@@ -16,6 +16,47 @@ namespace basePing.Controllers
             return View();
         }
 
+        public ActionResult InfoMatch(int id)
+        {
+            Match m = new DCMatch().find(id);
+            m.Joueur1.RecupererJoueur();
+            m.Joueur2.RecupererJoueur();
+            m.LSet = new Set().GetList(id);
+            return View(m);
+        }
+
+
+        public ActionResult AjoutSet(int idM, int cpt1, int cpt2, int score1,int  score2,string j1,string j2)
+        {
+            Session["cpt1"] = cpt1;
+            Session["cpt2"] = cpt2;
+            Session["score1"] = score1;
+            Session["score2"] = score2;
+            ViewBag.j1 = j1;
+            ViewBag.j2 = j2;
+            Session["idM"] = idM;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AjoutSet(int point1, int point2)
+        {
+            DCSet dc = new DCSet();
+            if (point1> point2 && (int)Session["cpt1"]< (int)Session["score1"])
+            {
+                dc.Insert((int)Session["idM"], point1, point2);
+                return Redirect("/Match/InfoMatch/" + Session["idM"]);
+            }else if (point2 > point1 && (int)Session["cpt2"] < (int)Session["score2"])
+            {
+                dc.Insert((int)Session["idM"], point1, point2);
+                return Redirect("/Match/InfoMatch/" + Session["idM"]);
+            }
+            else
+                return Redirect("~/Match/InfoMatch/"+Session["idM"]+"?error=Erreur le gagnant du match ne correspond pas au nombre de set gagné");
+
+
+        }
+
         public ActionResult AjoutMatch(int id)
         {
             ViewBag.idComp = id;

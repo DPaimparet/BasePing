@@ -32,6 +32,27 @@ namespace basePing.DataContext
             
         }
 
+        public Match find(int id)
+        {
+            Match match = null;
+            DBConnection con = DBConnection.Instance();
+            if (con.IsConnect())
+            {
+
+                string query = "Select * FROM rencontre LEFT JOIN `rencontre individuelle` ON `rencontre individuelle`.`idMatch` = `rencontre`.`idMatch` WHERE rencontre.idMatch=" + id;
+
+                var cmd = new MySqlCommand(query, con.Connection);
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    match=new Match(reader.GetInt32(0), new Joueur(reader.GetInt32(8)), new Joueur(reader.GetInt32(9)), reader.GetInt32(1), reader.GetInt32(2), reader.GetInt32(4));
+                }
+                reader.Close();
+                return match;
+            }
+            return null;
+        }
+
         public bool Delete(int id)
         {
             DBConnection con = DBConnection.Instance();

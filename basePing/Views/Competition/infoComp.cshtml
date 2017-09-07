@@ -52,12 +52,12 @@
                                 {
                                     if (@match[cpt] == null)
                                     {
-                                        <tr><td style="border: 1px solid #cdd0d4;">INCONNU</td></tr>
+                                        <tr><td style="border: 1px solid #cdd0d4;">.</td></tr>
                                         for (int z = 0; z <= tab[1, i] - 2; z++)
                                         {
                                             <tr><td style="border-right: 1px solid #cdd0d4;">.</td></tr>
                                         }
-                                        <tr><td style="border: 1px solid #cdd0d4;">INCONNU</td></tr>
+                                        <tr><td style="border: 1px solid #cdd0d4;">.</td></tr>
                                     }
                                     else
                                     {
@@ -117,7 +117,7 @@ else//PARTIE ADMINISTRATION
     @Html.ActionLink("Modifier", "ModifierComp", "Competition", new { id = Model.Id,nom=Model.Nom,dateD=Model.DateDeb,dateF=Model.DateFin,type=Model.TypeComp,nbrJ=Model.NbrJoueur,idc=Model.Cat.Id }, new { @class = "btn btn-info" })
     @Html.ActionLink("Ajouter un participant", "AjoutParticipant", "Competition", new { id = Model.Id }, new { @class = "btn btn-success" })
     @Html.ActionLink("Ajouter un match", "AjoutMatch", "Match", new { id = Model.Id }, new { @class = "btn btn-success" })
-    @Html.ActionLink("Supprimer", "SuppressionComp", "Competition", new { id = Model.Id }, new { @class = "btn btn-danger" })
+    @Html.ActionLink("Supprimer", "SuppressionComp", "Competition", new { id = Model.Id }, new { @class = "btn btn-danger" , onclick = "return confirm('Attention , la supression de la compétition entrainera la supression de toutes informations liée a cette dernière, êtes vous sur.')" })
                 
                         
      foreach(Joueur j in Model.GetListPart())
@@ -207,13 +207,13 @@ else//PARTIE ADMINISTRATION
                                 {
                     if (@match[cpt] == null)
                     {
-                                        <tr><td style="border: 1px solid #cdd0d4;">INCONNU</td></tr>
+                                        <tr><td style="border: 1px solid #cdd0d4;">.</td></tr>
                                         <tr><td style="border-right: 1px solid #cdd0d4;">@Html.ActionLink("Ajouter Match", "LieMatch", "Match", new { pos=cpt,idC=Model.Id,idS=Model.Tournoi.Id}, new { @class = "btn btn-success" })</td></tr>
                                         for (int z = 0; z <= tab[1, i] - 3; z++)
                         {
                                             <tr><td style="border-right: 1px solid #cdd0d4;">.</td></tr>
                                         }
-                                        <tr><td style="border: 1px solid #cdd0d4;">INCONNU</td></tr>
+                                        <tr><td style="border: 1px solid #cdd0d4;">.</td></tr>
                                     }
                     else
                     {
