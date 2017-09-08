@@ -179,6 +179,9 @@ namespace basePing.Controllers
             PalmaresCivil palmares = new PalmaresCivil();
             ViewBag.listePalmaresCivic = palmares.GetListPalmaresCivic(id);
 
+            // Récupéré le palmarès sportif du joueur
+            PalmaresSportif palmaresSportif = new PalmaresSportif();
+
             return View();
         }
 

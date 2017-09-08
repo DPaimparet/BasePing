@@ -1,4 +1,4 @@
-﻿@using basePing.Models
+@using basePing.Models
 
 <h2>@ViewBag.Cat.Nom</h2>
 
@@ -13,30 +13,34 @@
         @Html.ActionLink("Supprimer", "SuppCat", "Competition", new { id = ViewBag.Cat.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Attention , la supression de la catégorie entrainera la supression de toutes informations liée à cette dernière, êtes vous sur.')" })
     }
 }
-<br />
-<br />
-<br />
-<ul class="list-group">
 
-    @foreach (SousCategorie cat in ViewBag.sousCat)
-    {
-        <li class="list-group-item list-group-item-success">
-            <a href="~/Competition/GetComp/@cat.Id">@cat.Nom</a>
-            @if ((bool)Session["admin"])
-            {
-            @Html.ActionLink("Supprimer sous catégorie", "SuppSousCat", "Competition",
+<div class="btn-group btn-group-justified">
+    <ul style="list-style-type: none; ">
+
+        @foreach (SousCategorie cat in ViewBag.sousCat)
+        {
+            <li>
+                <a href="~/Competition/GetComp/@cat.Id" class="btn btn-primary">@cat.Nom</a>
+                @if ((bool)Session["admin"])
+                {
+                    @Html.ActionLink("Supprimer sous catégorie", "SuppSousCat", "Competition",
                    new { idSC = cat.Id },
-                    new { onclick = "return confirm('Attention , la supression de la catégorie entrainera la supression de toutes les compétitions ainsi que ces informations liée , êtes vous sur.')" })
-            }
-        </li>
-    }
+                    new { @class = "btn btn-danger", onclick = "return confirm('Attention , la supression de la catégorie entrainera la supression de toutes les compétitions ainsi que ces informations liée , êtes vous sur.')" })
+                }
+            </li>
+            <br />
+        }
 
-    @if ((bool)Session["admin"])
-    {
-        <li>@Html.ActionLink("Ajouter sous catégorie", "AjouterSousCatForm", "Competition",
-                    null, new { @class = "btn btn-succes" })</li>
-    }
-</ul>
+        @if ((bool)Session["admin"])
+        {
+            <li>
+                @Html.ActionLink("Ajouter sous catégorie", "AjouterSousCatForm", "Competition",
+                    null, new { @class = "btn btn-success" })
+        </li>
+        }
+    </ul>
+</div>
+
 
 
 
