@@ -32,6 +32,12 @@ namespace basePing.Models
 
         }
 
+
+        public string Identite
+        {
+            get { return Nom +" "+Prenom; }
+         
+        }
         public string Nom
         {
             get { return HttpUtility.HtmlDecode(nom); }

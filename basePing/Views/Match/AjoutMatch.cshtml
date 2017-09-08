@@ -5,19 +5,19 @@
         <div class="form-group">
             <input type="hidden" value="@ViewBag.idComp" name="id" />
             <label>Joueur 1</label>
-            @Html.DropDownList("joueur1", Session["listJ"] as SelectList, string.Empty, new { @class = "form-control" })
+            @Html.DropDownList("joueur1", Session["listJ"] as SelectList, new { @class = "form-control" })
             <label>Set</label>
-            @Html.TextBox("score1", "Score joueur 1", new { type = "number", min = "0", max = "7", @class = "form-control" })
+            @Html.TextBox("score1", "Score joueur 1", new { type = "number", min = "0", max = "7", @class = "form-control" ,required="required" })
             
         </div>
         <br />
         <br />
         <div class="form-group">
             <label>Joueur 2</label>
-            @Html.DropDownList("joueur2", Session["listJ"] as SelectList, string.Empty, new { @class = "form-control" })
+            @Html.DropDownList("joueur2", Session["listJ"] as SelectList, new { @class = "form-control" })
 
             <label>Set</label>
-            @Html.TextBox("score2","Score joueur 2", new { type="number", min="0", max="7", @class = "form-control" })
+            @Html.TextBox("score2","Score joueur 2", new { type="number", min="0", max="7", @class = "form-control", required = "required" })
         </div>
         <br />
         <br />
@@ -27,4 +27,8 @@
             @Html.ActionLink("Annuler", "InfoComp", "Competition", new { id = Session["idComp"] }, new { @class = "btn btn-danger" })
         </div>
      }
+</div>
+
+<div>
+    <h2 class="alert-danger">@Request.QueryString["error"]</h2>
 </div>

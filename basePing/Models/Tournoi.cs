@@ -59,10 +59,10 @@ namespace basePing.Models
 
         public Match[] getArrayMatch()
         {
-            int e = 2;
+            int e = 1;
             for (int i = 0; i < taille; i++)
                 e *= 2;
-            Match[] tab = new Match[e];
+            Match[] tab = new Match[e-1];
             
             foreach(Match m in lMatch)
                 tab[m.Position] = m;

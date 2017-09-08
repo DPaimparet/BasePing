@@ -68,7 +68,7 @@ namespace basePing.Controllers
         {
             ViewBag.idComp = id;
             List<Joueur> j = new Joueur().GetListJoueurComp(id);
-            Session["listJ"] = new SelectList(j, "Id", "Nom");
+            Session["listJ"] = new SelectList(j, "Id", "Identite");
             return View();
         }
 
@@ -77,21 +77,28 @@ namespace basePing.Controllers
         public ActionResult AjoutMatch(int id,int? joueur1,int score1,int? joueur2,int score2)
         {
             DCMatch dc = new DCMatch();
-            dc.Create(id,joueur1,score1,joueur2,score2);
-            return Redirect("~/Competition/InfoComp/" + id);
+            if (joueur1 == joueur2)
+                return Redirect("/Match/AjoutMatch?id=" + id +"&error=Les 2 joueurs choisis sont le même.");
+            else
+            {
+
+                dc.Create(id, joueur1, score1, joueur2, score2);
+
+                return Redirect("~/Competition/InfoComp/" + id);
+            }
         }
 
         public ActionResult SuppMatch(int id)
         {
             DCMatch dc = new DCMatch();
             dc.Delete(id);
-            return Redirect("~/Competition/InfoComp/"+ Session["idC"]);
+            return Redirect("~/Competition/InfoComp/"+ Session["idComp"]);
         }
 
         public ActionResult LieMatch(int pos,int idC,int idS)
         {
             Session["pos"] = pos;
-            Session["idC"]=idC;
+            Session["idC"]= idC;
             Session["idS"] = idS;
             List<Joueur> listJ = new Joueur().GetListJoueurComp(idC);
            
@@ -101,7 +108,7 @@ namespace basePing.Controllers
                 m.Joueur1.RecupererJoueur();
                 m.Joueur2.RecupererJoueur();
             }
-            Session["listJ"] = new SelectList(listJ, "Id", "Nom");
+            Session["listJ"] = new SelectList(listJ, "Id", "Identite");
             Session["listM"] = new SelectList(listM, "Id", "Info");
             return View();
         }
@@ -135,7 +142,7 @@ namespace basePing.Controllers
                 m.Joueur1.RecupererJoueur();
                 m.Joueur2.RecupererJoueur();
             }
-            Session["listJ"] = new SelectList(listJ, "Id", "Nom");
+            Session["listJ"] = new SelectList(listJ, "Id", "Identite");
             Session["listM"] = new SelectList(listM, "Id", "Info");
             return View();
         }
@@ -153,8 +160,13 @@ namespace basePing.Controllers
         public ActionResult AjoutEtLieMatch(int? joueur1, int score1, int? joueur2, int score2)
         {
             DCMatch dc = new DCMatch();
-            dc.Create(joueur1, score1, joueur2, score2,(int)Session["pos"],(int)Session["idS"], (int)Session["idC"]);
-            return Redirect("~/Competition/InfoComp/" + Session["idC"]);
+           
+            if (joueur1 == joueur2)
+                return Redirect("/Match/LieMatch?pos="+ (int)Session["pos"] + "&idC="+ (int)Session["idC"] + "&idS="+ (int)Session["idS"] + "&error=Les 2 joueurs choisis sont le même.");
+            else { 
+                dc.Create(joueur1, score1, joueur2, score2, (int)Session["pos"], (int)Session["idS"], (int)Session["idC"]);
+                return Redirect("~/Competition/InfoComp/" + Session["idC"]);
+            }
         }
 
 

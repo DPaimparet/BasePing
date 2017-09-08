@@ -1,4 +1,4 @@
-﻿@using basePing.Models
+@using basePing.Models
 
 <h2>@ViewBag.Cat.Nom</h2>
 
@@ -6,6 +6,7 @@
 {
     @Html.ActionLink("Modifier", "ModifCat", "Competition",
                      new { id = ViewBag.Cat.Id }, new { @class = "btn" })
+    @Html.ActionLink("Supprimer", "SuppressionComp", "Competition", new { id = ViewBag.Cat.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Attention , la supression de la catégorie entrainera la supression de toutes informations liée à cette dernière, êtes vous sur.')" })
 }
 
 <div class="btn-group btn-group-justified">

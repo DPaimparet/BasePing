@@ -266,7 +266,7 @@ namespace basePing.Controllers
             List<Joueur> listeJ = new Competition(idC).GetListPart();
             Session["idC"] = idC;
             Session["idPoule"] = id;
-            Session["listJ"]= new SelectList(listeJ, "Id", "Nom");
+            Session["listJ"]= new SelectList(listeJ, "Id", "Identite");
             return View();
         }
         [HttpPost]

@@ -113,6 +113,14 @@ namespace basePing.Controllers
         }
 
 
+        public ActionResult SuppCat(int id)
+        {
+            DCCategorie dc = new DCCategorie();
+            dc.Delete(id);
+            return Redirect("~/Home/Connect");
+        }
+
+
         public ActionResult AjoutComp(int id,int idSC)
         {
             Session["idSC"] = idSC;
