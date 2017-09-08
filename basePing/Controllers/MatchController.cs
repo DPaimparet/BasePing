@@ -32,6 +32,8 @@ namespace basePing.Controllers
             Session["cpt2"] = cpt2;
             Session["score1"] = score1;
             Session["score2"] = score2;
+            Session["j1"] = j1;
+            Session["j2"] = j2;
             ViewBag.j1 = j1;
             ViewBag.j2 = j2;
             Session["idM"] = idM;
@@ -46,16 +48,22 @@ namespace basePing.Controllers
         }
 
         [HttpPost]
-        public ActionResult AjoutSet(int point1, int point2)
+        public ActionResult AjoutSet(int position,int point1, int point2)
         {
             DCSet dc = new DCSet();
+
+            if (dc.findSamePos(position, (int)Session["idM"]))
+            {
+                return Redirect("/Match/AjoutSet?idM="+ (int)Session["idM"] + "8&cpt1="+ (int)Session["cpt1"] + "&cpt2="+ (int)Session["cpt2"] + "&score1="+(int)Session["score1"]+"&score2="+ (int)Session["score1"] + "&j1="+HttpUtility.HtmlEncode(Session["j1"]) + "&j2="+ HttpUtility.HtmlEncode(Session["j2"])+"&error=Il existe déja un set sur cette position");
+            }
+
             if (point1> point2 && (int)Session["cpt1"]< (int)Session["score1"])
             {
-                dc.Insert((int)Session["idM"], point1, point2);
+                dc.Insert((int)Session["idM"], point1, point2,position);
                 return Redirect("/Match/InfoMatch/" + Session["idM"]);
             }else if (point2 > point1 && (int)Session["cpt2"] < (int)Session["score2"])
             {
-                dc.Insert((int)Session["idM"], point1, point2);
+                dc.Insert((int)Session["idM"], point1, point2,position);
                 return Redirect("/Match/InfoMatch/" + Session["idM"]);
             }
             else

@@ -48,6 +48,14 @@ namespace basePing.Controllers
             return Redirect("~/Competition/InfoComp/" + idC);
         }
 
+        public ActionResult SuppPhaseFinale(int id, int idC)
+        {
+
+            DCTournoi dc = new DCTournoi();
+            dc.Delete(id);
+            return Redirect("~/Competition/InfoComp/" + idC);
+        }
+
         public ActionResult AjouterTournoi(int id)
         {
             ViewBag.idComp = id;
@@ -55,10 +63,10 @@ namespace basePing.Controllers
         }
 
         [HttpPost]
-        public ActionResult AjouterPhaseFinale(int id,int taille, string desc)
+        public ActionResult AjouterPhaseFinale(int id,int taille)
         {
             DCTournoi dc = new DCTournoi();
-            dc.Create(id,taille, HttpUtility.HtmlEncode(desc));
+            dc.Create(id,taille, HttpUtility.HtmlEncode(""));
             return Redirect("~/Competition/InfoComp/" + id);
         }
 

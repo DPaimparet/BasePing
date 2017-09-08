@@ -67,6 +67,25 @@ namespace basePing.DataContext
                 return false;
         }
 
+        public bool Delete(int id)
+        {
+            DBConnection con = DBConnection.Instance();
+            if (con.IsConnect())
+            {
+                //récupérer les joueurs grâce à leur sex
+                string query = "DELETE FROM tournoi WHERE idSerie=" + id;
+                var cmd = new MySqlCommand(query, con.Connection);
+                var reader = cmd.ExecuteReader();
+
+                reader.Close();
+
+                return true;
+            }
+            else
+                return false;
+        }
+
+
         public bool DeleteLD(int idJ, int id)
         {
             DBConnection con = DBConnection.Instance();
@@ -85,4 +104,6 @@ namespace basePing.DataContext
                 return false;
         }
     }
+
+      
 }

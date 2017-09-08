@@ -1,4 +1,5 @@
-﻿@model basePing.Models.Match
+﻿
+@model basePing.Models.Match
 @using basePing.Models;
 
 
@@ -10,39 +11,58 @@
 <h1>Score @Model.Joueur2.Nom  @Model.Joueur2.Prenom :@Model.Score2 </h1>
 
 @{
-    int cpt = 1, cpt1 = 0, cpt2 = 0;
+    int cpt,cpt1 = 0, cpt2 = 0;
     <table border="1">
 
         <tr><th># Set</th><th>Score @Model.Joueur1.Nom  @Model.Joueur1.Prenom</th> <th>Score @Model.Joueur2.Nom  @Model.Joueur2.Prenom</th></tr>
 
-        @if (Model.LSet.Count() == 0)
-        {
-            <tr><td colspan="3">Pas de set enregistré pour ce match</td></tr>
-        }
-       @foreach(Set s in Model.LSet)
-       {
-           if (s.PointJ1 > s.PointJ2)
-           {
-               cpt1++;
-           }
-           else if(s.PointJ2 > s.PointJ1)
-           {
-               cpt2++;
-           }
-           <tr><td>Set @cpt</td><td>@s.PointJ1</td><td>@s.PointJ2</td> <td>@Html.ActionLink("Ajouter un set", "SupprimerSet", "Match", new { idS = s.Id,idM=Model.Id}, null)</td></tr>
-           cpt++;
-           
 
-       }
-        @if ((bool)Session["admin"] && cpt-1<Model.Score1+Model.Score2)
+        @{Set[] tab = new Set[Model.Score1 + Model.Score2+1];}
+        @foreach (Set s in Model.LSet)
         {
-          <tr><td>@Html.ActionLink("Ajouter un set", "AjoutSet", "Match", new { idM = Model.Id, cpt1 = cpt1, cpt2 = cpt2,score1=Model.Score1,score2=Model.Score2,j1=Model.Joueur1.Nom,j2= Model.Joueur2.Nom },null)</td></tr> 
+            tab[s.Position] = s;
+        }
+
+
+        @for (cpt = 1; cpt < tab.Length; cpt++)
+        {
+            if (tab[cpt] != null)
+            {
+                if (tab[cpt].PointJ1 > tab[cpt].PointJ2)
+                {
+                    cpt1++;
+                }
+                else if (tab[cpt].PointJ2 > tab[cpt].PointJ1)
+                {
+                    cpt2++;
+                }
+                <tr><td>Set @cpt</td><td>@tab[cpt].PointJ1</td><td>@tab[cpt].PointJ2</td> 
+        @if ((bool)Session["admin"])
+        {
+         <td>@Html.ActionLink("Supprimer le set", "SupprimerSet", "Match", new { idS = tab[cpt].Id, idM = Model.Id }, null)</td>
+        }
+        </tr>
+
+            }
+            else
+            {
+
+                <tr><td>Set @cpt</td><td colspan="2">Pas d' information</td></tr>
+            }
+
+        }
+        @if ((bool)Session["admin"] && cpt1+cpt2  < Model.Score1 + Model.Score2)
+        {
+            <tr><td>@Html.ActionLink("Ajouter un set", "AjoutSet", "Match", new { idM = Model.Id, cpt1 = cpt1, cpt2 = cpt2, score1 = Model.Score1, score2 = Model.Score2, j1 = Model.Joueur1.Identite, j2 = Model.Joueur2.Identite}, null)</td></tr>
         }
     </table>
+    
 
-    <div>
-        <h2 class="alert-danger">@Request.QueryString["error"]</h2>
-    </div>
+            <div>
+                <h2 class="alert-danger">@Request.QueryString["error"]</h2>
+            </div>
 
 }
+
+
 

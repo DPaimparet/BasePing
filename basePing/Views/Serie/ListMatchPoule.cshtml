@@ -14,8 +14,11 @@
         }</td></tr>
     }
 </table>
-
-@Html.ActionLink("Ajouter Match", "LieMatchPoule", "Match", new { idJ = Session["idJ"], idC = Session["idC"], idS = Session["idS"] }, new { @class = "btn btn-success" })
+@if ((bool)Session["admin"])
+{
+    <td>@Html.ActionLink("Ajouter Match", "LieMatchPoule", "Match", new { idJ = Session["idJ"], idC = Session["idC"], idS = Session["idS"] }, new { @class = "btn btn-success" })
+</td>
+}
 
 <div>
     @Html.ActionLink("Retour", "InfoComp/" + Session["idComp"],"Competition", new { area = "" }, new { @class = "btn btn-danger" })

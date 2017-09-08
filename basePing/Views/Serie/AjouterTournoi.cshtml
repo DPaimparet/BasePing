@@ -5,10 +5,9 @@
 
     <input type="hidden" value="@ViewBag.idComp" name="id" />
     <label>Taille</label>
-    <input type="number" name="taille"  required="required" />
+    <input type="number" name="taille" min="1" max="5" required="required" />
 
-    <label>Descriptif</label>
-    <input type="text" name="desc"  required="required" />
+  
 
     <input type="submit" value="Ajouter" />
 

@@ -11,6 +11,7 @@ namespace basePing.Models
         private int id;
         private int pointJ1;
         private int pointJ2;
+        private int position;
 
         public int Id 
         {
@@ -30,12 +31,19 @@ namespace basePing.Models
             set { pointJ2 = value; }
         }
 
+        public int Position
+        {
+            get { return position; }
+            set { position = value; }
+        }
 
-        public Set(int id , int pointJ1, int pointJ2)
+
+        public Set(int id , int pointJ1, int pointJ2,int position)
         {
             this.id = id;
             this.pointJ1 = pointJ1;
             this.pointJ2 = pointJ2;
+            this.position = position;
         }
 
         public Set()

@@ -22,7 +22,7 @@ namespace basePing.DataContext
              var reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    lSet.Add(new Set(reader.GetInt32(0), reader.GetInt32(2), reader.GetInt32(3)));
+                    lSet.Add(new Set(reader.GetInt32(0), reader.GetInt32(2), reader.GetInt32(3),reader.GetInt32(4)));
                 }
                 reader.Close();
                 return lSet;
@@ -31,12 +31,12 @@ namespace basePing.DataContext
 
         }
 
-        public bool Insert(int idM, int point1, int point2)
+        public bool Insert(int idM, int point1, int point2,int pos)
         {
             DBConnection con = DBConnection.Instance();
             if (con.IsConnect())
             {
-                string query = "INSERT INTO `set` (idMatch,point1,point2) VALUES ('" + idM + "', '" +point1+ "', '" + point2 + "')";
+                string query = "INSERT INTO `set` (idMatch,point1,point2,pos) VALUES ('" + idM + "', '" +point1+ "', '" + point2 + "','"+pos+"')";
                 var cmd = new MySqlCommand(query, con.Connection);
                 var reader = cmd.ExecuteReader();
                 reader.Close();
@@ -45,6 +45,28 @@ namespace basePing.DataContext
             else
                 return false;
         }
+
+        internal bool findSamePos(int position,int id)
+        {
+           
+                bool trouve=false;
+                DBConnection con = DBConnection.Instance();
+                if (con.IsConnect())
+                {
+
+                    string query = "Select * FROM `set` WHERE pos=" + position +" AND idMatch="+id;
+
+                    var cmd = new MySqlCommand(query, con.Connection);
+                    var reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                    trouve = true;
+                    }
+                    reader.Close();
+                    return trouve;
+                }
+                return trouve;
+            }
 
         public bool Delete(int idS)
         {
