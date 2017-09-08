@@ -342,6 +342,14 @@ namespace basePing.Controllers
             }
             return Redirect("~/Joueur/Joueur/"+id);
         }
+        /////////////////////////////////////////////// Palmares ///////////////////////////////////////////////
+
+        /// <summary>
+        /// Mise à jour du palmarès d'un joueur
+        /// </summary>
+        /// <param name="idJoueur"></param>
+        /// <param name="idPalmares"></param>
+        /// <returns>Retourne un palmarès et l'id du joueur</returns>
         public ActionResult UpdatePalmares(int idJoueur, int idPalmares)
         {
             PalmaresCivil palmares = new PalmaresCivil();
@@ -350,6 +358,7 @@ namespace basePing.Controllers
             ViewBag.idJoueur = idJoueur;
             return View();
         }
+
         [HttpPost]
         public ActionResult UpdatePalmares(int idJoueur, int idPalmares, string recompense, DateTime date)
         {

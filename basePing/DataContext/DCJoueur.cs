@@ -176,7 +176,7 @@ namespace basePing.DataContext
             DBConnection con = DBConnection.Instance();
             if (con.IsConnect())
             {
-                string query = "SELECT * FROM Joueur Inner Join Pays On joueur.idPays = pays.id Where joueur.nom='" + nom + "' AND pays.id=" + pays;
+                string query = "SELECT * FROM Joueur Inner Join Pays On joueur.idPays = pays.id Where joueur.nom='" + nom + "' AND pays.id=" + pays + " ORDER BY idPays , joueur.nom ";
                 var cmd = new MySqlCommand(query, con.Connection);
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
@@ -203,7 +203,7 @@ namespace basePing.DataContext
             DBConnection con = DBConnection.Instance();
             if (con.IsConnect())
             {
-                string query = "SELECT * FROM Joueur Inner Join Pays On joueur.idPays = pays.id Where joueur.nom='" + nom + "' AND sexe='" + sex + "'";
+                string query = "SELECT * FROM Joueur Inner Join Pays On joueur.idPays = pays.id Where joueur.nom='" + nom + "' AND sexe='" + sex + "' ";
                 var cmd = new MySqlCommand(query, con.Connection);
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
@@ -308,7 +308,7 @@ namespace basePing.DataContext
             DBConnection con = DBConnection.Instance();
             if (con.IsConnect())
             {
-                string query = "SELECT * FROM Joueur Inner Join Pays On joueur.idPays = pays.id Where sexe='" + sexe +"'";
+                string query = "SELECT * FROM Joueur Inner Join Pays On joueur.idPays = pays.id Where sexe='" + sexe + "' ORDER BY idPays , joueur.nom ";
                 var cmd = new MySqlCommand(query, con.Connection);
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
@@ -355,7 +355,7 @@ namespace basePing.DataContext
             if (con.IsConnect())
             {
                 //récupérer les joueurs grâce à la nation
-                string query = "SELECT * FROM Joueur Inner Join Pays On joueur.idPays = pays.id Where idPays=" + nation + " AND sexe ='" + sexe+ "'";
+                string query = "SELECT * FROM Joueur Inner Join Pays On joueur.idPays = pays.id Where idPays=" + nation + " AND sexe ='" + sexe+ "' ORDER BY idPays , joueur.nom";
                 var cmd = new MySqlCommand(query, con.Connection);
                 var reader = cmd.ExecuteReader();
                 while(reader.Read())
@@ -383,7 +383,7 @@ namespace basePing.DataContext
             if (con.IsConnect())
             {
                 //récupérer les joueurs grâce à la nation
-                string query = "SELECT * FROM Joueur Inner Join Pays On joueur.idPays = pays.id Where idPays=" + nation;
+                string query = "SELECT * FROM Joueur Inner Join Pays On joueur.idPays = pays.id Where idPays=" + nation + " ORDER BY idPays , joueur.nom ";
                 var cmd = new MySqlCommand(query, con.Connection);
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
@@ -422,6 +422,25 @@ namespace basePing.DataContext
             }
             else
                 return null;
+        }
+        public int GetPositionComp(int id)
+        {
+            int position = 0;
+            DBConnection con = DBConnection.Instance();
+            if (con.IsConnect())
+            {
+                string query = "SELECT position FROM ld_joueur_comp WHERE idJoueur = " + id + " ORDER BY position ASC ";
+                var cmd = new MySqlCommand(query, con.Connection);
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    position = reader.GetInt32(0);
+                }
+                reader.Close();
+                return position;
+            }
+            else
+                return position;
         }
     }
 }

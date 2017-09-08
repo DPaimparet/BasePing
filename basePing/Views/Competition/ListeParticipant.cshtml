@@ -4,7 +4,7 @@
     ViewBag.Title = "ListeParticipant";
 }
 
-<h2>ListeParticipant</h2>
+<h2>Liste des participants</h2>
 <br />
 <div style="background-color: #199aca; width: auto; padding: 10px 50px;">
 
@@ -44,7 +44,7 @@
                     <td>@j.Nom</td>
                     <td>@j.Prenom</td>
                     <td>@j.National</td>
-                    <td>@Html.ActionLink("Participe", "AddParticipant", "Competition", new { id = j.Id }, new { @class = "btn btn-info" })</td>
+                    <td>@Html.ActionLink("Participe", "AddPosition", "Competition", new { id = j.Id }, new { @class = "btn btn-info" })</td>
                 </tr>
             }
         </table>

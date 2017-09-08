@@ -126,7 +126,7 @@ namespace basePing.DataContext
                 return false;
         }
 
-        public bool insertJoueurIntoComp(int idJoueur, int idCompetition)
+        public bool insertJoueurIntoComp(int idJoueur, int idCompetition, int position)
         {
             DBConnection con = DBConnection.Instance();
             if (con.IsConnect())
@@ -138,7 +138,7 @@ namespace basePing.DataContext
                 if (!reader1.HasRows)
                 {
                     reader1.Close();
-                    string query = "INSERT INTO ld_joueur_comp (idJoueur, idComp, position) VALUES ('" + idJoueur + "', '" + idCompetition + "', '0')";
+                    string query = "INSERT INTO ld_joueur_comp (idJoueur, idComp, position) VALUES ('" + idJoueur + "', '" + idCompetition + "', '" + position + "')";
                     var cmd = new MySqlCommand(query, con.Connection);
                     var reader = cmd.ExecuteReader();
                     reader.Close();

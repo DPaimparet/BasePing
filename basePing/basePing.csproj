@@ -217,6 +217,7 @@
     <Compile Include="ViewModel\fichier.cs" />
     <Compile Include="ViewModel\infoJoueur.cs" />
     <Compile Include="ViewModel\VMJoueur.cs" />
+    <Compile Include="ViewModel\VMParticipant.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -262,6 +263,7 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\common.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -272,6 +274,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\script.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -322,6 +325,7 @@
     <Content Include="Views\Joueur\UpdatePalmares.cshtml" />
     <Content Include="Views\Joueur\UpdateJoueur.cshtml" />
     <Content Include="Views\Competition\SousCategorie.cshtml" />
+    <Content Include="Views\Competition\AddPosition.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

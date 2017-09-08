@@ -200,11 +200,21 @@ namespace basePing.Controllers
             DCJoueur dCJoueur = new DCJoueur();
             Joueur participant = new Joueur();
             Joueur joueur = new Joueur();
-            List<Joueur> listeParticipant = new List<Joueur>();
+            List<VMParticipant> listeParticipant = new List<VMParticipant>();
             foreach(Joueur j in participant.GetListJoueurComp(idC))
             {
-                joueur=dCJoueur.GetJoueur(j.Id);
-                listeParticipant.Add(joueur);
+                VMParticipant mParticipant = new VMParticipant();
+                joueur =dCJoueur.GetJoueur(j.Id);
+                mParticipant.Id = joueur.Id;
+                mParticipant.Nom = joueur.Nom;
+                mParticipant.Prenom = joueur.Prenom;
+                mParticipant.National = joueur.National;
+                mParticipant.Position = Convert.ToString(dCJoueur.GetPositionComp(joueur.Id));
+                if(mParticipant.Position == "100")
+                {
+                    mParticipant.Position = "Pas classé(e)";
+                }
+                listeParticipant.Add(mParticipant);
             }
             ViewBag.listeParticipant = listeParticipant;
             return View();
@@ -333,15 +343,34 @@ namespace basePing.Controllers
         {
             return View();
         }
-        public ActionResult AddParticipant(int id)
+        public ActionResult AddParticipant(int id, int position)
         {
             // Ajouter le participant ici
             Joueur participant = new Joueur();
             int idC = Convert.ToInt32(Session["idComp"]);
-            if(participant.AjouteParticipant(id,idC))
+            if(participant.AjouteParticipant(id,idC, position))
                 return Redirect("~/Competition/AjoutParticipant/" + Session["idComp"]);
             else
                 return Redirect("~/Competition/AjoutParticipant/" + Session["idComp"]+"?error=Ce joueur participe déjà a cette compétition");
+        }
+        
+        public ActionResult AddPosition(int id)
+        {
+            Joueur participant = new Joueur();
+            ViewBag.participant = participant.RecupererJoueur(id);
+            return View();
+        }
+        public ActionResult FinalizeParticipation(int id, string position)
+        {
+            Joueur participant = new Joueur();
+            if (position == "Pas classé(e)")
+                position = "100";
+            int Position = Convert.ToInt32(position);
+            int idC = Convert.ToInt32(Session["idComp"]);
+            if (participant.AjouteParticipant(id, idC, Position))
+                return Redirect("~/Competition/AjoutParticipant/" + Session["idComp"]);
+            else
+                return Redirect("~/Competition/AjoutParticipant/" + Session["idComp"] + "?error=Ce joueur participe déjà a cette compétition");
         }
         public ActionResult SubJoueur(int id)
         {

@@ -1,47 +1,44 @@
 ﻿@using basePing.Models;
 
+<br />
+<h2>Tableau des compétitions</h2>
+<div style="background-color: #199aca; width: auto; padding: 10px 50px;">
+    <table border="1" class="table table-striped">
+        @{
+            ((Categorie)ViewBag.cat).GetListSousCat();
 
+            <tr><th>Compétition</th><th>Date</th><th>Type de la compétition</th></tr>
 
-
-<table border="1" class="table table-striped">
-    @{
-((Categorie)ViewBag.cat).GetListSousCat();
-
-        <tr><th>Nom de la compétition</th><th>Date des compétitions</th><th>Type de la compétition</th></tr>
-
-        foreach (Competition c in ViewBag.listComp)
-        {
-            <tr class="bg-info">
-                <td>
-                    @Html.ActionLink(c.Nom, "InfoComp", "Competition",
+            foreach (Competition c in ViewBag.listComp)
+            {
+                <tr class="bg-info">
+                    <td>
+                        @Html.ActionLink(c.Nom, "InfoComp", "Competition",
                               new { id = c.Id }, new { @class = "btn btn-info" })
-                </td>
-                <td>
-                    @c.DateDeb.ToString("dd MMMM yyyy")
-                </td>
-                <td>
-                    @c.TypeComp
-                </td>
+                    </td>
+                    <td>
+                        @c.DateDeb.ToString("dd MMMM yyyy")
+                    </td>
+                    <td>
+                        @c.TypeComp
+                    </td>
 
 
-            </tr>
-        }
+                </tr>
+            }
 
-        if ((bool)Session["admin"])
-        {
-            <tr class="bg-info">
-                <td colspan="3">
-                    @Html.ActionLink("Crée une nouvelle compétition", "AjoutComp", "Competition",
+            if ((bool)Session["admin"])
+            {
+                <tr class="bg-info">
+                    <td colspan="3">
+                        @Html.ActionLink("Crée une nouvelle compétition", "AjoutComp", "Competition",
                     new { id = ViewBag.cat.Id, idSC = Session["idSC"] }, new { @class = "btn btn-info" })
 
-                </td>
-            </tr>
+                    </td>
+                </tr>
+            }
         }
+    </table>
+</div>
 
-
-    }
-
-
-
-
-</table>  
+    

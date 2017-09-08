@@ -1,6 +1,6 @@
-﻿@using basePing.Models;
+﻿@using basePing.ViewModel
 @{
-    ViewBag.Title = "AjoutParticipant";
+    ViewBag.Title = "Add Participant";
 }
 
 <h2>Ajouter un/des participant(s)</h2>
@@ -8,12 +8,13 @@
 <div style="background-color: #199aca; width: auto; padding: 10px 50px;">
     <table class="table table-striped">
         <thead>Liste des participant(es)</thead>
-        @foreach (Joueur j in ViewBag.listeParticipant)
+        @foreach (VMParticipant j in ViewBag.listeParticipant)
         {
             <tr class="bg-info">
                 <td>@j.Nom</td>
                 <td>@j.Prenom</td>
                 <td>@j.National</td>
+                <td>@j.Position</td>
                 <td>@Html.ActionLink("Retirer", "SubJoueur", "Competition", new { id = j.Id }, new { @class = "btn btn-danger" })</td>
             </tr>
         }
@@ -39,13 +40,12 @@
                     <option>Féminin</option>
                 </select>
             </div>
-            <br />
-            <br />
             <input type="submit" class="btn btn-warning" value="Recherche" />
         }
     </div>
     <br />
     @Html.ActionLink("Terminé", "InfoComp/" + Session["idComp"], new { area = "" }, new { @class = "btn btn-danger" })
+    @Html.ActionLink("Créer un joueur/joueuse", "AddNewJoueur", new { area = "" }, new { @class = "btn btn-success" })
     <div>
         <h2 class="alert-danger">@Request.QueryString["error"]</h2>
     </div>
