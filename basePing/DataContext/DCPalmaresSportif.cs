@@ -16,7 +16,7 @@ namespace basePing.DataContext
             if (con.IsConnect())
             {
                 //récupérer le joueur gràce au nom du joueur
-                string query = "SELECT * FROM ld_joueur_comp ld INNER JOIN competition c ON ld.idComp = c.idComp  Where idJoueur ='" + idJoueur + "' AND position > 0 ORDER BY date DESC";
+                string query = "SELECT c.nom, ld.position, c.dateDeb FROM ld_joueur_comp ld INNER JOIN competition c ON ld.idComp = c.idComp  Where idJoueur ='" + idJoueur + "' AND position < 100 ORDER BY c.dateDeb DESC";
                 var cmd = new MySqlCommand(query, con.Connection);
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())

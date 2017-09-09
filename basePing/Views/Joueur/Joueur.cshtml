@@ -97,6 +97,18 @@
     <div style="text-align: center;"><h2>Palmarès Sportif</h2></div>
     <div style="text-align: left;">
        @*Liste des palmarès sportifs*@
+        <table class="table table-striped">
+            <thead>Compétition</thead><thead>Classé(e)</thead><thead>Année</thead>
+            @foreach (PalmaresSportif p in ViewBag.palmaresSportif)
+            {
+                <tr class="bg-info">
+                    <td>@HttpUtility.HtmlDecode(p.IntituleCompetition)</td>
+                    <td>@p.Position</td>
+                    <td>@p.Annee.Year</td>
+                </tr>
+            }
+        </table>
+
     </div>
 </div>
 <button type="button" class="btn btn-success" value="Haut de la page" OnClick="window.location.href='#top';">Haut de la page</button>

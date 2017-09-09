@@ -181,7 +181,7 @@ namespace basePing.Controllers
 
             // Récupéré le palmarès sportif du joueur
             PalmaresSportif palmaresSportif = new PalmaresSportif();
-
+            ViewBag.palmaresSportif = palmaresSportif.GetList(id);
             return View();
         }
 

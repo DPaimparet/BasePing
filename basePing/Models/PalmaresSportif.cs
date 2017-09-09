@@ -39,8 +39,8 @@ namespace basePing.Models
         public List<PalmaresSportif> GetList(int idJoueur)
         {
             List<PalmaresSportif> list = new List<PalmaresSportif>();
-            //DataContext.
-            return list;
+            DataContext.DCPalmaresSportif dCPalmaresSportif = new DataContext.DCPalmaresSportif();
+            return list=dCPalmaresSportif.GetAllRecompense(idJoueur);
         }
     }
 }
