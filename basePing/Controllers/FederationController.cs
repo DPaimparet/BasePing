@@ -19,6 +19,9 @@ namespace basePing.Controllers
             ViewBag.liste = listeFederation;
             return View();
         }
+
+
+        [Authorize]
         public ActionResult AddFederation(string nomFederation, int? Pays, string web)
         {
             string pays = Pays.ToString();
@@ -35,6 +38,9 @@ namespace basePing.Controllers
                 return Redirect("Index?error=Tous les champs doivent être complétés");
             }
         }
+
+
+        [Authorize]
         public ActionResult UpdateFederation(int id)
         {
             Federation federation = new Federation();
@@ -54,6 +60,9 @@ namespace basePing.Controllers
             Session["listP"] = new SelectList(listP,"Id","Pays");
             return View(federation);
         }
+
+
+        [Authorize]
         public ActionResult UpdateFede(int id, string nomFederation, int? Pays, string web)
         {
             nomFederation = HttpUtility.HtmlEncode(nomFederation);
@@ -71,6 +80,8 @@ namespace basePing.Controllers
             
         }
 
+
+        [Authorize]
         public ActionResult DeleteFederation(int id)
         {
             Federation federation = new Federation();

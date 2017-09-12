@@ -18,12 +18,13 @@ namespace basePing.Controllers
             return View();
         }
 
+        [Authorize]
         public ActionResult AjouterSousCatForm()
         {
             return View();
         }
 
-
+     
         public ActionResult AjouterSousCat(string nom)
         {
             DCSousCategorie dc = new DCSousCategorie();
@@ -31,6 +32,7 @@ namespace basePing.Controllers
             return Redirect("SousCategorie/" + Session["idC"]);
         }
 
+        
         public ActionResult SousCategorie(int id)
         {
             Session["idC"] = id;
@@ -78,11 +80,13 @@ namespace basePing.Controllers
             return View(comp);
         }
 
+        [Authorize]
         public ActionResult AjouterTypeCompForm()
         {
             return View();
         }
 
+        [Authorize]
         public ActionResult AjouterTypeComp(string nom,string desc)
         {
             DCCategorie dc = new DCCategorie();
@@ -90,12 +94,14 @@ namespace basePing.Controllers
             return Redirect("~/Home/Connect");
         }
 
+        [Authorize]
         public ActionResult ModifCat(int id)
         {
             ViewBag.idCat = id;
             return View();
         }
 
+        [Authorize]
         public ActionResult SuppSousCat(int idSC)
         {
             DCSousCategorie dc = new DCSousCategorie();
@@ -104,6 +110,7 @@ namespace basePing.Controllers
             return Redirect("SousCategorie/"+Session["idC"]);
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult ModifCat(int id, string nom , string desc)
         {
@@ -112,7 +119,7 @@ namespace basePing.Controllers
             return Redirect("~/Home/Connect");
         }
 
-
+        [Authorize]
         public ActionResult SuppCat(int id)
         {
             DCCategorie dc = new DCCategorie();
@@ -120,7 +127,7 @@ namespace basePing.Controllers
             return Redirect("~/Home/Connect");
         }
 
-
+        [Authorize]
         public ActionResult AjoutComp(int id,int idSC)
         {
             Session["idSC"] = idSC;
@@ -141,7 +148,7 @@ namespace basePing.Controllers
 
 
 
-
+        [Authorize]
         [HttpPost]
         public ActionResult AjoutComp(String nom, DateTime dateD, DateTime dateF, string pays, string type, string nbrJ, int idCat)
         {
@@ -150,7 +157,7 @@ namespace basePing.Controllers
             return Redirect("~/Competition/GetComp/"+ Session["idSC"]);
         }
 
-
+        [Authorize]
         public ActionResult ModifierComp(int id, string nom, DateTime dateD, DateTime dateF, string type, string nbrJ,int idc)
         {
             SousCategorie sc = new SousCategorie();
@@ -178,6 +185,8 @@ namespace basePing.Controllers
             return View();
         }
 
+
+        [Authorize]
         [HttpPost]
         public ActionResult ModifierComp(String nom, DateTime dateD, DateTime dateF, string pays, string type, string nbrJ,int idSC,int idComp)
         {
@@ -186,13 +195,17 @@ namespace basePing.Controllers
             return Redirect("~/Competition/InfoComp/" + idComp);
         }
 
-
+        [Authorize]
         public ActionResult SuppressionComp(int id)
         {
             DCCompetition dc = new DCCompetition();
             dc.Delete(id);
             return Redirect("~/Home/Connect");
         }
+
+
+
+        [Authorize]
         public ActionResult AjoutParticipant()
         {
             // Liste des participants de la compétition
@@ -219,6 +232,10 @@ namespace basePing.Controllers
             ViewBag.listeParticipant = listeParticipant;
             return View();
         }
+
+
+
+
         [HttpPost]
         public ActionResult ListeParticipant(string nom, int? pays, string sexe)
         {
@@ -339,10 +356,19 @@ namespace basePing.Controllers
             }
             return View();
         }
+
+
+
+
+        [Authorize]
         public ActionResult AddNewJoueur()
         {
             return View();
         }
+
+
+
+        [Authorize]
         public ActionResult AddParticipant(int id, int position)
         {
             // Ajouter le participant ici
@@ -353,13 +379,18 @@ namespace basePing.Controllers
             else
                 return Redirect("~/Competition/AjoutParticipant/" + Session["idComp"]+"?error=Ce joueur participe déjà a cette compétition");
         }
-        
+
+
+        [Authorize]
         public ActionResult AddPosition(int id)
         {
             Joueur participant = new Joueur();
             ViewBag.participant = participant.RecupererJoueur(id);
             return View();
         }
+
+
+        [Authorize]
         public ActionResult FinalizeParticipation(int id, string position)
         {
             Joueur participant = new Joueur();
@@ -372,6 +403,9 @@ namespace basePing.Controllers
             else
                 return Redirect("~/Competition/AjoutParticipant/" + Session["idComp"] + "?error=Ce joueur participe déjà a cette compétition");
         }
+
+
+        [Authorize]
         public ActionResult SubJoueur(int id)
         {
             // Ajouter le participant ici
@@ -380,6 +414,9 @@ namespace basePing.Controllers
             participant.RetirerParticipant(id, idC);
             return Redirect("~/Competition/AjoutParticipant/" + Session["idComp"]);
         }
+
+
+        [Authorize]
         [HttpPost]
         public ActionResult AddJoueur(string nom, string prenom, string sexe, DateTime dateNaissance, int? pays)
         {
@@ -396,6 +433,10 @@ namespace basePing.Controllers
             return Redirect("~/Competition/AjoutParticipant/" + Session["idComp"]);
         }
 
+
+
+
+        [Authorize]
         public ActionResult SupprimerParticipant(int idJ,int idC)
         {
             DCJoueur dc = new DCJoueur();

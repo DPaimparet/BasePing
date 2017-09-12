@@ -185,17 +185,24 @@ namespace basePing.Controllers
             return View();
         }
 
+
+        [Authorize]
+
         public ActionResult NewJoueur()
         {
             return View();
         }
+
+
+        [Authorize]
         public ActionResult DeleteJoueur(int idJoueur)
         {
             Joueur joueur = new Joueur();
             joueur.DeleteJoueur(idJoueur);
             return View("Index");
         }
-        
+
+        [Authorize]
         [HttpPost]
         public ActionResult AddJoueur(string nom,string prenom, string sexe, DateTime dateNaissance, int? pays)
         {
@@ -222,6 +229,8 @@ namespace basePing.Controllers
                 return Redirect("NewJoueur?error=L'enregistrement n'a pas pu être effectué");
             }
         }
+
+        [Authorize]
         public ActionResult UpdateJoueur(int idJoueur)
         {
             Joueur player = new Joueur();
@@ -245,6 +254,9 @@ namespace basePing.Controllers
             ViewBag.photo = file;
             return View();
         }
+
+
+        [Authorize]
         [HttpPost]
         public ActionResult UpdateJoueur(int idJoueur, string nom, string prenom, DateTime dateNaiss, string sexe, int pays)
         {
@@ -261,6 +273,7 @@ namespace basePing.Controllers
             return Redirect("~/Joueur/Joueur/" + idJoueur);
         }
 
+        [Authorize]
         public ActionResult AjoutJoueurPoule(int id,int idC)
         {
             List<Joueur> listeJ = new Competition(idC).GetListPart();
@@ -269,6 +282,9 @@ namespace basePing.Controllers
             Session["listJ"]= new SelectList(listeJ, "Id", "Identite");
             return View();
         }
+
+
+        [Authorize]
         [HttpPost]
         public ActionResult AjoutJoueurPoule(int? joueur, int pos, int matchg,int matchp)
         {
@@ -279,6 +295,10 @@ namespace basePing.Controllers
             Session["idPoule"] = null;
             return Redirect("~/Competition/InfoComp/"+Session["idC"]);
         }
+
+
+
+        [Authorize]
         public ActionResult ModifierJoueurPoule(int id, int idP, int idJ, int matchG, int matchP,int pos)
         {
             infoJoueur j = new infoJoueur
@@ -293,6 +313,8 @@ namespace basePing.Controllers
             return View(j);
         }
 
+
+        [Authorize]
         [HttpPost]
         public ActionResult ModifierJpoule(int idP, int idJ, int pos,int matchG, int matchP)
         {
@@ -308,13 +330,16 @@ namespace basePing.Controllers
             dc.UpdateLD(j, idP);
             return Redirect("~/Competition/InfoComp/"+Session["idC"]);
         }
-
+        [Authorize]
         public ActionResult SupprimerJoueurPoule(int id,int idP,int idJ)
         {
             DCJoueur dc = new DCJoueur();
             dc.DeleteLD(idJ, idP);
             return Redirect("~/Competition/InfoComp/"+id);
         }
+
+
+        [Authorize]
         [HttpPost]
         public ActionResult AddPhoto(fichier model, int id)
         {
@@ -350,6 +375,9 @@ namespace basePing.Controllers
         /// <param name="idJoueur"></param>
         /// <param name="idPalmares"></param>
         /// <returns>Retourne un palmarès et l'id du joueur</returns>
+        /// 
+
+        [Authorize]
         public ActionResult UpdatePalmares(int idJoueur, int idPalmares)
         {
             PalmaresCivil palmares = new PalmaresCivil();
@@ -359,6 +387,8 @@ namespace basePing.Controllers
             return View();
         }
 
+
+        [Authorize]
         [HttpPost]
         public ActionResult UpdatePalmares(int idJoueur, int idPalmares, string recompense, DateTime date)
         {
@@ -373,6 +403,9 @@ namespace basePing.Controllers
                 return Redirect("UpdatePalmares/"+idJoueur+"?error=Aucune information trouvée");
             }
         }
+
+
+        [Authorize]
         public ActionResult Delete(int idJoueur,int idPalmares)
         {
             PalmaresCivil palmares = new PalmaresCivil();
@@ -380,6 +413,8 @@ namespace basePing.Controllers
             return Redirect("~/Joueur/Joueur/" + idJoueur);
         }
 
+
+        [Authorize]
         public ActionResult AjoutPalmares(int idJoueur, string recompense, DateTime date)
         {
             PalmaresCivil palmares = new PalmaresCivil();

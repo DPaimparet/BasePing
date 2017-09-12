@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using basePing.DataContext;
+using System.Web.Security;
 
 namespace basePing.Controllers
 {
@@ -23,6 +24,10 @@ namespace basePing.Controllers
             DCLogin dc = new DCLogin();
             if (dc.find(login, password)) {
                 Session["admin"] = true;
+
+
+                FormsAuthentication.SetAuthCookie("1",false);
+                
                 return Redirect("~/Home/Connect");
             }
             else

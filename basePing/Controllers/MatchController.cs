@@ -25,7 +25,7 @@ namespace basePing.Controllers
             return View(m);
         }
 
-
+        [Authorize]
         public ActionResult AjoutSet(int idM, int cpt1, int cpt2, int score1,int  score2,string j1,string j2)
         {
             Session["cpt1"] = cpt1;
@@ -40,6 +40,8 @@ namespace basePing.Controllers
             return View();
         }
 
+
+        [Authorize]
         public ActionResult SupprimerSet(int idS,int idM)
         {
             DCSet dc = new DCSet();
@@ -47,6 +49,8 @@ namespace basePing.Controllers
             return Redirect("~/Match/InfoMatch/" + idM);
         }
 
+
+        [Authorize]
         [HttpPost]
         public ActionResult AjoutSet(int position,int point1, int point2)
         {
@@ -72,6 +76,8 @@ namespace basePing.Controllers
 
         }
 
+
+        [Authorize]
         public ActionResult AjoutMatch(int id)
         {
             ViewBag.idComp = id;
@@ -80,7 +86,7 @@ namespace basePing.Controllers
             return View();
         }
 
-
+        [Authorize]
         [HttpPost]
         public ActionResult AjoutMatch(int id,int? joueur1,int score1,int? joueur2,int score2)
         {
@@ -96,6 +102,8 @@ namespace basePing.Controllers
             }
         }
 
+
+        [Authorize]
         public ActionResult SuppMatch(int id)
         {
             DCMatch dc = new DCMatch();
@@ -103,6 +111,8 @@ namespace basePing.Controllers
             return Redirect("~/Competition/InfoComp/"+ Session["idComp"]);
         }
 
+
+        [Authorize]
         public ActionResult LieMatch(int pos,int idC,int idS)
         {
             Session["pos"] = pos;
@@ -121,7 +131,7 @@ namespace basePing.Controllers
             return View();
         }
 
-
+        [Authorize]
         [HttpPost]
         public ActionResult LieMatch(int match)
         {
@@ -130,7 +140,7 @@ namespace basePing.Controllers
             return Redirect("~/Competition/InfoComp/" + Session["idC"]);
         }
 
-
+        [Authorize]
         public ActionResult LieMatchPoule(int idJ, int idC, int idS)
         {
             Session["idC"] = idC;
@@ -155,7 +165,7 @@ namespace basePing.Controllers
             return View();
         }
 
-
+        [Authorize]
         [HttpPost]
         public ActionResult LieMatchPoule(int match)
         {
@@ -164,6 +174,8 @@ namespace basePing.Controllers
             return Redirect("~/Competition/InfoComp/" + Session["idC"]);
         }
 
+
+        [Authorize]
         [HttpPost]
         public ActionResult AjoutEtLieMatch(int? joueur1, int score1, int? joueur2, int score2)
         {
@@ -178,7 +190,7 @@ namespace basePing.Controllers
         }
 
 
-
+        [Authorize]
         [HttpPost]
         public ActionResult AjoutEtLieMatchPoule(int score1,int? joueur, int score2)
         {

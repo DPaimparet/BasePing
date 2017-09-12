@@ -16,6 +16,8 @@ namespace basePing.Controllers
             return View();
         }
 
+
+        [Authorize]
         [HttpPost]
         public ActionResult AjoutPoule(string nom , int taille , int idComp)
         {
@@ -24,12 +26,15 @@ namespace basePing.Controllers
             return Redirect("~/Competition/InfoComp/" + idComp);
         }
 
+        [Authorize]
         public ActionResult ModifPouleForm(int idC, int id,string desc,string nom,int taille)
         {
             Poule p = new Poule(id, HttpUtility.HtmlEncode(desc),taille, HttpUtility.HtmlEncode(nom));
             Session["idC"] = idC;
             return View(p);
         }
+
+        [Authorize]
         [HttpPost]
         public ActionResult ModifPoule(int id, string nom, string desc, int taille)
         {
@@ -39,7 +44,7 @@ namespace basePing.Controllers
             return Redirect("~/Competition/InfoComp/" + Session["idC"]);
         }
 
-
+        [Authorize]
         public ActionResult SuppPoule(int id,int idC)
         {
            
@@ -48,6 +53,8 @@ namespace basePing.Controllers
             return Redirect("~/Competition/InfoComp/" + idC);
         }
 
+
+        [Authorize]
         public ActionResult SuppPhaseFinale(int id, int idC)
         {
 
@@ -56,12 +63,14 @@ namespace basePing.Controllers
             return Redirect("~/Competition/InfoComp/" + idC);
         }
 
+        [Authorize]
         public ActionResult AjouterTournoi(int id)
         {
             ViewBag.idComp = id;
             return View();
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult AjouterPhaseFinale(int id,int taille)
         {
@@ -70,6 +79,7 @@ namespace basePing.Controllers
             return Redirect("~/Competition/InfoComp/" + id);
         }
 
+        [Authorize]
         public ActionResult ListMatchPoule(int idP ,int idC ,int IdJ)
         {
             Session["idC"] = idC;

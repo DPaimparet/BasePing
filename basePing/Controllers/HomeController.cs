@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using basePing.DataContext;
 using basePing.Models;
+using System.Web.Security;
 
 namespace basePing.Controllers
 {
@@ -41,8 +42,12 @@ namespace basePing.Controllers
             return View();
         }
 
+ 
+
         public ActionResult LogOut()
         {
+
+            FormsAuthentication.SignOut();
             Session["admin"] = false;
             return View("Index");
         }
