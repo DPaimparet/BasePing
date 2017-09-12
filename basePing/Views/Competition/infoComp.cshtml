@@ -83,10 +83,10 @@
                         }
 
                         <td>
-                            <table>
+                            <table class="tabPF">
                                 @for (int u = 0; u < tab[0, i]; u++)
                                 {
-                                    <tr><td>.</td></tr>
+                                    <tr><td></td></tr>
                                 }
 
 
@@ -94,40 +94,40 @@
                                 {
                                     if (@match[cpt] == null)
                                     {
-                                        <tr><td style="border: 1px solid #cdd0d4;">.____________.</td></tr>
+                                        <tr><td style="border: 1px solid #cdd0d4;"></td></tr>
                                         for (int z = 0; z <= tab[1, i] - 2; z++)
                                         {
-                                            <tr><td style="border-right: 1px solid #cdd0d4;">.</td></tr>
+                                            <tr><td style="border-right: 1px solid #cdd0d4;"></td></tr>
                                         }
-                                        <tr><td style="border: 1px solid #cdd0d4;">.____________.</td></tr>
+                                        <tr><td style="border: 1px solid #cdd0d4;"></td></tr>
                                     }
                                     else
                                     {
-                                        <tr><td style="border: 1px solid #cdd0d4;">@Html.ActionLink(@match[cpt].Joueur1.Identite + " | " + @match[cpt].Score1, "Joueur", "Joueur", new { id = @match[cpt].Joueur1.Id }, new { @class = "btn btn-succes" })</td></tr>
+                                        <tr><td style="border: 1px solid #cdd0d4;">@Html.ActionLink(@match[cpt].Joueur1.Identite + " | " + @match[cpt].Score1, "Joueur", "Joueur", new { id = @match[cpt].Joueur1.Id }, new { @class = "btn btn-success" })</td></tr>
                                         <tr>
                                             <td style="border-right: 1px solid #cdd0d4;">
-                                                @Html.ActionLink("Détail", "InfoMatch", "Match", new { id = @match[cpt].Id }, null)
+                                                @Html.ActionLink("Détail", "InfoMatch", "Match", new { id = @match[cpt].Id }, new { @class = "btn btn-success" })
                                             </td>
                                         </tr>
                                         for (int z = 0; z <= tab[1, i] - 3; z++)
                                         {
-                                            <tr><td style="border-right: 1px solid #cdd0d4;">.</td></tr>
+                                            <tr><td style="border-right: 1px solid #cdd0d4;"></td></tr>
                                         }
-                                        <tr><td style="border: 1px solid #cdd0d4;">@Html.ActionLink(@match[cpt].Joueur2.Identite + " | " + @match[cpt].Score2, "Joueur", "Joueur", new { id = @match[cpt].Joueur2.Id }, new { @class = "btn btn-succes" })</td></tr>
+                                        <tr><td style="border: 1px solid #cdd0d4;">@Html.ActionLink(@match[cpt].Joueur2.Identite + " | " + @match[cpt].Score2, "Joueur", "Joueur", new { id = @match[cpt].Joueur2.Id }, new { @class = "btn btn-success" })</td></tr>
                                     }
                                     cpt++;
                                     if (j < taille[Model.Tournoi.Taille - 1] - tab[1, i])
                                     {
                                         for (int k = 0; k <= tab[1, i] - 2; k++)
                                         {
-                                            <tr><td>.</td></tr>
+                                            <tr><td></td></tr>
                                         }
                                     }
                                     else
                                     {
                                         for (int u = 0; u < tab[0, i]; u++)
                                         {
-                                            <tr><td>.</td></tr>
+                                            <tr><td></td></tr>
                                         }
                                     }
                                 }
@@ -142,20 +142,20 @@
 
                                 @for (int u = 0; u < tab[0, Model.Tournoi.Taille]; u++)
                                 {
-                                    <tr><td>.</td></tr>
+                                    <tr><td></td></tr>
                                 }
                                 @if (finaliste == null)
                                 {
-                                    <tr><td>.</td></tr>
+                                    <tr><td style="border: 1px solid #cdd0d4;"></td></tr>
 
                                 }
                                 else
                                 {
-                                    <tr><td>@Html.ActionLink(@finaliste.Identite, "Joueur", "Joueur", new { id = finaliste.Id }, new { @class = "btn btn-succes" })</td></tr>
+                                    <tr><td>@Html.ActionLink(@finaliste.Identite, "Joueur", "Joueur", new { id = finaliste.Id }, new { @class = "btn btn-success" })</td></tr>
                                 }
                                 @for (int u = 0; u < tab[0, Model.Tournoi.Taille]; u++)
                                 {
-                                    <tr><td>.</td></tr>
+                                    <tr><td></td></tr>
                                 }
                             </table>
                         </td>
@@ -285,10 +285,10 @@
                                                 }
 
                                                 <td>
-                                                    <table>
+                                                    <table class="tabPF">
                                                         @for (int u = 0; u < tab[0, i]; u++)
                                                         {
-                                                            <tr><td>.</td></tr>
+                                                            <tr><td></td></tr>
                                                         }
 
 
@@ -296,21 +296,21 @@
                                                         {
                                                             if (@match[cpt] == null)
                                                             {
-                                                                <tr><td style="border: 1px solid #cdd0d4;">.</td></tr>
+                                                                <tr><td style="border: 1px solid #cdd0d4;"></td></tr>
                                                                 <tr><td style="border-right: 1px solid #cdd0d4;">@Html.ActionLink("Ajouter Match", "LieMatch", "Match", new { pos = cpt, idC = Model.Id, idS = Model.Tournoi.Id }, null)</td></tr>
                                                                 for (int z = 0; z <= tab[1, i] - 3; z++)
                                                                 {
-                                                                    <tr><td style="border-right: 1px solid #cdd0d4;">.</td></tr>
+                                                                    <tr><td style="border-right: 1px solid #cdd0d4;"></td></tr>
                                                                 }
-                                                                <tr><td style="border: 1px solid #cdd0d4;">.</td></tr>
+                                                                <tr><td style="border: 1px solid #cdd0d4;"></td></tr>
                                                             }
                                                             else
                                                             {
                                                                 <tr><td style="border: 1px solid #cdd0d4;">@Html.ActionLink(@match[cpt].Joueur1.Identite + " | " + @match[cpt].Score1, "Joueur", "Joueur", new { id = @match[cpt].Joueur1.Id }, new { @class = "btn btn-success" })</td></tr>
-                                                                <tr><td style="border-right: 1px solid #cdd0d4;">@Html.ActionLink("Supprimer Match", "SuppMatch", "Match", new { id = @match[cpt].Id }, new { @class = "btn btn-danger" }) @Html.ActionLink("Détail", "InfoMatch", "Match", new { id = @match[cpt].Id }, null)</td></tr>
+                                                                <tr><td style="border-right: 1px solid #cdd0d4;">@Html.ActionLink("Supprimer", "SuppMatch", "Match", new { id = @match[cpt].Id }, new { @class = "btn btn-danger" }) @Html.ActionLink("Détail", "InfoMatch", "Match", new { id = @match[cpt].Id }, new { @class = "btn btn-success" })</td></tr>
                                                                 for (int z = 0; z <= tab[1, i] - 3; z++)
                                                                 {
-                                                                    <tr><td style="border-right: 1px solid #cdd0d4;">.</td></tr>
+                                                                    <tr><td style="border-right: 1px solid #cdd0d4;"></td></tr>
                                                                 }
                                                                 <tr><td style="border: 1px solid #cdd0d4;">@Html.ActionLink(@match[cpt].Joueur2.Identite + " | " + @match[cpt].Score2, "Joueur", "Joueur", new { id = @match[cpt].Joueur2.Id }, new { @class = "btn btn-success" })</td></tr>
                                                             }
@@ -319,14 +319,14 @@
                                                             {
                                                                 for (int k = 0; k <= tab[1, i] - 2; k++)
                                                                 {
-                                                                    <tr><td>.</td></tr>
+                                                                    <tr><td></td></tr>
                                                                 }
                                                             }
                                                             else
                                                             {
                                                                 for (int u = 0; u < tab[0, i]; u++)
                                                                 {
-                                                                    <tr><td>.</td></tr>
+                                                                    <tr><td></td></tr>
                                                                 }
                                                             }
                                                         }
@@ -341,21 +341,21 @@
 
                                                     @for (int u = 0; u < tab[0, Model.Tournoi.Taille]; u++)
                                                     {
-                                                        <tr><td>.</td></tr>
+                                                        <tr><td></td></tr>
                                                     }
                                                     @if (finaliste == null)
                     {
-                                                        <tr><td>.</td></tr>
+                                                        <tr><td style="border: 1px solid #cdd0d4;"></td></tr>
 
                                                     }
                                                     else
                                                     {
-                                                        <tr><td>@Html.ActionLink(@finaliste.Identite, "Joueur", "Joueur", new { id = finaliste.Id }, new { @class = "btn btn-succes" })</td></tr>
+                                                        <tr><td style="border: 1px solid #cdd0d4;">@Html.ActionLink(@finaliste.Identite, "Joueur", "Joueur", new { id = finaliste.Id }, new { @class = "btn btn-success" })</td></tr>
 
                                                     }
                                                     @for (int u = 0; u < tab[0, Model.Tournoi.Taille]; u++)
                                                     {
-                                                        <tr><td>.</td></tr>
+                                                        <tr><td></td></tr>
                                                     }
                                                 </table>
                                             </td>
