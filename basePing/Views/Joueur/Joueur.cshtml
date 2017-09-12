@@ -24,7 +24,7 @@
 </div>
 <div>
     <br />
-    @Html.ActionLink("Retour", "Index", "Joueur", null, new { @class = "btn btn-success" })
+    <a href="javascript:history.go(-1)"><input type="button" value="Retour" class="btn btn-success" /></a>
     <p>
         <h4>Date de naissance   : @ViewBag.dateNaissance</h4> <br />
         <h4>Nationalité         : @ViewBag.Joueur.National</h4> <br />
@@ -98,13 +98,17 @@
     <div style="text-align: left;">
        @*Liste des palmarès sportifs*@
         <table class="table table-striped">
-            <thead>Compétition</thead><thead>Classé(e)</thead><thead>Année</thead>
+            <tr>
+                <th>Compétition</th>
+                <th>Année</th>
+                <th>Classement</th>
+            </tr>
             @foreach (PalmaresSportif p in ViewBag.palmaresSportif)
             {
                 <tr class="bg-info">
-                    <td>@HttpUtility.HtmlDecode(p.IntituleCompetition)</td>
-                    <td>@p.Position</td>
+                    <td>@Html.ActionLink(HttpUtility.HtmlDecode(p.IntituleCompetition), "InfoComp", "Competition", new { id = p.IdCompetition }, new { @class = "btn btn-info" })
                     <td>@p.Annee.Year</td>
+                    <td>@p.Position</td>
                 </tr>
             }
         </table>

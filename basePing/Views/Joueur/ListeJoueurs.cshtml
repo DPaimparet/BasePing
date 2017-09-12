@@ -47,7 +47,11 @@
             </tr>
         }
     </table>
-    <div>
-        @Html.ActionLink("Ajouter un joueur ou une joueuse", "NewJoueur", "Joueur", new { area = "" }, new { @class = "btn btn-info" })
-    </div>
+    @if ((bool)Session["admin"])
+    {
+        <div>
+            @Html.ActionLink("Ajouter un joueur ou une joueuse", "NewJoueur", "Joueur", new { area = "" }, new { @class = "btn btn-info" })
+        </div>
+    }
+    
 </div>

@@ -7,11 +7,16 @@ namespace basePing.Models
 {
     public class PalmaresSportif
     {
+        private int         idCompetition;
         private string      intituleCompetition;
         private int         position;
         private DateTime    annee;
 
-
+        public int IdCompetition
+        {
+            get { return idCompetition; }
+            set { idCompetition = value; }
+        }
         public string IntituleCompetition
         {
             get { return intituleCompetition; }
@@ -30,8 +35,9 @@ namespace basePing.Models
             set { annee = value; }
         }
         public PalmaresSportif() { }
-        public PalmaresSportif(string intituleCompetition, int position, DateTime annee)
+        public PalmaresSportif(int id, string intituleCompetition, int position, DateTime annee)
         {
+            this.idCompetition = id;
             this.intituleCompetition = intituleCompetition;
             this.position = position;
             this.annee = annee;

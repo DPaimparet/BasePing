@@ -58,7 +58,7 @@ namespace basePing.Controllers
 
             if (dc.findSamePos(position, (int)Session["idM"]))
             {
-                return Redirect("/Match/AjoutSet?idM="+ (int)Session["idM"] + "8&cpt1="+ (int)Session["cpt1"] + "&cpt2="+ (int)Session["cpt2"] + "&score1="+(int)Session["score1"]+"&score2="+ (int)Session["score1"] + "&j1="+HttpUtility.HtmlEncode(Session["j1"]) + "&j2="+ HttpUtility.HtmlEncode(Session["j2"])+"&error=Il existe déja un set sur cette position");
+                return Redirect("/Match/AjoutSet?idM="+ (int)Session["idM"] + "&cpt1="+ (int)Session["cpt1"] + "&cpt2="+ (int)Session["cpt2"] + "&score1="+(int)Session["score1"]+"&score2="+ (int)Session["score1"] + "&j1="+HttpUtility.HtmlEncode(Session["j1"]) + "&j2="+ HttpUtility.HtmlEncode(Session["j2"])+"&error=Il existe déja un set sur cette position");
             }
 
             if (point1> point2 && (int)Session["cpt1"]< (int)Session["score1"])
