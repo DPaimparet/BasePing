@@ -222,7 +222,7 @@ namespace basePing.Controllers
                 mParticipant.Nom = joueur.Nom;
                 mParticipant.Prenom = joueur.Prenom;
                 mParticipant.National = joueur.National;
-                mParticipant.Position = Convert.ToString(dCJoueur.GetPositionComp(joueur.Id));
+                mParticipant.Position = Convert.ToString(dCJoueur.GetPositionComp(joueur.Id, idC));
                 if(mParticipant.Position == "100")
                 {
                     mParticipant.Position = "Pas classé(e)";

@@ -423,13 +423,13 @@ namespace basePing.DataContext
             else
                 return null;
         }
-        public int GetPositionComp(int id)
+        public int GetPositionComp(int id, int idComp)
         {
             int position = 0;
             DBConnection con = DBConnection.Instance();
             if (con.IsConnect())
             {
-                string query = "SELECT position FROM ld_joueur_comp WHERE idJoueur = " + id + " ORDER BY position ASC ";
+                string query = "SELECT position FROM ld_joueur_comp WHERE idJoueur = " + id + " AND idComp = " + idComp;
                 var cmd = new MySqlCommand(query, con.Connection);
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
