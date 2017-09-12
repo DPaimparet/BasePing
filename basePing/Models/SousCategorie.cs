@@ -14,7 +14,7 @@ namespace basePing.Models
 
 
         public int Id { get { return id; } set { id = value; } }
-        public string Nom { get { return nom; } set { nom = value; } }
+        public string Nom { get { return HttpUtility.HtmlDecode(nom); } set { nom = value; } }
 
         public SousCategorie(int id, string nom)
         {
