@@ -72,6 +72,7 @@ namespace basePing.Controllers
 
         public ActionResult InfoComp(int id)
         {
+            Session["Url"] = Request.Url.LocalPath.ToString();
             Session["idComp"] = id;
             Competition comp = new Competition(id);
             

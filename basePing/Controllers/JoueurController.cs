@@ -12,6 +12,9 @@ namespace basePing.Controllers
 {
     public class JoueurController : Controller
     {
+
+
+
         // GET: Joueur
         public ActionResult Index()
         {
