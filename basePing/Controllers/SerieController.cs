@@ -13,6 +13,7 @@ namespace basePing.Controllers
         // GET: Serie
         public ActionResult Index()
         {
+          
             return View();
         }
 
@@ -79,7 +80,7 @@ namespace basePing.Controllers
             return Redirect("~/Competition/InfoComp/" + id);
         }
 
-        [Authorize]
+   
         public ActionResult ListMatchPoule(int idP ,int idC ,int IdJ)
         {
             Session["idC"] = idC;
