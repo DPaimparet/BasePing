@@ -1,0 +1,32 @@
+﻿
+<div class="form-inline">
+    @using (Html.BeginForm("ListeParticipant", "CompetitionEquipe"))
+    {
+        <div class="form-group">
+            <label>Joueur </label>
+            <input type="text" class="form-control" name="nom">
+        </div>
+
+            <div class="form-group">
+                
+                <label>Nationalité </label>
+                @Html.DropDownList("Pays", Session["listePays"] as SelectList, string.Empty, new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                <label>Sexe </label>
+                <select class="form-control" name="sexe">
+                    <option></option>
+                    <option>Masculin</option>
+                    <option>Féminin</option>
+                </select>
+            </div>
+            <input type="submit" class="btn btn-warning" value="Recherche" />
+    }
+</div>
+<br />
+@Html.ActionLink("Terminé", "InfoComp/" + Session["idComp"], new { area = "" }, new { @class = "btn btn-danger" })
+@Html.ActionLink("Créer un joueur/joueuse", "AddNewJoueur", new { area = "" }, new { @class = "btn btn-success" })
+<div>
+    <h2 class="alert-danger">@Request.QueryString["error"]</h2>
+</div>

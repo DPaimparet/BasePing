@@ -40,6 +40,8 @@ namespace basePing.DataContext
             else
                 return false;
         }
+
+       
         public bool UpdateJoueur(int idJoueur,string nom, string prenom, DateTime dateNaiss, char sexe, int pays)
         {
             DBConnection con = DBConnection.Instance();

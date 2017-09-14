@@ -1,0 +1,25 @@
+﻿@model basePing.Models.Equipe
+@using basePing.Models
+<br />
+<div style="background-color: #199aca; width: auto; padding: 10px 50px;">
+   
+        <h1>Information dur l'equipe</h1>
+
+        <label>Equipe: @Model.Nom </label>
+        
+
+        <h1>Liste des membres</h1>
+        <ul>
+            @foreach(Joueur j in Model.ListJ)
+            {
+                <li>@j.Identite  @j.Sexe    @Html.ActionLink("Supprimer membre", "SupprimerMembre", "CompetitionEquipe", new { idJ = j.Id,idE=Model.Id }, new { @class = "btn btn-danger" })</li>
+            }
+        </ul>
+
+    @if (Model.ListJ.Count < Model.Taille) { 
+         @Html.ActionLink("Ajouter un membre", "AddMembre", "CompetitionEquipe", new { idE = Model.Id ,idPays=Model.National.Id}, new { @class = "btn btn-success" })
+    } 
+        
+      
+
+</div>

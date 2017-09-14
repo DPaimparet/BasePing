@@ -1,0 +1,24 @@
+﻿<br />
+<div style="background-color: #199aca; width: auto; padding: 10px 50px;">
+    @using (Html.BeginForm("AjoutEquipe", "CompetitionEquipe"))
+    {
+        <h1>Ajouter une nouvelle équipe</h1>
+
+        <label>Nom de l'équipe</label>
+        <input type="text" name="nom" required="required" />
+        <br />
+     
+        <label>Taille de l'équipe</label>
+        <input type="number" min="1" max="10" name="taille" />
+        <br />
+        <label>Nationalité</label>
+        @Html.DropDownList("pays", (SelectList)ViewBag.listePays, new { @class = "form-control" })
+
+        <label>Position</label>
+        @Html.DropDownList("pos", (SelectList)ViewBag.listePos, new { @class = "form-control" })
+
+
+        <input type="submit" value="Ajouter Equipe" />
+
+    }
+</div>

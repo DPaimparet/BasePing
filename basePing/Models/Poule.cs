@@ -14,11 +14,12 @@ namespace basePing.Models
         private int taille;
         private string nomPoule;
         private List<infoJoueur> lJoueur;
-        
+        private List<infoEquipe> lEquipe;
 
         public int Taille { get { return taille; } set { taille = value; } }
         public string NomPoule { get { return nomPoule; } set { nomPoule = value; } }
         public List<infoJoueur> LJoueur { get { return lJoueur; } set { lJoueur = value; } }
+        public List<infoEquipe> LEquipe{ get { return lEquipe; } set { lEquipe = value; } }
 
         public Poule(int id,string descriptif,int taille,string nomPoule):base(id,descriptif)
         {
