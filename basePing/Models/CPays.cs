@@ -11,6 +11,7 @@ namespace basePing.Models
         private int id;
         private string codePays;
         private string pays;
+        private int v;
 
         public int Id { get { return id; } set{ id = value; } }
         public string CodePays { get; set; }
@@ -31,6 +32,11 @@ namespace basePing.Models
             this.id = id;
             this.codePays = codePays;
             this.pays = pays;
+        }
+
+        public CPays(int v)
+        {
+            this.id = v;
         }
 
         public List<CPays> GetListPays()

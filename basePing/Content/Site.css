@@ -18,6 +18,12 @@ a > button {
     text-decoration: none;
 }
 
+.tabPF > tr, td {
+    height: 35px;
+    width: 550px;
+    text-align: center;
+}
+
 a, a:visited {
     /* Les liens "au repos" et déjà visités antérieurement */
     color: white;

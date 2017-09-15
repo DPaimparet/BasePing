@@ -46,7 +46,7 @@ namespace basePing.DataContext
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    pays = reader.GetString(1);
+                    pays = reader.GetString(0);
                 }
                 reader.Close();
                 return pays;

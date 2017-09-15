@@ -78,7 +78,11 @@ namespace basePing.Controllers
             
             comp = comp.GetInformation();
             Session["CPays"] = comp.Pays;
-            return View(comp);
+            if (comp.NbrJoueur== "Individuel")
+                return View(comp);
+            else if (comp.NbrJoueur == "Equipe")
+                return Redirect("~/CompetitionEquipe/InfoComp/"+id);
+            return null;
         }
 
         [Authorize]
@@ -139,7 +143,7 @@ namespace basePing.Controllers
             listeType.Add("Mixte");
             List<String> listeNbrJ= new List<String>();
             listeNbrJ.Add("Individuel");
-           // listeNbrJ.Add("Equipe");
+            listeNbrJ.Add("Equipe");
             ViewBag.listePays = new SelectList(listePays, "Id", "Pays");
             ViewBag.listeType = new SelectList(listeType);
             ViewBag.listeNbrJ = new SelectList(listeNbrJ);

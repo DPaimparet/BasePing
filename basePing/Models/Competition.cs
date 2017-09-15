@@ -107,5 +107,12 @@ namespace basePing.Models
             DCJoueur dc = new DCJoueur();
             return dc.findAllComp(id);
         }
+
+
+        public List<Equipe> GetListEquipe()
+        {
+            DCEquipe dc = new DCEquipe();
+            return dc.findAllComp(id);
+        }
     }
 }

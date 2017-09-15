@@ -175,6 +175,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ClubController.cs" />
     <Compile Include="Controllers\CompetitionController.cs" />
+    <Compile Include="Controllers\CompetitionEquipeController.cs" />
     <Compile Include="Controllers\FederationController.cs" />
     <Compile Include="Controllers\HandisportController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -185,6 +186,7 @@
     <Compile Include="DataContext\DBConnection.cs" />
     <Compile Include="DataContext\DCCategorie.cs" />
     <Compile Include="DataContext\DCCompetition.cs" />
+    <Compile Include="DataContext\DCEquipe.cs" />
     <Compile Include="DataContext\DCFederation.cs" />
     <Compile Include="DataContext\DCPalmaresCivil.cs" />
     <Compile Include="DataContext\DCPalmaresSportif.cs" />
@@ -201,6 +203,7 @@
     </Compile>
     <Compile Include="Models\Categorie.cs" />
     <Compile Include="Models\Competition.cs" />
+    <Compile Include="Models\Equipe.cs" />
     <Compile Include="Models\Federation.cs" />
     <Compile Include="Models\Joueur.cs" />
     <Compile Include="Models\Match.cs" />
@@ -215,6 +218,7 @@
     <Compile Include="Models\Tournoi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\fichier.cs" />
+    <Compile Include="ViewModel\infoEquipe.cs" />
     <Compile Include="ViewModel\infoJoueur.cs" />
     <Compile Include="ViewModel\VMJoueur.cs" />
     <Compile Include="ViewModel\VMParticipant.cs" />
@@ -325,6 +329,11 @@
     <Content Include="Views\Joueur\UpdateJoueur.cshtml" />
     <Content Include="Views\Competition\SousCategorie.cshtml" />
     <Content Include="Views\Competition\AddPosition.cshtml" />
+    <Content Include="Views\CompetitionEquipe\InfoComp.cshtml" />
+    <Content Include="Views\CompetitionEquipe\AjoutEquipe.cshtml" />
+    <Content Include="Views\CompetitionEquipe\DetailEquipe.cshtml" />
+    <Content Include="Views\CompetitionEquipe\AddMembre.cshtml" />
+    <Content Include="Views\CompetitionEquipe\ListeParticipant.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

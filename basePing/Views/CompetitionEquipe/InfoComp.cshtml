@@ -20,23 +20,24 @@
     @if ((Boolean)Session["admin"] == false)
     {
         Joueur finaliste = null;
-        
+
         <h2>Liste des participants</h2>
-        <input type="button" class="btn btn-success" name="btnShow" id="btnShow" value="Montrer" onclick="ShowParticipant();">
-        <input type="button"  hidden="hidden" name="btnHide" id="btnHide" onclick="HideParticipant();" value="Cacher" >
+        <input type="button" class="btn btn-info" id="btnShow" value="Montrer">
+        <input type="button" class="btn btn-info" id="btnHide" value="Cacher" hidden="hidden">
         <br />
-        <div id="participant" hidden="hidden">
-            <table class="table-striped">
-                @foreach (Joueur j in Model.GetListPart())
+        <br />
+        <div id="participant">
+
+            @foreach (Equipe e in Model.GetListEquipe())
                 {
-
-                    <tr class="bg-danger">
-                        <td>@Html.ActionLink(j.Identite, "Joueur", "Joueur", new { id = j.Id }, new { @class = "fontColorBlack" })</td>
+                <table align="center">
+                    <tr>
+                        <td>@e.Nom </td>
+                        <td>@Html.ActionLink("Détail", "DetailEquipe", "CompetitionEquipe", new { idE = @e.Id, idC = @Model.Id }, new { @class = "btn btn-info" })</td>
+                        
                     </tr>
-
-                }
-            </table>
-
+                </table>
+            }
         </div>
         <br />
         if (Model.LPoule.Count != 0)
@@ -44,16 +45,16 @@
             <table border="0" class="table table-striped">
                 @foreach (Poule p in Model.LPoule)
                 {
-                    <tr class="bg-info" > <th colspan="4">Poule : @p.NomPoule</th></tr>
-                    <tr class="bg-info" > <th>Joueur</th> <th>Match gagné</th> <th>Match perdu</th><th></th></tr>
-                    foreach (infoJoueur j in p.LJoueur)
+                    <tr class="bg-info"> <th colspan="4">Poule : @p.NomPoule</th></tr>
+                    <tr class="bg-info"> <th>Joueur</th> <th>Match gagné</th> <th>Match perdu</th><th></th></tr>
+                    foreach (infoEquipe e in p.LEquipe)
                     {
                         <tr class="bg-info">
-                            <td>@Html.ActionLink(j.nom, "Joueur", "Joueur", new { id = j.Id }, new { @class = "btn btn-success btn-lg" })</td>
-                            <td>@Html.ActionLink(j.matchGagné + " ", "ListMatchPoule", "Serie", new { idP = p.Id, idC = Model.Id, IdJ = j.Id }, new { @class = "btn btn-success" })</td>
-                            <td>@Html.ActionLink(j.matchPerdu + " ", "ListMatchPoule", "Serie", new { idP = p.Id, idC = Model.Id, IdJ = j.Id }, new { @class = "btn btn-success" })</td>
+                            <td>@Html.ActionLink(e.nom, "Joueur", "Joueur", new { id = e.Id }, new { @class = "btn btn-success btn-lg" })</td>
+                            <td>@Html.ActionLink(e.matchGagné + " ", "ListMatchPoule", "Serie", new { idP = p.Id, idC = Model.Id, IdJ = e.Id }, new { @class = "btn btn-success" })</td>
+                            <td>@Html.ActionLink(e.matchPerdu + " ", "ListMatchPoule", "Serie", new { idP = p.Id, idC = Model.Id, IdJ = e.Id }, new { @class = "btn btn-success" })</td>
                             <td>
-                                @Html.ActionLink("Détail des matchs", "ListMatchPoule", "Serie", new { idP = p.Id, idC = Model.Id, IdJ = j.Id }, new { @class = "btn btn-success" })
+                                @Html.ActionLink("Détail des matchs", "ListMatchPoule", "Serie", new { idP = p.Id, idC = Model.Id, IdJ = e.Id }, new { @class = "btn btn-success" })
                             </td>
                         </tr>
                     }
@@ -167,11 +168,11 @@
                         }
                         else//PARTIE ADMINISTRATION
                         {
-                            Joueur finaliste = null;
-                            List<Joueur> listJ = Model.GetListPart();
-                            @Html.ActionLink("Gérer participant", "AjoutParticipant", "Competition", new { id = Model.Id }, new { @class = "btn btn-success" })
+                            Equipe finaliste = null;
+                            List<Equipe> listE = Model.GetListEquipe();
+                            @Html.ActionLink("Gérer les équipes", "AjoutEquipe", "CompetitionEquipe", new { id = Model.Id }, new { @class = "btn btn-success" })
 
-                            if (listJ.Count >= 2)
+                            if (listE.Count >= 2)
                             {
                                 @Html.ActionLink("Ajouter un match", "AjoutMatch", "Match", new { id = Model.Id }, new { @class = "btn btn-success" })
                             }
@@ -183,12 +184,13 @@
                             <br />
                             <div>
                                 <table class="table table-striped" align="center">
-                                    @foreach (Joueur j in listJ)
+                                    @foreach (Equipe e in listE)
                                     {
 
                                         <tr class="bg-info">
-                                            <td>@Html.ActionLink(j.Nom + " " + j.Prenom, "Joueur", "Joueur", new { id = j.Id }, new { @class = "btn btn-success" })</td>
-                                            <td>@Html.ActionLink("Supprimer", "SupprimerParticipant", "Competition", new { idJ = @j.Id, idC = @Model.Id }, new { @class = "btn btn-info" })</td>
+                                            <td>@Html.ActionLink(e.Nom , "Equipe", "Equipe", new { id = e.Id }, new { @class = "btn btn-success" })</td>
+                                            <td>@Html.ActionLink("Détail", "DetailEquipe", "CompetitionEquipe", new { idE = @e.Id, idC = @Model.Id }, new { @class = "btn btn-info" })</td>
+                                            <td>@Html.ActionLink("Supprimer", "SupprimerEquipe", "CompetitionEquipe", new { idE= @e.Id, idC = @Model.Id }, new { @class = "btn btn-info" })</td>
                                         </tr>
 
                                     }
@@ -202,19 +204,19 @@
                     {
                                         <tr class="bg-info"> <th colspan="5">@p.NomPoule</th></tr>
                                         <tr class="bg-info"> <th>Joueur</th>  <th>Match gagné</th> <th>Match perdu</th><th></th><th></th></tr>
-                                        foreach (infoJoueur j in p.LJoueur)
+                                        foreach (infoEquipe e in p.LEquipe)
                                         {
                                             <tr class="bg-info">
-                                                <td>@Html.ActionLink(j.nom, "Joueur", "Joueur", new { id = j.Id }, new { @class = "btn btn-success btn-lg" })</td>
-                                                <td>@Html.ActionLink(j.matchGagné + " ", "ListMatchPoule", "Serie", new { idP = p.Id, idC = Model.Id, IdJ = j.Id }, new { @class = "btn btn-success " })</td>
-                                                <td>@Html.ActionLink(j.matchPerdu + " ", "ListMatchPoule", "Serie", new { idP = p.Id, idC = Model.Id, IdJ = j.Id }, new { @class = "btn btn-success " })</td>
+                                                <td>@Html.ActionLink(e.nom, "Equipe", "Equipe", new { id = e.Id }, new { @class = "btn btn-success btn-lg" })</td>
+                                                <td>@Html.ActionLink(e.matchGagné + " ", "ListMatchPoule", "Serie", new { idP = p.Id, idC = Model.Id, IdJ = e.Id }, new { @class = "btn btn-success " })</td>
+                                                <td>@Html.ActionLink(e.matchPerdu + " ", "ListMatchPoule", "Serie", new { idP = p.Id, idC = Model.Id, IdJ = e.Id }, new { @class = "btn btn-success " })</td>
                                                 <td>
-                                                    @Html.ActionLink("Détail des matchs", "ListMatchPoule", "Serie", new { idP = p.Id, idC = Model.Id, IdJ = j.Id }, new { @class = "btn btn-success" })
+                                                    @Html.ActionLink("Détail des matchs", "ListMatchPoule", "Serie", new { idP = p.Id, idC = Model.Id, IdJ = e.Id }, new { @class = "btn btn-success" })
                                                 </td>
 
                                                 <td>
-                                                    @Html.ActionLink("Modifier", "ModifierJoueurPoule", "Joueur", new { id = Model.Id, idP = p.Id, idJ = @j.Id, matchG = @j.matchGagné, matchP = @j.matchPerdu, pos = @j.position }, new { @class = "btn btn-info" })
-                                                    @Html.ActionLink("Supprimer", "SupprimerJoueurPoule", "Joueur", new { id = Model.Id, idP = p.Id, idJ = @j.Id }, new { @class = "btn btn-danger" })
+                                                    @Html.ActionLink("Modifier", "ModifierJoueurPoule", "Joueur", new { id = Model.Id, idP = p.Id, idJ = @e.Id, matchG = @e.matchGagné, matchP = @e.matchPerdu, pos = @e.position }, new { @class = "btn btn-info" })
+                                                    @Html.ActionLink("Supprimer", "SupprimerJoueurPoule", "Joueur", new { id = Model.Id, idP = p.Id, idJ = @e.Id }, new { @class = "btn btn-danger" })
                                                 </td>
                                             </tr>
 
@@ -223,7 +225,7 @@
                                         {
                                             <tr class="bg-info">
                                                 <td colspan="5">
-                                                    @Html.ActionLink("Ajouter un nouveau joueur", "AjoutJoueurPoule", "Joueur", new { id = p.Id, idC = Model.Id }, new { @class = "btn btn-success" })
+                                                    @Html.ActionLink("Ajouter une nouvelle equipe", "AjoutEquipePoule", "Equipe", new { id = p.Id, idC = Model.Id }, new { @class = "btn btn-success" })
                                                 </td>
 
                                             </tr>
@@ -241,7 +243,7 @@
 
                             }
 
-                            if (listJ.Count >= 2)
+                            if (listE.Count >= 2)
                             {
                                 using (Html.BeginForm("AjoutPoule", "Serie"))
                                 {
@@ -276,12 +278,12 @@
                                                 Match[] match = Model.Tournoi.getArrayMatch();
                                                 if (match.Last() != null && match.Last().Score1 > match.Last().Score2)
                                                 {
-                                                    finaliste = match.Last().Joueur1;
+                                                    //finaliste = match.Last().Joueur1;
 
                                                 }
                                                 else if (match.Last() != null && match.Last().Score1 < match.Last().Score2)
                                                 {
-                                                    finaliste = match.Last().Joueur2;
+                                                    //finaliste = match.Last().Joueur2;
                                                 }
 
                                                 <td>
@@ -350,7 +352,7 @@
                                                     }
                                                     else
                                                     {
-                                                        <tr><td style="border: 1px solid #cdd0d4;">@Html.ActionLink(@finaliste.Identite, "Joueur", "Joueur", new { id = finaliste.Id }, new { @class = "btn btn-success" })</td></tr>
+                                                        <tr><td style="border: 1px solid #cdd0d4;">@Html.ActionLink(@finaliste.Nom, "Joueur", "Joueur", new { id = finaliste.Id }, new { @class = "btn btn-success" })</td></tr>
 
                                                     }
                                                     @for (int u = 0; u < tab[0, Model.Tournoi.Taille]; u++)
@@ -365,12 +367,12 @@
                                             }
                                             else
                                             {
-                                                if (listJ.Count >= 2)
+                                                if (listE.Count >= 2)
                                                 {
                                                     @Html.ActionLink("Ajouter le tableau de phase final", "AjouterTournoi", "Serie",
             new { id = Model.Id }, new { @class = "btn btn-success" })
                                                     }
                                                 }
                                             }
-    </div>
+</div>
 
