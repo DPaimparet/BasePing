@@ -10,11 +10,17 @@
 button > a {
     color: black; 
     text-decoration: none;
+    
+}
+
+a > button {
+    color: black;
+    text-decoration: none;
 }
 
 a, a:visited {
     /* Les liens "au repos" et déjà visités antérieurement */
-    color: greenyellow;
+    color: white;
     text-decoration: none;
 }
 
@@ -31,6 +37,16 @@ a:hover, a:focus, a:active {
     color: white;
 }
 
+.fontColorBlack{
+    text-align:center;
+    color:black!important;
+    padding : 5px 5px 5px 5px;
+}
+.fontColorBlack:hover {
+    text-align: center;
+    color: blue;
+    padding: 5px 5px 5px 5px;
+}
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */

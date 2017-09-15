@@ -1,20 +1,26 @@
-﻿function init() {
+﻿var show;
+var hide;
+var part;
 
-    /* Register events */
-    $("btnShow").onclick = ShowParticipant;
-    $("btnHide").onclick = HideParticipant;
-
+function Init() {
+    show = document.getElementById("btnShow");
+    hide = document.getElementById("btnHide");
+    part = document.getElementById("participant");
 }
 
+
 function ShowParticipant() {
-    show("participant");
-    hide("btnShow");
+    show.style.display="none";
+    part.style.display = "block";
+    hide.style.display = "block";
+    hide.className = "btn btn-success";
 }
 
 function HideParticipant() {
-    hide("participant");
-    show("btnShow");
-    hide("btnHide");
+    show.style.display = "block";
+    part.style.display = "none";
+    hide.style.display = "none";
+    hide.className = null;
 }
 
-window.onload = init;
+window.onload = Init;

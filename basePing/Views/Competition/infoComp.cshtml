@@ -22,21 +22,21 @@
         Joueur finaliste = null;
         
         <h2>Liste des participants</h2>
-        <input type="button" class="btn btn-info" id="btnShow" value="Montrer">
-        <input type="button" class="btn btn-info" id="btnHide" value="Cacher" hidden="hidden">
+        <input type="button" class="btn btn-success" name="btnShow" id="btnShow" value="Montrer" onclick="ShowParticipant();">
+        <input type="button"  hidden="hidden" name="btnHide" id="btnHide" onclick="HideParticipant();" value="Cacher" >
         <br />
-        <br />
-        <div id="participant">
-
+        <div id="participant" hidden="hidden">
+            <table class="table-striped">
                 @foreach (Joueur j in Model.GetListPart())
                 {
-                    <table align="center">
-                        <tr>
-                            <td>@j.Nom </td>
-                            <td>@j.Prenom</td>
-                        </tr>
-                    </table>
+
+                    <tr class="bg-danger">
+                        <td>@Html.ActionLink(j.Identite, "Joueur", "Joueur", new { id = j.Id }, new { @class = "fontColorBlack" })</td>
+                    </tr>
+
                 }
+            </table>
+
         </div>
         <br />
         if (Model.LPoule.Count != 0)
@@ -103,7 +103,7 @@
                                     }
                                     else
                                     {
-                                        <tr><td style="border: 1px solid #cdd0d4;">@Html.ActionLink(@match[cpt].Joueur1.Identite + " | " + @match[cpt].Score1, "Joueur", "Joueur", new { id = @match[cpt].Joueur1.Id }, new { @class = "btn btn-succes" })</td></tr>
+                                        <tr><td style="border: 1px solid #cdd0d4;">@Html.ActionLink(@match[cpt].Joueur1.Identite + " | " + @match[cpt].Score1, "Joueur", "Joueur", new { id = @match[cpt].Joueur1.Id }, new { @class = "btn btn-success" })</td></tr>
                                         <tr>
                                             <td style="border-right: 1px solid #cdd0d4;">
                                                 @Html.ActionLink("Détail", "InfoMatch", "Match", new { id = @match[cpt].Id }, null)
@@ -113,7 +113,7 @@
                                         {
                                             <tr><td style="border-right: 1px solid #cdd0d4;">.</td></tr>
                                         }
-                                        <tr><td style="border: 1px solid #cdd0d4;">@Html.ActionLink(@match[cpt].Joueur2.Identite + " | " + @match[cpt].Score2, "Joueur", "Joueur", new { id = @match[cpt].Joueur2.Id }, new { @class = "btn btn-succes" })</td></tr>
+                                        <tr><td style="border: 1px solid #cdd0d4;">@Html.ActionLink(@match[cpt].Joueur2.Identite + " | " + @match[cpt].Score2, "Joueur", "Joueur", new { id = @match[cpt].Joueur2.Id }, new { @class = "btn btn-success" })</td></tr>
                                     }
                                     cpt++;
                                     if (j < taille[Model.Tournoi.Taille - 1] - tab[1, i])
@@ -151,7 +151,7 @@
                                 }
                                 else
                                 {
-                                    <tr><td>@Html.ActionLink(@finaliste.Identite, "Joueur", "Joueur", new { id = finaliste.Id }, new { @class = "btn btn-succes" })</td></tr>
+                                    <tr><td>@Html.ActionLink(@finaliste.Identite, "Joueur", "Joueur", new { id = finaliste.Id }, new { @class = "btn btn-success" })</td></tr>
                                 }
                                 @for (int u = 0; u < tab[0, Model.Tournoi.Taille]; u++)
                                 {
