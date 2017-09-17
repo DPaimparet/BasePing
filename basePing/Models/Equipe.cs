@@ -65,6 +65,15 @@ namespace basePing.Models
         public Equipe(int idE)
         {
             this.id = idE;
+
+        }
+
+        public Equipe()
+        {
+        }
+
+        public void RecupererEquipe()
+        {
             Equipe dc = new DCEquipe().find(id);
             this.nom = dc.Nom;
             this.national = dc.National;
@@ -77,6 +86,12 @@ namespace basePing.Models
             DCEquipe dc = new DCEquipe();
             listJ = dc.GetMembre(id);
             return listJ;
+        }
+
+        public List<Equipe> GetListEquipeComp(int id)
+        {
+            DCEquipe dc = new DCEquipe();
+            return dc.FindEquipeComp(id);
         }
 
 

@@ -84,10 +84,15 @@ namespace basePing.Models
             return dc.FindMatchNotLinked(idC);
         }
 
-        internal List<Match> GetMatchComp(int idC, int idJ)
+        public List<Match> GetMatchComp(int idC, int idJ)
         {
             DCMatch dc = new DCMatch();
             return dc.FindMatchNotLinked(idC,idJ);
+        }
+
+        internal List<Match> GetListMatchEquipe(int idP, int idE)
+        {
+            throw new NotImplementedException();
         }
     }
 }

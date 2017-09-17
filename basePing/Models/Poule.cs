@@ -43,5 +43,18 @@ namespace basePing.Models
             }
             return listP;
         }
+
+        internal List<Poule> GetListPouleEquipe(int id)
+        {
+            DCPoule dc = new DCPoule();
+            infoEquipe m = new infoEquipe();
+
+            List<Poule> listP = dc.findAll(id);
+            foreach (Poule p in listP)
+            {
+                p.LEquipe = m.GetListEquipe(p.Id);
+            }
+            return listP;
+        }
     }
 }

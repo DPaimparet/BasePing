@@ -1,0 +1,38 @@
+﻿@using basePing.Models;
+@model basePing.Models.MatchEquipe
+
+
+<h2>Liste des Match du poule</h2>
+
+<table border="1">
+    <tr><th>Joueur de l équipe :@Model.Equipe1.Nom</th><th>Score du joueur 1</th><th>VS</th><th>Score du joueur 2</th><th>Joueur de l'équipe : @Model.Equipe2.Nom</th></tr>
+    @foreach (Match m in (List<Match>)ViewBag.listM)
+    {
+
+        <tr>
+            <td>@m.Joueur1.Nom</td>
+            <td>@m.Score1</td>
+            <td>VS</td>
+            <td>@m.Score2</td>
+            <td>@m.Joueur2.Nom</td>
+            <td>@Html.ActionLink("Détail", "InfoMatch", "Match", new { id = m.Id }, null)</td>
+            <td>
+                @if ((bool)Session["admin"])
+                {
+                    @Html.ActionLink("Supprimer", "SuppMatch", "Match", new { id = m.Id }, new { @class = "btn btn-success", onclick = "return confirm('Etes vous sur de vouloir supprimer ce match')" })
+                }
+            </td>
+        </tr>
+    }
+</table>
+@if ((bool)Session["admin"])
+{
+    <td>
+        @Html.ActionLink("Ajouter Match", "CreeMatchEquipe", "Match", new { idE1 = Model.Equipe1.Id, idE2 = Model.Equipe2.Id, idC = Session["idC"], idS = Session["idS"] }, new { @class = "btn btn-success" })
+    </td>
+}
+
+<div>
+    @Html.ActionLink("Retour", "InfoComp/" + Session["idComp"], "Competition", new { area = "" }, new { @class = "btn btn-danger" })
+
+</div>

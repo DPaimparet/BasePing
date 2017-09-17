@@ -94,5 +94,21 @@ namespace basePing.Controllers
             Session["listM"] =listM;
             return View();
         }
+
+
+        public ActionResult ListRencontrePouleEquipe(int idP, int idC, int IdE)
+        {
+            Session["idC"] = idC;
+            Session["idS"] = idP;
+            Session["idE"] = IdE;
+            List<MatchEquipe> listM = new MatchEquipe().GetListMatch(idP, IdE);
+            foreach (MatchEquipe m in listM)
+            {
+                m.Equipe1.RecupererEquipe();
+                m.Equipe2.RecupererEquipe();
+            }
+            Session["listR"] = listM;
+            return View();
+        }
     }
 }

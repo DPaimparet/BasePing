@@ -80,9 +80,18 @@ namespace basePing.Models
             
             Poule p = new Poule();
             comp.Tournoi = new DCTournoi().find(id);
-            comp.LPoule=p.GetListPoule(id);
-            if(comp.Tournoi!=null)
-                comp.Tournoi.GetListMatch(nbrJoueur);
+            if (comp.NbrJoueur == "Individuel")
+            {
+                comp.LPoule = p.GetListPoule(id);
+                
+            }else if (comp.NbrJoueur == "Equipe")
+            {
+
+                comp.LPoule = p.GetListPouleEquipe(id);
+
+            }
+            if (comp.Tournoi!=null)
+                comp.Tournoi.GetListMatch(comp.nbrJoueur);
             return comp;
         }
 

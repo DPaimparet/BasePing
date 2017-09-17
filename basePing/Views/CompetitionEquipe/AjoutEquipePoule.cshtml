@@ -1,0 +1,20 @@
+﻿@using (Html.BeginForm("AjoutEquipePoule", "CompetitionEquipe"))
+{
+
+    <label>Equipe</label>
+    @Html.DropDownList("equipe", Session["listE"] as SelectList, new { @class = "form-control" })
+    <label>Position</label>
+    <input type="number" name="pos" required="required" />
+
+    <label>Point gagné</label>
+    <input type="number" name="matchg" min="0" max="100" required="required" />
+    <label>Point perdu</label>
+    <input type="number" name="matchp" min="0" max="100" required="required" />
+
+    <input type="submit" value="Ajouter" />
+
+}
+
+<div>
+    <h2 class="alert-danger">@Request.QueryString["error"]</h2>
+</div>

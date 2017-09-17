@@ -75,11 +75,13 @@ namespace basePing.Controllers
             Session["Url"] = Request.Url.LocalPath.ToString();
             Session["idComp"] = id;
             Competition comp = new Competition(id);
-            
             comp = comp.GetInformation();
+
             Session["CPays"] = comp.Pays;
             if (comp.NbrJoueur== "Individuel")
+            { 
                 return View(comp);
+            }
             else if (comp.NbrJoueur == "Equipe")
                 return Redirect("~/CompetitionEquipe/InfoComp/"+id);
             return null;

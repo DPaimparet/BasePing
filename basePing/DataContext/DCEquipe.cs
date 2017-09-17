@@ -66,6 +66,194 @@ namespace basePing.DataContext
 
         }
 
+        internal MatchEquipe FindRencontre(int id)
+        {
+            MatchEquipe m = null;
+            DBConnection con = DBConnection.Instance();
+            if (con.IsConnect())
+            {
+
+                string query = "Select * FROM `rencontre`  LEFT JOIN `rencontre equipe` ON `rencontre equipe`.`idMatch` = `rencontre`.`idMatch` WHERE `rencontre`.idMatch=" + id;
+
+                var cmd = new MySqlCommand(query, con.Connection);
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    m=new MatchEquipe(reader.GetInt32(0), new Equipe(reader.GetInt32(8)), new Equipe(reader.GetInt32(9)), reader.GetInt32(1), reader.GetInt32(2));
+                }
+                reader.Close();
+                return m;
+            }
+            return null;
+        }
+
+        internal List<MatchEquipe> findAllMatchTournoi(int id)
+        {
+            List<MatchEquipe> lMatch = new List<MatchEquipe>();
+            DBConnection con = DBConnection.Instance();
+            if (con.IsConnect())
+            {
+
+                string query = "Select * FROM `serie` LEFT JOIN `rencontre` ON `rencontre`.`idSerie` = `serie`.`idSerie` LEFT JOIN `rencontre equipe` ON `rencontre equipe`.`idMatch` = `rencontre`.`idMatch` WHERE `rencontre equipe`.`idMatch` IS NOT NULL AND rencontre.idSerie=" + id;
+
+                var cmd = new MySqlCommand(query, con.Connection);
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    lMatch.Add(new MatchEquipe(reader.GetInt32(3), new Equipe(reader.GetInt32(11)), new Equipe(reader.GetInt32(12)), reader.GetInt32(4), reader.GetInt32(5), reader.GetInt32(7)));
+                }
+                reader.Close();
+                return lMatch;
+            }
+            return null;
+        }
+
+
+        public List<MatchEquipe> FindMatchNotLinkedEquipe(int idC, int idJ)
+        {
+            List<MatchEquipe> lMatch = new List<MatchEquipe>();
+            DBConnection con = DBConnection.Instance();
+            if (con.IsConnect())
+            {
+                string query = "Select * FROM `rencontre`  LEFT JOIN `rencontre equipe` ON `rencontre equipe`.`idMatch` = `rencontre`.`idMatch` WHERE idSerie is NULL AND position is NULL AND idCompet=" + idC + " AND (idEquipe1=" + idJ + " OR idEquipe2=" + idJ + ")";
+
+                var cmd = new MySqlCommand(query, con.Connection);
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    lMatch.Add(new MatchEquipe(reader.GetInt32(0), new Equipe(reader.GetInt32(8)), new Equipe(reader.GetInt32(9)), reader.GetInt32(1), reader.GetInt32(2)));
+                }
+                reader.Close();
+                return lMatch;
+            }
+            return null;
+
+        }
+
+
+
+        public bool Create(int? equipe1, int score1, int? equipe2, int score2, int pos, int ids, int idC)
+        {
+            DBConnection con = DBConnection.Instance();
+            if (con.IsConnect())
+            {
+
+                string query1 = "INSERT INTO `rencontre` (`idMatch`, `score1`, `score2`, `nbrSet`, `position`, `idCompet`, `idSerie`) VALUES (NULL, '" + score1 + "', '" + score2 + "', '" + (score1 + score2) + "', '" + pos + "', '" + idC + "','" + ids + "')";
+                var cmd1 = new MySqlCommand(query1, con.Connection);
+                var reader1 = cmd1.ExecuteReader();
+
+                reader1.Close();
+
+
+                int id = 0;
+                string query2 = "SELECT MAX(idMatch) FROM rencontre";
+                var cmd2 = new MySqlCommand(query2, con.Connection);
+                var reader2 = cmd2.ExecuteReader();
+
+                while (reader2.Read())
+                {
+                    id = reader2.GetInt32(0);
+                }
+
+                reader2.Close();
+
+
+                string query3 = "INSERT INTO `rencontre equipe` (`idMatch`, `idEquipe1`, `idEquipe2`) VALUES ('" + id + "', '" + equipe1 + "', '" + equipe2 + "')";
+                var cmd3 = new MySqlCommand(query3, con.Connection);
+                var reader3 = cmd3.ExecuteReader();
+
+                reader3.Close();
+                return true;
+            }
+            else
+                return false;
+        }
+
+        internal List<MatchEquipe> FindRencontreMatchPouleEquipe(int idP, int idE)
+        {
+            List<MatchEquipe> lMatch = new List<MatchEquipe>();
+            DBConnection con = DBConnection.Instance();
+            if (con.IsConnect())
+            {
+
+                string query = "Select * FROM  `rencontre`  LEFT JOIN `rencontre equipe` ON `rencontre equipe`.`idMatch` = `rencontre`.`idMatch` WHERE rencontre.idSerie=" + idP +" AND (idEquipe1="+idE+" OR idEquipe2="+idE+")";
+
+                var cmd = new MySqlCommand(query, con.Connection);
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    lMatch.Add(new MatchEquipe(reader.GetInt32(0), new Equipe(reader.GetInt32(8)), new Equipe(reader.GetInt32(9)), reader.GetInt32(1), reader.GetInt32(2), reader.GetInt32(4)));
+                }
+                reader.Close();
+                return lMatch;
+            }
+            return null;
+        }
+
+        public List<Equipe> FindEquipeComp(int id)
+        {
+            List<Equipe> l = new List<Equipe>();
+            DBConnection con = DBConnection.Instance();
+            if (con.IsConnect())
+            {
+
+                string query = "SELECT idE FROM ld_equipe_comp WHERE idComp=" + id;
+                var cmd = new MySqlCommand(query, con.Connection);
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    l.Add(new Equipe(reader.GetInt32(0)));
+                }
+                reader.Close();
+                foreach (Equipe e in l)
+                    e.RecupererEquipe();
+
+
+                return l;
+            }
+            else
+                return null;
+        }
+
+
+        //public bool Create(int? equipe1, int score1, int? equipe2, int score2, int pos, int ids, int idC)
+        //{
+        //    DBConnection con = DBConnection.Instance();
+        //    if (con.IsConnect())
+        //    {
+
+        //        string query1 = "INSERT INTO `rencontre` (`idMatch`, `score1`, `score2`, `nbrSet`, `position`, `idCompet`, `idSerie`) VALUES (NULL, '" + score1 + "', '" + score2 + "', '" + (score1 + score2) + "', '" + pos + "', '" + idC + "','" + ids + "')";
+        //        var cmd1 = new MySqlCommand(query1, con.Connection);
+        //        var reader1 = cmd1.ExecuteReader();
+
+        //        reader1.Close();
+
+
+        //        int id = 0;
+        //        string query2 = "SELECT MAX(idMatch) FROM rencontre";
+        //        var cmd2 = new MySqlCommand(query2, con.Connection);
+        //        var reader2 = cmd2.ExecuteReader();
+
+        //        while (reader2.Read())
+        //        {
+        //            id = reader2.GetInt32(0);
+        //        }
+
+        //        reader2.Close();
+
+
+        //        string query3 = "INSERT INTO `rencontre equipe` (`idMatch`, `idEquipe1`, `idEquipe2`) VALUES ('" + id + "', '" + equipe1 + "', '" + equipe2 + "')";
+        //        var cmd3 = new MySqlCommand(query3, con.Connection);
+        //        var reader3 = cmd3.ExecuteReader();
+
+        //        reader3.Close();
+        //        return true;
+        //    }
+        //    else
+        //        return false;
+        //}
+
+
         public bool DeleteLd(int idJ, int idE)
         {
             DBConnection con = DBConnection.Instance();
@@ -139,7 +327,23 @@ namespace basePing.DataContext
 
         internal List<infoEquipe> GetinfoPouleEquipe(int id)
         {
-            throw new NotImplementedException();
+            List<infoEquipe> lInfoEquipe = new List<infoEquipe>();
+            DBConnection con = DBConnection.Instance();
+            if (con.IsConnect())
+            {
+                //récupérer le joueur gràce à l'id
+                string query = "SELECT ld_equipe_serie.*,equipe.* FROM Serie INNER JOIN ld_equipe_serie ON serie.idSerie=ld_equipe_serie.idSerie INNER JOIN equipe ON ld_equipe_serie.idE=equipe.idEquipe Where serie.idSerie=" + id + " ORDER BY pointGagné-pointPerdu DESC";
+                var cmd = new MySqlCommand(query, con.Connection);
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    lInfoEquipe.Add(new infoEquipe { nom = reader.GetString(6) , position = reader.GetInt32(4), matchGagné = reader.GetInt32(2), matchPerdu = reader.GetInt32(3), Id = reader.GetInt32(0) });
+                }
+                reader.Close();
+                return lInfoEquipe;
+            }
+            else
+                return null;
         }
 
         internal List<Joueur> GetMembre(int id)
@@ -177,6 +381,23 @@ namespace basePing.DataContext
 
         }
 
+        public bool DeleteMatch(int id)
+        {
+            DBConnection con = DBConnection.Instance();
+            if (con.IsConnect())
+            {
+                //récupérer les joueurs grâce à leur sex
+                string query = "DELETE FROM rencontre WHERE idMatch=" + id;
+                var cmd = new MySqlCommand(query, con.Connection);
+                var reader = cmd.ExecuteReader();
+
+                reader.Close();
+                return true;
+            }
+            else
+                return false;
+        }
+
         public bool VerifJoueurEquipe(int idJ, int idC)
         {
             DBConnection con = DBConnection.Instance();
@@ -200,5 +421,91 @@ namespace basePing.DataContext
             else
                 return false;
         }
+
+
+        public bool LinkMatch(int pos, int ids, int idcomp,int idMatch)
+        {
+            DBConnection con = DBConnection.Instance();
+            if (con.IsConnect())
+            {
+                string query = "UPDATE `rencontre` SET `position` = '" + pos + "', idSerie=" + ids + " WHERE `rencontre`.`idCompet` =" + idcomp+" AND idMatch = "+idMatch;
+                var cmd = new MySqlCommand(query, con.Connection);
+                var reader = cmd.ExecuteReader();
+
+                reader.Close();
+                return true;
+            }
+            else
+                return false;
+        }
+
+
+
+        public bool InsertLD(infoEquipe j, int idP,int idC)
+        {
+            DBConnection con = DBConnection.Instance();
+            if (con.IsConnect())
+            {
+
+                string query2 = "SELECT `poule`.*, `serie`.*, `ld_equipe_serie`.* FROM `serie` LEFT JOIN `poule` ON `poule`.`idSerie` = `serie`.`idSerie` LEFT JOIN `ld_equipe_serie` ON `ld_equipe_serie`.`idSerie` = `serie`.`idSerie` WHERE idComp="+idC+" AND idE="+j.Id;
+                var cmd2 = new MySqlCommand(query2, con.Connection);
+                var reader2 = cmd2.ExecuteReader();
+                if (!reader2.HasRows) {
+                    reader2.Close();
+                    string query = "INSERT INTO `ld_equipe_serie` (`idE`, `idSerie`, `position`, `pointGagné`, `pointPerdu`) VALUES ('" + j.Id + "', '" + idP + "', '" + j.position + "', '" + j.matchGagné + "', '" + j.matchPerdu + "')";
+                    var cmd = new MySqlCommand(query, con.Connection);
+                    var reader = cmd.ExecuteReader();
+
+                    reader.Close();
+                    return true;
+                }
+                else
+                {
+                    reader2.Close();
+
+                    return false;
+                }
+                
+            }
+            else
+                return false;
+        }
+
+        public bool UpdateLD(infoEquipe j, int idPoule)
+        {
+            DBConnection con = DBConnection.Instance();
+            if (con.IsConnect())
+            {
+                //récupérer les joueurs grâce à leur sex
+                string query = "UPDATE `ld_equipe_serie` SET `position` = '" + j.position + "', `pointGagné` = '" + j.matchGagné + "', `pointPerdu` = '" + j.matchPerdu + "' WHERE `ld_equipe_serie`.`idE` = " + j.Id + " AND `ld_equipe_serie`.`idSerie` = " + idPoule;
+                var cmd = new MySqlCommand(query, con.Connection);
+                var reader = cmd.ExecuteReader();
+
+                reader.Close();
+                return true;
+            }
+            else
+                return false;
+        }
+
+
+        public bool DeleteLD(int idE, int idP)
+        {
+            DBConnection con = DBConnection.Instance();
+            if (con.IsConnect())
+            {
+                //récupérer les joueurs grâce à leur sex
+                string query = "DELETE FROM ld_equipe_serie WHERE idSerie=" + idP + " AND idE=" + idE;
+                var cmd = new MySqlCommand(query, con.Connection);
+                var reader = cmd.ExecuteReader();
+
+                reader.Close();
+                return true;
+            }
+            else
+                return false;
+        }
+
+    
     }
 }

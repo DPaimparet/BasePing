@@ -207,6 +207,7 @@
     <Compile Include="Models\Federation.cs" />
     <Compile Include="Models\Joueur.cs" />
     <Compile Include="Models\Match.cs" />
+    <Compile Include="Models\MatchEquipe.cs" />
     <Compile Include="Models\Moderateur.cs" />
     <Compile Include="Models\PalmaresCivil.cs" />
     <Compile Include="Models\PalmaresSportif.cs" />
@@ -335,6 +336,15 @@
     <Content Include="Views\CompetitionEquipe\DetailEquipe.cshtml" />
     <Content Include="Views\CompetitionEquipe\AddMembre.cshtml" />
     <Content Include="Views\CompetitionEquipe\ListeParticipant.cshtml" />
+    <Content Include="Views\Match\AjoutMatchEquipe.cshtml" />
+    <Content Include="Views\CompetitionEquipe\AjoutEquipePoule.cshtml" />
+    <Content Include="Views\CompetitionEquipe\ModifierEquipePoule.cshtml" />
+    <Content Include="Views\CompetitionEquipe\LieMatch.cshtml" />
+    <Content Include="Views\Serie\ListRencontrePouleEquipe.cshtml" />
+    <Content Include="Views\CompetitionEquipe\LieRencontrePoule.cshtml" />
+    <Content Include="Views\CompetitionEquipe\InfoRencontre.cshtml" />
+    <Content Include="Views\Match\CreeMatchEquipe.cshtml" />
+    <Content Include="Views\CompetitionEquipe\InfoRencontrePF.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

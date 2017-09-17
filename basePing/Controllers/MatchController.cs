@@ -103,6 +103,33 @@ namespace basePing.Controllers
         }
 
 
+
+        [Authorize]
+        public ActionResult AjoutMatchEquipe(int id)
+        {
+            ViewBag.idComp = id;
+            List<Equipe> j = new Equipe().GetListEquipeComp(id);
+            Session["listE"] = new SelectList(j, "Id", "Nom");
+            return View();
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult AjoutMatchEquipe(int id, int? equipe1, int score1, int? equipe2, int score2)
+        {
+            DCMatch dc = new DCMatch();
+            if (equipe1 == equipe2)
+                return Redirect("/Match/AjoutMatch?id=" + id + "&error=Les 2 joueurs choisis sont le même.");
+            else
+            {
+
+                dc.CreateEquipe(id, equipe1, score1, equipe2, score2);
+
+                return Redirect("~/CompetitionEquipe/InfoComp/" + id);
+            }
+        }
+
+
         [Authorize]
         public ActionResult SuppMatch(int id)
         {
@@ -136,7 +163,7 @@ namespace basePing.Controllers
         public ActionResult LieMatch(int match)
         {
             DCMatch dc = new DCMatch();
-            dc.LinkMatch((int)Session["pos"],(int) Session["idS"],(int)Session["idC"]);
+            dc.LinkMatch((int)Session["pos"],(int) Session["idS"],(int)Session["idC"],match);
             return Redirect("~/Competition/InfoComp/" + Session["idC"]);
         }
 
@@ -170,7 +197,7 @@ namespace basePing.Controllers
         public ActionResult LieMatchPoule(int match)
         {
             DCMatch dc = new DCMatch();
-            dc.LinkMatch((int)Session["pos"], (int)Session["idS"], (int)Session["idC"]);
+            dc.LinkMatch((int)Session["pos"], (int)Session["idS"], (int)Session["idC"],match);
             return Redirect("~/Competition/InfoComp/" + Session["idC"]);
         }
 
@@ -198,5 +225,27 @@ namespace basePing.Controllers
             dc.Create((int)Session["idJ"], score1, joueur, score2, 0, (int)Session["idS"], (int)Session["idC"]);
             return Redirect("~/Competition/InfoComp/" + Session["idC"]);
         }
+
+
+        [Authorize]
+        public ActionResult CreeMatchEquipe(int idE1,int idE2,int idC, int idS)
+        {
+            Equipe e1 = new Equipe(idE1);
+            Equipe e2 = new Equipe(idE2);
+            e1.RecupererEquipe();
+            e2.RecupererEquipe();
+            Session["pos"] = 0;
+
+
+            Session["listJ1"] = new SelectList(e1.ListJ, "Id", "Identite");
+            Session["listJ2"] = new SelectList(e2.ListJ, "Id", "Identite");
+
+            return View();
+
+           
+        }
+
+
+
     }
 }
