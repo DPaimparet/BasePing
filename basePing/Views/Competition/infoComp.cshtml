@@ -22,21 +22,21 @@
         Joueur finaliste = null;
         
         <h2>Liste des participants</h2>
-        <input type="button" class="btn btn-info" id="btnShow" value="Montrer">
-        <input type="button" class="btn btn-info" id="btnHide" value="Cacher" hidden="hidden">
+        <input type="button" class="btn btn-success" name="btnShow" id="btnShow" value="Montrer" onclick="ShowParticipant();">
+        <input type="button"  hidden="hidden" name="btnHide" id="btnHide" onclick="HideParticipant();" value="Cacher" >
         <br />
-        <br />
-        <div id="participant">
-
+        <div id="participant" hidden="hidden">
+            <table class="table-striped">
                 @foreach (Joueur j in Model.GetListPart())
                 {
-                    <table align="center">
-                        <tr>
-                            <td>@j.Nom </td>
-                            <td>@j.Prenom</td>
-                        </tr>
-                    </table>
+
+                    <tr class="bg-danger">
+                        <td>@Html.ActionLink(j.Identite, "Joueur", "Joueur", new { id = j.Id }, new { @class = "fontColorBlack" })</td>
+                    </tr>
+
                 }
+            </table>
+
         </div>
         <br />
         if (Model.LPoule.Count != 0)
