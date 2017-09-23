@@ -95,6 +95,28 @@ namespace basePing.Models
             return comp;
         }
 
+        public String GetVainqueur()
+        {
+            DCJoueur dc = new DCJoueur();
+            DCEquipe dc2 = new DCEquipe();
+            Joueur j = null;
+            Equipe e = null;
+            if (nbrJoueur == "Individuel")
+            {
+                j = dc.FindVainqueur(id);
+                if(j!=null)
+                    return j.Identite;
+
+            }
+            else if (nbrJoueur == "Equipe")
+            {
+                e = dc2.FindVainqueur(id);
+                if (e != null)
+                    return e.Nom;
+            }
+            return "Pas de vainqueur désigné";
+        }
+
         public List<Competition> GetList()
         {
             DCCompetition dc = new DCCompetition();

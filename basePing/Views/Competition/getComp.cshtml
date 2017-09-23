@@ -7,14 +7,14 @@
         @{
             ((Categorie)ViewBag.cat).GetListSousCat();
 
-            <tr><th>Compétition</th><th>Date</th><th>Type de la compétition</th></tr>
+            <tr><th>Compétition</th><th>Date</th><th>Type de la compétition</th><td>Type de rencontre</td><td>Vainqueur</td></tr>
 
             foreach (Competition c in ViewBag.listComp)
             {
                 <tr class="bg-info">
                     <td>
                         @Html.ActionLink(c.Nom, "InfoComp", "Competition",
-                              new { id = c.Id }, new { @class = "btn btn-info" })
+           new { id = c.Id }, new { @class = "btn btn-info" })
                     </td>
                     <td>
                         @c.DateDeb.Year
@@ -22,13 +22,20 @@
                     <td>
                         @c.TypeComp
                     </td>
+                    <td>
+                        @c.NbrJoueur
+                    </td>
+                    <td>
+                        
+                            @c.GetVainqueur()
 
+                    </td>
 
                 </tr>
-            }
+                        }
 
-            if ((bool)Session["admin"])
-            {
+                        if ((bool)Session["admin"])
+                        {
                 <tr class="bg-info">
                     <td colspan="3">
                         @Html.ActionLink("Crée une nouvelle compétition", "AjoutComp", "Competition",

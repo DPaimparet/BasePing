@@ -108,6 +108,31 @@ namespace basePing.DataContext
             return null;
         }
 
+        public Equipe FindVainqueur(int id)
+        {
+            Equipe e = null;
+            DBConnection con = DBConnection.Instance();
+            if (con.IsConnect())
+            {
+                //récupérer tous les joueurs
+                string query = "SELECT `equipe`.* FROM `equipe` LEFT JOIN `ld_equipe_comp` ON `ld_equipe_comp`.`idE` = `equipe`.`idEquipe` WHERE position=1 AND `ld_equipe_comp`.`idComp`=" + id;
+                var cmd = new MySqlCommand(query, con.Connection);
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    e = new Equipe(
+                        reader.GetInt32(0),
+                        reader.GetString(1),
+                        new CPays(reader.GetInt32(2)),
+                        reader.GetInt32(3));
+                }
+                reader.Close();
+                return e;
+            }
+            else
+                return null;
+            
+        }
 
         public List<MatchEquipe> FindMatchNotLinkedEquipe(int idC, int idJ)
         {

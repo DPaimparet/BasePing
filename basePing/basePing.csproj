@@ -207,6 +207,7 @@
     <Compile Include="Models\Federation.cs" />
     <Compile Include="Models\Joueur.cs" />
     <Compile Include="Models\Match.cs" />
+    <Compile Include="Models\MatchDouble.cs" />
     <Compile Include="Models\MatchEquipe.cs" />
     <Compile Include="Models\Moderateur.cs" />
     <Compile Include="Models\PalmaresCivil.cs" />
