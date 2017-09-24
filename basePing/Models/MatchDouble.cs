@@ -22,6 +22,8 @@ namespace basePing.Models
         public int Id { get { return id; } set { id = value; } }
         public Joueur Joueur1 { get { return j1; } set { j1 = value; } }
         public Joueur Joueur2 { get { return j2; } set { j2 = value; } }
+        public Joueur Joueur3 { get { return j3; } set { j3 = value; } }
+        public Joueur Joueur4 { get { return j4; } set { j4 = value; } }
         public int Score1 { get { return score1; } set { score1 = value; } }
         public int Score2 { get { return score2; } set { score2 = value; } }
         public int Position { get { return position; } set { position = value; } }
@@ -33,11 +35,13 @@ namespace basePing.Models
         {
         }
 
-        public MatchDouble(int id, Joueur j1, Joueur j2, int scorej1, int scorej2, int position)
+        public MatchDouble(int id, Joueur j1, Joueur j2,Joueur j3,Joueur j4, int scorej1, int scorej2, int position)
         {
             this.id = id;
             this.j1 = j1;
             this.j2 = j2;
+            this.j3 = j3;
+            this.j4 = j4;
             this.score1 = scorej1;
             this.score2 = scorej2;
             this.position = position;

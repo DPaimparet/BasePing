@@ -25,6 +25,17 @@ namespace basePing.Controllers
             return View(m);
         }
 
+        public ActionResult InfoMatchDouble(int id)
+        {
+            MatchDouble m = new DCMatch().findDouble(id);
+            m.Joueur1.RecupererJoueur();
+            m.Joueur2.RecupererJoueur();
+            m.Joueur3.RecupererJoueur();
+            m.Joueur4.RecupererJoueur();
+            m.LSet = new Set().GetList(id);
+            return View(m);
+        }
+
         [Authorize]
         public ActionResult AjoutSet(int idM, int cpt1, int cpt2, int score1,int  score2,string j1,string j2)
         {
@@ -219,6 +230,22 @@ namespace basePing.Controllers
 
         [Authorize]
         [HttpPost]
+        public ActionResult AjoutEtLieMatchDouble(int? joueur1, int? joueur2, int score1, int? joueur3, int? joueur4, int score2)
+        {
+            DCMatch dc = new DCMatch();
+
+            if (joueur1 == joueur2 || joueur3==joueur4)
+                return Redirect("/Match/LieMatch?pos=" + (int)Session["pos"] + "&idC=" + (int)Session["idC"] + "&idS=" + (int)Session["idS"] + "&error=Les 2 joueurs choisis sont le même.");
+            else
+            {
+                dc.CreateDouble(joueur1,joueur2, score1, joueur3,joueur4, score2, (int)Session["pos"], (int)Session["idS"], (int)Session["idC"]);
+                return Redirect("~/Competition/InfoComp/" + Session["idC"]);
+            }
+        }
+
+
+        [Authorize]
+        [HttpPost]
         public ActionResult AjoutEtLieMatchPoule(int score1,int? joueur, int score2)
         {
             DCMatch dc = new DCMatch();
@@ -243,6 +270,26 @@ namespace basePing.Controllers
             return View();
 
            
+        }
+
+
+
+        [Authorize]
+        public ActionResult CreeMatchDoubleEquipe(int idE1, int idE2, int idC, int idS)
+        {
+            Equipe e1 = new Equipe(idE1);
+            Equipe e2 = new Equipe(idE2);
+            e1.RecupererEquipe();
+            e2.RecupererEquipe();
+            Session["pos"] = 0;
+
+
+            Session["listJ1"] = new SelectList(e1.ListJ, "Id", "Identite");
+            Session["listJ2"] = new SelectList(e2.ListJ, "Id", "Identite");
+
+            return View();
+
+
         }
 
 

@@ -51,10 +51,10 @@
                     {
                         <tr class="bg-info">
                             <td>@Html.ActionLink(e.nom, "DetailEquipe", "CompetitionEquipe", new { idE = @e.Id, idC = @Model.Id }, new { @class = "btn btn-success btn-lg" })</td>
-                            <td>@Html.ActionLink(e.matchGagné + " ", "ListMatchPouleEquipe", "Serie", new { idP = p.Id, idC = Model.Id, IdJ = e.Id }, new { @class = "btn btn-success" })</td>
-                            <td>@Html.ActionLink(e.matchPerdu + " ", "ListMatchPouleEquipe", "Serie", new { idP = p.Id, idC = Model.Id, IdJ = e.Id }, new { @class = "btn btn-success" })</td>
+                            <td>@Html.ActionLink(e.matchGagné + " ", "ListRencontrePouleEquipe", "Serie", new { idP = p.Id, idC = Model.Id, IdJ = e.Id }, new { @class = "btn btn-success" })</td>
+                            <td>@Html.ActionLink(e.matchPerdu + " ", "ListRencontrePouleEquipe", "Serie", new { idP = p.Id, idC = Model.Id, IdJ = e.Id }, new { @class = "btn btn-success" })</td>
                             <td>
-                                @Html.ActionLink("Détail des matchs", "ListMatchPouleEquipe", "Serie", new { idP = p.Id, idC = Model.Id, IdJ = e.Id }, new { @class = "btn btn-success" })
+                               @Html.ActionLink("Détail des matchs", "ListRencontrePouleEquipe", "Serie", new { idP = p.Id, idC = Model.Id, IdE = e.Id }, new { @class = "btn btn-success" })
                             </td>
                         </tr>
                     }

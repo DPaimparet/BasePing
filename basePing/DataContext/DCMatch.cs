@@ -32,6 +32,27 @@ namespace basePing.DataContext
             
         }
 
+        internal MatchDouble findDouble(int id)
+        {
+            MatchDouble match = null;
+            DBConnection con = DBConnection.Instance();
+            if (con.IsConnect())
+            {
+
+                string query = "Select * FROM rencontre LEFT JOIN `rencontre double` ON `rencontre double`.`idMatch` = `rencontre`.`idMatch` WHERE rencontre.idMatch=" + id;
+
+                var cmd = new MySqlCommand(query, con.Connection);
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    match = new MatchDouble(reader.GetInt32(0), new Joueur(reader.GetInt32(8)), new Joueur(reader.GetInt32(9)),new Joueur(reader.GetInt32(10)),new Joueur(reader.GetInt32(11)), reader.GetInt32(1), reader.GetInt32(2), reader.GetInt32(4));
+                }
+                reader.Close();
+                return match;
+            }
+            return null;
+        }
+
         public Match find(int id)
         {
             Match match = null;
@@ -128,6 +149,38 @@ namespace basePing.DataContext
                 return false;
         }
 
+        internal List<MatchDouble> findMatchDoubleEquipe(int idSerie, int idJoueur)
+        {
+            List<MatchDouble> lMatch = new List<MatchDouble>();
+            DBConnection con = DBConnection.Instance();
+            if (con.IsConnect())
+            {
+
+                string query = "Select * FROM `serie` LEFT JOIN `rencontre` ON `rencontre`.`idSerie` = `serie`.`idSerie` LEFT JOIN `rencontre double` ON `rencontre double`.`idMatch` = `rencontre`.`idMatch` WHERE rencontre.idSerie=" + idSerie + " AND `rencontre double`.`idJoueur`=" + idJoueur + " OR `rencontre double`.`idJoueur2`=" + idJoueur;
+
+                var cmd = new MySqlCommand(query, con.Connection);
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    lMatch.Add(new MatchDouble(reader.GetInt32(3), new Joueur(reader.GetInt32(11)), new Joueur(reader.GetInt32(12)), new Joueur(reader.GetInt32(13)), new Joueur(reader.GetInt32(14)), reader.GetInt32(4), reader.GetInt32(5), reader.GetInt32(7)));
+                }
+                reader.Close();
+
+                string query2 = "Select * FROM `serie` LEFT JOIN `rencontre` ON `rencontre`.`idSerie` = `serie`.`idSerie` LEFT JOIN `rencontre double` ON `rencontre double`.`idMatch` = `rencontre`.`idMatch` WHERE rencontre.idSerie=" + idSerie + " AND  `rencontre double`.`idJoueur3`=" + idJoueur + " OR `rencontre double`.`idJoueur4`=" + idJoueur;
+
+                var cmd2 = new MySqlCommand(query2, con.Connection);
+                var reader2 = cmd2.ExecuteReader();
+                while (reader2.Read())
+                {
+                    lMatch.Add(new MatchDouble(reader.GetInt32(3), new Joueur(reader.GetInt32(11)), new Joueur(reader.GetInt32(12)), new Joueur(reader.GetInt32(13)), new Joueur(reader.GetInt32(14)), reader.GetInt32(4), reader.GetInt32(5), reader.GetInt32(7)));
+                }
+                reader2.Close();
+
+                return lMatch;
+            }
+            return null;
+        }
+
         public bool CreateEquipe(int id, int? equipe1, int score1, int? equipe2, int score2)
         {
             DBConnection con = DBConnection.Instance();
@@ -181,6 +234,43 @@ namespace basePing.DataContext
             }
             return null;
 
+        }
+
+        public bool CreateDouble(int? joueur1, int? joueur2, int score1, int? joueur3, int? joueur4, int score2, int pos, int ids, int idC)
+        {
+            DBConnection con = DBConnection.Instance();
+            if (con.IsConnect())
+            {
+
+                string query1 = "INSERT INTO `rencontre` (`idMatch`, `score1`, `score2`, `nbrSet`, `position`, `idCompet`, `idSerie`) VALUES (NULL, '" + score1 + "', '" + score2 + "', '" + (score1 + score2) + "', '" + pos + "', '" + idC + "','" + ids + "')";
+                var cmd1 = new MySqlCommand(query1, con.Connection);
+                var reader1 = cmd1.ExecuteReader();
+
+                reader1.Close();
+
+
+                int id = 0;
+                string query2 = "SELECT MAX(idMatch) FROM rencontre";
+                var cmd2 = new MySqlCommand(query2, con.Connection);
+                var reader2 = cmd2.ExecuteReader();
+
+                while (reader2.Read())
+                {
+                    id = reader2.GetInt32(0);
+                }
+
+                reader2.Close();
+
+
+                string query3 = "INSERT INTO `rencontre double` (`idMatch`, `idJoueur`, `idJoueur2`, `idJoueur3`, `idJoueur4`) VALUES ('" + id + "', '" + joueur1 + "', '" + joueur2 + "', '" + joueur3 + "', '" + joueur4 + "')";
+                var cmd3 = new MySqlCommand(query3, con.Connection);
+                var reader3 = cmd3.ExecuteReader();
+
+                reader3.Close();
+                return true;
+            }
+            else
+                return false;
         }
 
         public List<Match> findMatchJoueur(int idSerie, int idJoueur)

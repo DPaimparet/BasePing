@@ -400,20 +400,62 @@ namespace basePing.Controllers
         
         public ActionResult InfoRencontre(int id)
         {
+            
             MatchEquipe m = new MatchEquipe(id).GetInformation();
             List<Match> list = new List<Match>();
+            MatchDouble[] tab = null;
+            List<MatchDouble> listD = new List<MatchDouble>();
+            List<MatchDouble> TriedListD = new List<MatchDouble>();
+
             m.Equipe1.RecupererEquipe();
             m.Equipe2.RecupererEquipe();
             foreach (Joueur j in m.Equipe1.ListJ)
             {
                 list.AddRange(j.GetMatchSerie((int)Session["idS"]));
+                listD.AddRange(j.GetMatchDoubleSerie((int)Session["idS"]));
+
+              
             }
-            foreach(Match match in list)
+
+            tab=listD.ToArray();
+
+            for(int i=0; i < tab.Length; i++)
+            {
+                for(int j = i + 1; j < tab.Length; j++)
+                {
+                    if (tab[j] != null && tab[i].Id == tab[j].Id)
+                        tab[j] = null;
+
+                }
+            }
+
+            listD = tab.ToList<MatchDouble>();
+ 
+            foreach(MatchDouble md in listD)
+            {
+                if (md != null)
+                    TriedListD.Add(md);
+            }
+
+
+
+            foreach (Match match in list)
             {
                 match.Joueur1.RecupererJoueur();
                 match.Joueur2.RecupererJoueur();
             }
+
+            foreach (MatchDouble match in TriedListD)
+            {
+                match.Joueur1.RecupererJoueur();
+                match.Joueur2.RecupererJoueur();
+                match.Joueur3.RecupererJoueur();
+                match.Joueur4.RecupererJoueur();
+            }
+
+
             ViewBag.listM = list;
+            ViewBag.listMD = TriedListD;
             return View(m);
         }
 
@@ -424,17 +466,53 @@ namespace basePing.Controllers
             Session["idS"] = idS;
             MatchEquipe m = new MatchEquipe(id).GetInformation();
             List<Match> list = new List<Match>();
+            MatchDouble[] tab = null;
+            List<MatchDouble> listD = new List<MatchDouble>();
+            List<MatchDouble> TriedListD = new List<MatchDouble>();
             m.Equipe1.RecupererEquipe();
             m.Equipe2.RecupererEquipe();
             foreach (Joueur j in m.Equipe1.ListJ)
             {
                 list.AddRange(j.GetMatchSerie(idS));
+                listD.AddRange(j.GetMatchDoubleSerie(idS));
+
             }
             foreach (Match match in list)
             {
                 match.Joueur1.RecupererJoueur();
                 match.Joueur2.RecupererJoueur();
             }
+
+            tab = listD.ToArray();
+
+            for (int i = 0; i < tab.Length; i++)
+            {
+                for (int j = i + 1; j < tab.Length; j++)
+                {
+                    if (tab[j] != null && tab[i].Id == tab[j].Id)
+                        tab[j] = null;
+
+                }
+            }
+
+            listD = tab.ToList<MatchDouble>();
+
+            foreach (MatchDouble md in listD)
+            {
+                if (md != null)
+                    TriedListD.Add(md);
+            }
+
+            foreach (MatchDouble match in TriedListD)
+            {
+                match.Joueur1.RecupererJoueur();
+                match.Joueur2.RecupererJoueur();
+                match.Joueur3.RecupererJoueur();
+                match.Joueur4.RecupererJoueur();
+            }
+
+            ViewBag.listMD = TriedListD;
+
             ViewBag.listM = list;
             return View(m);
         }
