@@ -53,12 +53,42 @@ namespace basePing.Controllers
 
 
         [Authorize]
+        public ActionResult AjoutSetDouble(int idM, int cpt1, int cpt2, int score1, int score2, string j1, string j2,string j3,string j4)
+        {
+            Session["cpt1"] = cpt1;
+            Session["cpt2"] = cpt2;
+            Session["score1"] = score1;
+            Session["score2"] = score2;
+            Session["j1"] = j1;
+            Session["j2"] = j2;
+            Session["j3"] = j3;
+            Session["j4"] = j4;
+
+            ViewBag.j1 = j1;
+            ViewBag.j2 = j2;
+            ViewBag.j3 = j3;
+            ViewBag.j4 = j4;
+            Session["idM"] = idM;
+            return View();
+        }
+
+
+        [Authorize]
         public ActionResult SupprimerSet(int idS,int idM)
         {
             DCSet dc = new DCSet();
             dc.Delete(idS);
             return Redirect("~/Match/InfoMatch/" + idM);
         }
+
+        [Authorize]
+        public ActionResult SupprimerSetDouble(int idS, int idM)
+        {
+            DCSet dc = new DCSet();
+            dc.Delete(idS);
+            return Redirect("~/Match/InfoMatchDouble/" + idM);
+        }
+
 
 
         [Authorize]
@@ -83,6 +113,33 @@ namespace basePing.Controllers
             }
             else
                 return Redirect("~/Match/InfoMatch/"+Session["idM"]+"?error=Erreur le gagnant du match ne correspond pas au nombre de set gagné");
+
+
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult AjoutSetDouble(int position, int point1, int point2)
+        {
+            DCSet dc = new DCSet();
+
+            if (dc.findSamePos(position, (int)Session["idM"]))
+            {
+                return Redirect("/Match/AjoutSetDouble?idM=" + (int)Session["idM"] + "&cpt1=" + (int)Session["cpt1"] + "&cpt2=" + (int)Session["cpt2"] + "&score1=" + (int)Session["score1"] + "&score2=" + (int)Session["score1"] + "&j1=" + HttpUtility.HtmlEncode(Session["j1"]) + "&j2=" + HttpUtility.HtmlEncode(Session["j2"]) + "&j3=" + HttpUtility.HtmlEncode(Session["j3"])+"&j4="+ HttpUtility.HtmlEncode(Session["j4"])+"& error=Il existe déja un set sur cette position");
+            }
+
+            if (point1 > point2 && (int)Session["cpt1"] < (int)Session["score1"])
+            {
+                dc.Insert((int)Session["idM"], point1, point2, position);
+                return Redirect("/Match/InfoMatchDouble/" + Session["idM"]);
+            }
+            else if (point2 > point1 && (int)Session["cpt2"] < (int)Session["score2"])
+            {
+                dc.Insert((int)Session["idM"], point1, point2, position);
+                return Redirect("/Match/InfoMatchDouble/" + Session["idM"]);
+            }
+            else
+                return Redirect("~/Match/InfoMatchDouble/" + Session["idM"] + "?error=Erreur le gagnant du match ne correspond pas au nombre de set gagné");
 
 
         }
@@ -235,7 +292,7 @@ namespace basePing.Controllers
             DCMatch dc = new DCMatch();
 
             if (joueur1 == joueur2 || joueur3==joueur4)
-                return Redirect("/Match/LieMatch?pos=" + (int)Session["pos"] + "&idC=" + (int)Session["idC"] + "&idS=" + (int)Session["idS"] + "&error=Les 2 joueurs choisis sont le même.");
+                return Redirect("/Match/CreeMatchDoubleEquipe?idE1=" + (int)Session["idE1"] + "&idE2=" + (int)Session["idE2"] + "&idC=" + (int)Session["idC"] + "&idS=" + (int)Session["idS"] + "&error=Les 2 joueurs choisis sont le même.");
             else
             {
                 dc.CreateDouble(joueur1,joueur2, score1, joueur3,joueur4, score2, (int)Session["pos"], (int)Session["idS"], (int)Session["idC"]);
@@ -262,6 +319,8 @@ namespace basePing.Controllers
             e1.RecupererEquipe();
             e2.RecupererEquipe();
             Session["pos"] = 0;
+           
+
 
 
             Session["listJ1"] = new SelectList(e1.ListJ, "Id", "Identite");

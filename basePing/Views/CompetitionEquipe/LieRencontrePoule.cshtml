@@ -1,12 +1,12 @@
 ﻿@using basePing.Models;
 
 
-<h1>Ajouter un match existant</h1>
+<h1>Ajouter une rencontre existante</h1>
 @using (Html.BeginForm("LieRencontre", "CompetitionEquipe"))
 {
     <div class="form-group">
         <input type="hidden" value="@ViewBag.pos" name="pos" />
-        <label>Match existant</label>
+        <label>Rencontre existant</label>
 
         @Html.DropDownList("match", Session["listM"] as SelectList, new { @class = "form-control" })
 
@@ -25,7 +25,7 @@
         </div>
 
 }
-<h1>Crée un nouveau Match</h1>
+<h1>Crée une nouvelle rencontre</h1>
 <br />
 <div class="form-inline">
     @using (Html.BeginForm("AjoutEtLieRencontrePoule", "CompetitionEquipe"))

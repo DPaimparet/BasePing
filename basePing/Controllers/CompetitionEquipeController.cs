@@ -409,6 +409,9 @@ namespace basePing.Controllers
 
             m.Equipe1.RecupererEquipe();
             m.Equipe2.RecupererEquipe();
+            Session["idMatch"] = id;
+            Session["idE1"] = m.Equipe1.Id;
+            Session["idE2"] = m.Equipe2.Id;
             foreach (Joueur j in m.Equipe1.ListJ)
             {
                 list.AddRange(j.GetMatchSerie((int)Session["idS"]));
@@ -463,6 +466,8 @@ namespace basePing.Controllers
 
         public ActionResult InfoRencontrePF(int id,int idS)
         {
+            Session["idMatch"] = id;
+
             Session["idS"] = idS;
             MatchEquipe m = new MatchEquipe(id).GetInformation();
             List<Match> list = new List<Match>();
@@ -471,6 +476,9 @@ namespace basePing.Controllers
             List<MatchDouble> TriedListD = new List<MatchDouble>();
             m.Equipe1.RecupererEquipe();
             m.Equipe2.RecupererEquipe();
+
+            Session["idE1"] = m.Equipe1.Id;
+            Session["idE2"] = m.Equipe2.Id;
             foreach (Joueur j in m.Equipe1.ListJ)
             {
                 list.AddRange(j.GetMatchSerie(idS));

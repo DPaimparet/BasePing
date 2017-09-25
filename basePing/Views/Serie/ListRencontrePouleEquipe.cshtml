@@ -13,7 +13,7 @@
             <td>VS</td>
             <td>@m.Score2</td>
             <td>@m.Equipe2.Nom</td>
-            <td>@Html.ActionLink("Détail", "InfoRencontre", "CompetitionEquipe", new { id = m.Id }, null)</td>
+            <td>@Html.ActionLink("Détail matchs de l' équipe", "InfoRencontre", "CompetitionEquipe", new { id = m.Id }, null)</td>
             <td>
                 @if ((bool)Session["admin"])
                 {
@@ -26,7 +26,7 @@
 @if ((bool)Session["admin"])
 {
     <td>
-        @Html.ActionLink("Ajouter Match", "LieRencontrePoule", "CompetitionEquipe", new { idE = Session["idE"], idC = Session["idC"], idS = Session["idS"] }, new { @class = "btn btn-success" })
+        @Html.ActionLink("Ajouter une rencontre d' équipe", "LieRencontrePoule", "CompetitionEquipe", new { idE = Session["idE"], idC = Session["idC"], idS = Session["idS"] }, new { @class = "btn btn-success" })
 </td>
 }
 

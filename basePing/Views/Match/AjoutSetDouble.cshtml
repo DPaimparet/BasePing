@@ -1,0 +1,23 @@
+﻿
+<h2>Enregistrer un set</h2>
+
+@using (Html.BeginForm("AjoutSetDouble", "Match"))
+{
+
+    <label># du set</label>
+    <input type="number" min="1" max="@((int)Session["score1"]+(int)Session["score2"])" value="1" required="required" name="position" />
+    <label>Point des joueurs :@ViewBag.j1 et @ViewBag.j2</label>
+    <input type="number" min="0" max="100" value="0" required="required" name="point1" />
+
+    <label>Point des joueurs :@ViewBag.j3 @ViewBag.j4</label>
+    <input type="number" min="0" max="100" value="0" required="required" name="point2" />
+
+    <input type="submit" value="Ajouter" />
+
+}
+
+
+
+<div>
+    <h2 class="alert-danger">@Request.QueryString["error"]</h2>
+</div>
