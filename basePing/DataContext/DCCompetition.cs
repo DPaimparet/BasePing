@@ -73,6 +73,36 @@ namespace basePing.DataContext
             else
                 return null;
         }
+
+        internal List<Competition> FindListTrie(string nom, int? an, string sexe, string nbrJ, int idSousCat)
+        {
+            List<Competition> lComp = new List<Competition>();
+            DBConnection con = DBConnection.Instance();
+            if (con.IsConnect())
+            {
+               
+                string query = "SELECT `competition`.*,`sous_categorie`.*, `categorie`.* ,Pays.* FROM `categorie` LEFT JOIN `sous_categorie` ON `sous_categorie`.`idCat` = `categorie`.`idCat` LEFT JOIN `competition` ON `competition`.`idSousCat` = `sous_categorie`.`idSousCat` LEFT JOIN Pays on competition.idPays=Pays.id  WHERE idComp is not NULL AND `competition`.`idSousCat` is not NULL";
+                if (nom !="")
+                    query += " AND competition.nom LIKE'%" + nom + "%'";
+                if (an != null)
+                    query += " AND (year(competition.dateDeb) ="+an+ " OR year(competition.dateFin) = "+an+")";
+                if (sexe != "")
+                    query += " AND competition.typeCompetition='"+sexe+"'";
+                if (nbrJ !="")
+                    query += " AND competition.nbrJoueur='" + nbrJ + "'";
+                var cmd = new MySqlCommand(query, con.Connection);
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    lComp.Add(new Competition(reader.GetInt32(0), reader.GetString(1), reader.GetDateTime(2), reader.GetDateTime(3), reader.GetString(5), reader.GetString(6), new Categorie(reader.GetInt32(12), reader.GetString(13), reader.GetString(14)), new SousCategorie(reader.GetInt32(9), reader.GetString(11)), new CPays(reader.GetInt32(15), reader.GetString(16), reader.GetString(17))));
+                }
+                reader.Close();
+                return lComp;
+            }
+            else
+                return null;
+        }
+
         public bool Insert(String nom,DateTime dateD, DateTime dateF, string pays, string type, string nbrJ, int idCat,int idSCat)
         {
             DBConnection con = DBConnection.Instance();

@@ -86,11 +86,38 @@ namespace basePing.Controllers
                 if (c.Id == (int)Session["idC"])
                     ViewBag.cat = c;
             }
-            ViewBag.listComp = triedList;
+                if (Session["triedList"] != null) { 
+                 ViewBag.listComp = Session["triedList"];
+                    Session["triedList"] = null;
+                }
+                else
+                 ViewBag.listComp = triedList;
+
             }
             return View();
         }
 
+
+        [HttpPost]
+        public ActionResult ListComp(string nom,int? an,string sexe,string nbrJ)
+        {
+            Competition comp = new Competition();
+                List<CPays> listePays = new CPays().GetListPays();
+                Session["listePays"] = new SelectList(listePays, "Id", "Pays");
+                List<Competition> triedList = new List<Competition>();
+                foreach (Competition c in comp.GetListTrie(nom,an,sexe,nbrJ, (int)Session["idSC"]))
+                {
+                    if (c.SousCat.Id == (int)Session["idSC"])
+                    {
+                        c.GetTournoi();
+                        triedList.Add(c);
+                    }
+                }
+
+            Session["triedList"]=triedList;
+            return Redirect("GetComp/" + Session["idSC"]);
+            
+        }
         public ActionResult InfoComp(int id)
         {
             Session["Url"] = Request.Url.LocalPath.ToString();
