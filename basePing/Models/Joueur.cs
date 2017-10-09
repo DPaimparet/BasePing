@@ -130,6 +130,17 @@ namespace basePing.Models
             DataContext.DCCompetition participant = new DataContext.DCCompetition();
             participant.DeleteJoueurInComp(idJoueur, idCompetition);
         }
-        
+
+        internal List<Match> GetMatchSerie(int v)
+        {
+            DataContext.DCMatch dc = new DataContext.DCMatch();
+           return  dc.findMatchJoueurEquipe(v,id);
+        }
+
+        public List<MatchDouble> GetMatchDoubleSerie(int v)
+        {
+            DataContext.DCMatch dc = new DataContext.DCMatch();
+            return dc.findMatchDoubleEquipe(v, id);
+        }
     }
 }

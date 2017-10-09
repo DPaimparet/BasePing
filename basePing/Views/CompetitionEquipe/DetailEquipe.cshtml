@@ -12,11 +12,15 @@
         <ul>
             @foreach(Joueur j in Model.ListJ)
             {
-                <li>@j.Identite  @j.Sexe    @Html.ActionLink("Supprimer membre", "SupprimerMembre", "CompetitionEquipe", new { idJ = j.Id,idE=Model.Id }, new { @class = "btn btn-danger" })</li>
+                <li>@j.Identite  @j.Sexe  
+            @if((bool)Session["admin"]) {
+                @Html.ActionLink("Supprimer membre", "SupprimerMembre", "CompetitionEquipe", new { idJ = j.Id,idE=Model.Id }, new { @class = "btn btn-danger" })
+            }
+            </li>
             }
         </ul>
 
-    @if (Model.ListJ.Count < Model.Taille) { 
+    @if (Model.ListJ.Count < Model.Taille && (bool)Session["admin"]) { 
          @Html.ActionLink("Ajouter un membre", "AddMembre", "CompetitionEquipe", new { idE = Model.Id ,idPays=Model.National.Id}, new { @class = "btn btn-success" })
     } 
         

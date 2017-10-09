@@ -53,7 +53,7 @@
                             <td>@Html.ActionLink(j.matchGagné + " ", "ListMatchPoule", "Serie", new { idP = p.Id, idC = Model.Id, IdJ = j.Id }, new { @class = "btn btn-success" })</td>
                             <td>@Html.ActionLink(j.matchPerdu + " ", "ListMatchPoule", "Serie", new { idP = p.Id, idC = Model.Id, IdJ = j.Id }, new { @class = "btn btn-success" })</td>
                             <td>
-                                @Html.ActionLink("Détail des matchs", "ListMatchPoule", "Serie", new { idP = p.Id, idC = Model.Id, IdJ = j.Id }, new { @class = "btn btn-success" })
+                                @Html.ActionLink("Détail des rencontress", "ListRencontrePouleEquipe", "Serie", new { idP = p.Id, idC = Model.Id, IdJ = j.Id }, new { @class = "btn btn-success" })
                             </td>
                         </tr>
                     }

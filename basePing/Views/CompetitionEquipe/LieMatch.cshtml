@@ -1,0 +1,60 @@
+﻿@using basePing.Models;
+
+
+<h1>Ajouter une rencontre existante</h1>
+@using (Html.BeginForm("LieMatch", "CompetitionEquipe"))
+{
+    <div class="form-group">
+        <input type="hidden" value="@ViewBag.pos" name="pos" />
+        <label>Match existant</label>
+
+        @Html.DropDownList("match", Session["listM"] as SelectList, String.Empty, new { @class = "form-control" })
+
+    </div>
+    <br />
+        <br />
+
+
+        <br />
+        <br />
+        <br />
+        <div class="form-group">
+            <input type="submit" value="Enregistrer" class="btn btn-success" />
+            @Html.ActionLink("Annuler", "InfoComp", "CompetitionEquipe", new { id = Session["idComp"] }, new { @class = "btn btn-danger" })
+
+        </div>
+
+}
+<h1>Crée une nouvelle rencontre</h1>
+<br />
+<div class="form-inline">
+    @using (Html.BeginForm("AjoutEtLieMatch", "CompetitionEquipe"))
+    {
+        <div class="form-group">
+            <label>Equipe 1</label>
+            @Html.DropDownList("equipe1", Session["listE"] as SelectList, new { @class = "form-control" })
+            <label>Point</label>
+            @Html.TextBox("score1", "Score joueur 1", new { type = "number", min = "0", max = "7", @class = "form-control", required = "required" })
+
+        </div>
+        <br />
+        <br />
+        <div class="form-group">
+            <label>Equipe 2</label>
+            @Html.DropDownList("equipe2", Session["listE"] as SelectList, new { @class = "form-control" })
+            <label>Point</label>
+            @Html.TextBox("score2", "Score joueur 2", new { type = "number", min = "0", max = "7", @class = "form-control", required = "required" })
+        </div>
+        <br />
+        <br />
+        <br />
+        <div class="form-group">
+            <input type="submit" value="Enregistrer" class="btn btn-success" />
+            @Html.ActionLink("Annuler", "InfoComp", "CompetitionEquipe", new { id = Session["idComp"] }, new { @class = "btn btn-danger" })
+        </div>
+    }
+</div>
+
+<div>
+    <h2 class="alert-danger">@Request.QueryString["error"]</h2>
+</div>

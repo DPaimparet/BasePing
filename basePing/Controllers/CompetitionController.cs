@@ -24,7 +24,7 @@ namespace basePing.Controllers
             return View();
         }
 
-     
+        [Authorize]
         public ActionResult AjouterSousCat(string nom)
         {
             DCSousCategorie dc = new DCSousCategorie();
@@ -32,7 +32,28 @@ namespace basePing.Controllers
             return Redirect("SousCategorie/" + Session["idC"]);
         }
 
-        
+
+        [Authorize]
+        public ActionResult ModifSousCatForm(int idSC,string nom)
+        {
+            ViewBag.idSC = idSC;
+            ViewBag.Nom = nom;
+
+
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult ModifSousCat(int id,string nom)
+        {
+            DCSousCategorie dc = new DCSousCategorie();
+            dc.Update(id,nom);
+            return Redirect("SousCategorie/" + Session["idC"]);
+
+        }
+
+
         public ActionResult SousCategorie(int id)
         {
             Session["idC"] = id;
@@ -75,11 +96,13 @@ namespace basePing.Controllers
             Session["Url"] = Request.Url.LocalPath.ToString();
             Session["idComp"] = id;
             Competition comp = new Competition(id);
-            
             comp = comp.GetInformation();
+
             Session["CPays"] = comp.Pays;
             if (comp.NbrJoueur== "Individuel")
+            { 
                 return View(comp);
+            }
             else if (comp.NbrJoueur == "Equipe")
                 return Redirect("~/CompetitionEquipe/InfoComp/"+id);
             return null;

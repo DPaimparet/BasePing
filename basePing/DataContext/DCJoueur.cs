@@ -113,6 +113,34 @@ namespace basePing.DataContext
                 return null;
         }
 
+        public Joueur FindVainqueur(int id)
+        {
+            Joueur j = null;
+            DBConnection con = DBConnection.Instance();
+            if (con.IsConnect())
+            {
+                //récupérer tous les joueurs
+                string query = "SELECT `joueur`.* FROM `joueur` LEFT JOIN `ld_joueur_comp` ON `ld_joueur_comp`.`idJoueur` = `joueur`.`idJoueur` WHERE position=1 AND `ld_joueur_comp`.`idComp`=" + id;
+                var cmd = new MySqlCommand(query, con.Connection);
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    j = new Joueur(
+                        reader.GetInt32(0),
+                        reader.GetString(1),
+                        reader.GetString(2),
+                        reader.GetDateTime(3),
+                        reader.GetChar(4),
+                        reader.GetString(5)
+                    );
+                }
+                reader.Close();
+                return j;
+            }
+            else
+                return null;
+        }
+
         public List<Joueur> GetJoueurComp(int id)
         {
             throw new NotImplementedException();

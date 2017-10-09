@@ -10,7 +10,6 @@
 
         if (@ViewBag.Cat.Id >= 4)
         {
-
             @Html.ActionLink("Supprimer", "SuppCat", "Competition", new { id = ViewBag.Cat.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Attention , la supression de la catégorie entrainera la supression de toutes informations liée à cette dernière, êtes vous sur.')" })
         }
     }
@@ -27,6 +26,8 @@
                     <a href="~/Competition/GetComp/@cat.Id" class="btn btn-primary">@cat.Nom</a>
                     @if ((bool)Session["admin"])
                 {
+                        @Html.ActionLink("Modifier", "ModifSousCatForm", "Competition", new { idSC = cat.Id ,nom=cat.Nom}, new { @class = "btn btn-success" })
+
                         @Html.ActionLink("Supprimer sous catégorie", "SuppSousCat", "Competition",
                    new { idSC = cat.Id },
                     new { @class = "btn btn-danger", onclick = "return confirm('Attention , la supression de la catégorie entrainera la supression de toutes les compétitions ainsi que ces informations liée , êtes vous sur.')" });

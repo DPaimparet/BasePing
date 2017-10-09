@@ -48,6 +48,23 @@ namespace basePing.DataContext
                 return false;
         }
 
+        public bool Update(int id,string nom)
+        {
+            DBConnection con = DBConnection.Instance();
+            if (con.IsConnect())
+            {
+                //récupérer les joueurs grâce à leur sex
+                string query = "UPDATE `sous_categorie` SET `nom` = '" + nom + "' WHERE `sous_categorie`.`idSousCat` =" + id;
+                var cmd = new MySqlCommand(query, con.Connection);
+                var reader = cmd.ExecuteReader();
+
+                reader.Close();
+                return true;
+            }
+            else
+                return false;
+        }
+
         public bool Delete(int id)
         {
             DBConnection con = DBConnection.Instance();
