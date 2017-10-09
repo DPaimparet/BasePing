@@ -346,7 +346,7 @@ namespace basePing.Controllers
         [HttpPost]
         public ActionResult AddPhoto(fichier model, int id)
         {
-            string rep = @"D:\ProjetWeb\basePing\basePing\Content\image";
+            string rep = @"D:\ProjetWeb\basePing\basePing\Content\image\";
             if (model.File != null && model.File.ContentLength > 0)
             {
                 string[] ext = new string[] { "jpg", "jpeg", "png", "gif" };
@@ -368,7 +368,7 @@ namespace basePing.Controllers
                 } while (!trouve && i < ext.Length);
                 model.File.SaveAs(Path.Combine(rep, newName));
             }
-            return Redirect("~/Joueur/Joueur/"+id);
+            return RedirectToAction("/Joueur/"+id);
         }
         /////////////////////////////////////////////// Palmares ///////////////////////////////////////////////
 

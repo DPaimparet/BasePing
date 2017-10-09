@@ -8,7 +8,7 @@
 <br />
 <div style="background-color: #199aca; width: auto; padding: 10px 50px;">
     <div style="position: relative; left: 700px; top: -75px; height:0px;">
-        <img src="~/Content/image/@ViewBag.photo" onerror="this.error=null;src='../../Content/image/no-photo.jpg';" style="border: 2px solid #fff; width: 382px; height: 334px; border-radius: 80px;" />
+        <img src="../../Content/image/@ViewBag.photo" onerror="this.error=null;src='../../Content/image/no-photo.jpg';" style="border: 2px solid #fff; width: 382px; height: 334px; border-radius: 80px;" />
         @using (Html.BeginForm("AddPhoto", "Joueur", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             @Html.TextBoxFor(m => m.File, new { type = "file" })
