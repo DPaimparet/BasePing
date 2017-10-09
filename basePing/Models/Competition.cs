@@ -98,7 +98,7 @@ namespace basePing.Models
         internal List<Competition> GetListTrie(string nom, int? an, string sexe, string nbrJ,int idSousCat)
         {
             DCCompetition dc = new DCCompetition();
-            return dc.FindListTrie(nom, an, sexe,nbrJ,idSousCat);
+            return dc.FindListTrie(nom, an,sexe,nbrJ,idSousCat);
         }
 
         public String GetVainqueur()

@@ -86,8 +86,13 @@ namespace basePing.DataContext
                     query += " AND competition.nom LIKE'%" + nom + "%'";
                 if (an != null)
                     query += " AND (year(competition.dateDeb) ="+an+ " OR year(competition.dateFin) = "+an+")";
-                if (sexe != "")
-                    query += " AND competition.typeCompetition='"+sexe+"'";
+                if (sexe != "") { 
+                    if(sexe=="Féminin")
+                        query += " AND competition.typeCompetition LIKE'F%'";
+
+                    else
+                        query += " AND competition.typeCompetition='"+sexe+"'";
+                }
                 if (nbrJ !="")
                     query += " AND competition.nbrJoueur='" + nbrJ + "'";
                 var cmd = new MySqlCommand(query, con.Connection);
