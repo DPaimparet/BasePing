@@ -160,7 +160,7 @@ namespace basePing.Controllers
             do
             {
                 path = id + "." + ext[i];
-                if (System.IO.File.Exists(@"D:\ProjetWeb\basePing\basePing\Content\image\" + path))
+                if (System.IO.File.Exists(@"C:\Inetpub\vhosts\default\htdocs\Content\image\" + path))
                 {
                     file = path;
                     trouve = true;
@@ -247,7 +247,7 @@ namespace basePing.Controllers
             do
             {
                 path = idJoueur + "." + ext[i];
-                if (System.IO.File.Exists(@"D:\ProjetWeb\basePing\basePing\Content\image\" + path))
+                if (System.IO.File.Exists(@"C:\Inetpub\vhosts\default\htdocs\Content\image\" + path))
                 {
                     file = path;
                     trouve = true;
@@ -346,7 +346,7 @@ namespace basePing.Controllers
         [HttpPost]
         public ActionResult AddPhoto(fichier model, int id)
         {
-            string rep = @"D:\ProjetWeb\basePing\basePing\Content\image\";
+            string rep = @"C:\Inetpub\vhosts\default\htdocs\Content\image\";
             if (model.File != null && model.File.ContentLength > 0)
             {
                 string[] ext = new string[] { "jpg", "jpeg", "png", "gif" };
@@ -360,9 +360,9 @@ namespace basePing.Controllers
                 do
                 {
                     path = id + "." + ext[i];
-                    if (System.IO.File.Exists(@"D:\ProjetWeb\basePing\basePing\Content\image\" + path))
+                    if (System.IO.File.Exists(@"C:\Inetpub\vhosts\default\htdocs\Content\image\" + path))
                     {
-                        System.IO.File.Delete(@"D:\ProjetWeb\basePing\basePing\Content\image\" + path);
+                        System.IO.File.Delete(@"C:\Inetpub\vhosts\default\htdocs\Content\image\" + path);
                     }
                     i++;
                 } while (!trouve && i < ext.Length);

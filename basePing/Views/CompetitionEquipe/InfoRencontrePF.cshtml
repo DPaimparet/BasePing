@@ -3,7 +3,8 @@
 
 
 <h2>Liste des match de la rencontre</h2>
-
+@if (((List<Match>)ViewBag.listM).Count()!=0) { 
+    <h1>Liste des matchs simples</h1>
 <table border="1">
     <tr><th>Joueur de l équipe :@Model.Equipe1.Nom</th><th>Score du joueur 1</th><th>VS</th><th>Score du joueur 2</th><th>Joueur de l'équipe : @Model.Equipe2.Nom</th></tr>
     @foreach (Match m in (List<Match>)ViewBag.listM)
@@ -25,16 +26,22 @@
         </tr>
     }
 </table>
+
+}
 @if ((bool)Session["admin"])
 {
     <td>
-        @Html.ActionLink("Ajouter Match", "CreeMatchEquipe", "Match", new { idE1 = Model.Equipe1.Id, idE2 = Model.Equipe2.Id, idC = Session["idC"], idS = Session["idS"] }, new { @class = "btn btn-success" })
+        @Html.ActionLink("Ajouter Match simple", "CreeMatchEquipe", "Match", new { idE1 = Model.Equipe1.Id, idE2 = Model.Equipe2.Id, idC = Session["idC"], idS = Session["idS"] }, new { @class = "btn btn-success" })
     </td>
 }
 
 
 
 
+
+@if (((List<Match>)ViewBag.listM).Count() != 0)
+{
+    <h1>Liste des matchs doubles</h1>
 <table border="1">
     <tr><th>Joueur de l équipe :@Model.Equipe1.Nom</th><th>Score du joueur 1</th><th>VS</th><th>Score du joueur 2</th><th>Joueur de l'équipe : @Model.Equipe2.Nom</th></tr>
     @foreach (MatchDouble m in (List<MatchDouble>)ViewBag.listMD)
@@ -56,10 +63,11 @@
         </tr>
     }
 </table>
+}
 @if ((bool)Session["admin"])
 {
     <td>
-        @Html.ActionLink("Ajouter Match", "CreeMatchDoubleEquipe", "Match", new { idE1 = Model.Equipe1.Id, idE2 = Model.Equipe2.Id, idC = Session["idComp"], idS = Session["idS"] }, new { @class = "btn btn-success" })
+        @Html.ActionLink("Ajouter Match double", "CreeMatchDoubleEquipe", "Match", new { idE1 = Model.Equipe1.Id, idE2 = Model.Equipe2.Id, idC = Session["idComp"], idS = Session["idS"] }, new { @class = "btn btn-success" })
     </td>
 }
 

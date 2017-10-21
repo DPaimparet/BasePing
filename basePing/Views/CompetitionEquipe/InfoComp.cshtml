@@ -107,7 +107,7 @@
                                         <tr><td style="border: 1px solid #cdd0d4;">@Html.ActionLink(@match[cpt].Equipe1.Nom + " | " + @match[cpt].Score1, "DetailEquipe", "CompetitionEquipe", new { idE = @match[cpt].Equipe1.Id, idC = @Model.Id }, new { @class = "btn btn-success" })</td></tr>
                                         <tr>
                                             <td style="border-right: 1px solid #cdd0d4;">
-                                                @Html.ActionLink("Détail", "InfoRencontre", "CompétitionEquipe", new { id = @match[cpt].Id }, new { @class = "btn btn-success" })
+                                                @Html.ActionLink("Détail", "InfoRencontrePF", "CompetitionEquipe", new { id = @match[cpt].Id, idS = Model.Tournoi.Id }, new { @class = "btn btn-success" })
                                             </td>
                                         </tr>
                                         for (int z = 0; z <= tab[1, i] - 3; z++)
