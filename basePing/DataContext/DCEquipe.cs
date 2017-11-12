@@ -87,6 +87,22 @@ namespace basePing.DataContext
             return null;
         }
 
+        public bool UpdateNom(int idE,string nom)
+        {
+            DBConnection con = DBConnection.Instance();
+            if (con.IsConnect())
+            {
+                string query = "UPDATE `equipe` SET `nomEquipe` = '" + nom + "' WHERE `equipe`.`idEquipe` =" + idE;
+                var cmd = new MySqlCommand(query, con.Connection);
+                var reader = cmd.ExecuteReader();
+
+                reader.Close();
+                return true;
+            }
+            else
+                return false;
+        }
+
         internal List<MatchEquipe> findAllMatchTournoi(int id)
         {
             List<MatchEquipe> lMatch = new List<MatchEquipe>();

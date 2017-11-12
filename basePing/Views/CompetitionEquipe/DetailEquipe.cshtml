@@ -6,7 +6,7 @@
         <h1>Information dur l'equipe</h1>
 
         <label>Equipe: @Model.Nom </label>
-        
+        @Html.ActionLink("Modifier", "ModifierNomForm", "CompetitionEquipe", new { idE = Model.Id }, new { @class = "btn btn-danger" })
 
         <h1>Liste des membres</h1>
         <ul>

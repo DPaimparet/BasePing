@@ -349,6 +349,7 @@
     <Content Include="Views\Match\InfoMatchDouble.cshtml" />
     <Content Include="Views\Competition\ModifSousCatForm.cshtml" />
     <Content Include="Views\Match\AjoutSetDouble.cshtml" />
+    <Content Include="Views\CompetitionEquipe\ModifierNomForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

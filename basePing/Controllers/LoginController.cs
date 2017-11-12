@@ -17,7 +17,12 @@ namespace basePing.Controllers
             return View();
         }
 
-        
+        public ActionResult Disconect()
+        {
+            Session["admin"] =false;
+            return View("Index");
+        }
+
         [HttpPost]
         public ActionResult Connexion(string login, string password)
         {

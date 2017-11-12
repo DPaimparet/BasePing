@@ -78,7 +78,24 @@ namespace basePing.Controllers
         {
             DCEquipe dc = new DCEquipe();
             dc.DeleteLd(idJ,idE);
-            return Redirect("~/CompetitionEquipe/DetailEquipe/");
+            return Redirect("~/CompetitionEquipe/DetailEquipe?idE="+idE+"&idC="+Session["idComp"]);
+        }
+
+        [Authorize]
+        public ActionResult ModifierNomForm(int idE)
+        {
+            Session["idE"] = idE;
+  
+            return View();
+        }
+
+
+        [Authorize]
+        public ActionResult ModifierNom(string nom)
+        {
+            DCEquipe dc = new DCEquipe();
+            dc.UpdateNom((int)Session["idE"],nom);
+            return Redirect("~/CompetitionEquipe/DetailEquipe?idE=" + (int)Session["idE"] + "&idC=" + Session["idComp"]);
         }
 
         [Authorize]

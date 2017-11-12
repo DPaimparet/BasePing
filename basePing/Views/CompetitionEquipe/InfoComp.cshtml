@@ -22,11 +22,11 @@
         Equipe finaliste = null;
 
         <h2>Liste des participants</h2>
-        <input type="button" class="btn btn-info" id="btnShow" value="Montrer">
-        <input type="button" class="btn btn-info" id="btnHide" value="Cacher" hidden="hidden">
+        <input type="button" class="btn btn-success" name="btnShow" id="btnShow" value="Montrer" onclick="ShowParticipant();">
+        <input type="button" hidden="hidden" name="btnHide" id="btnHide" onclick="HideParticipant();" value="Cacher">
         <br />
         <br />
-        <div id="participant">
+        <div id="participant" hidden="hidden">
 
             @foreach (Equipe e in Model.GetListEquipe())
                 {
@@ -178,11 +178,11 @@
                             }
 
                             <h2>Liste des equipes participantes</h2>
-                            <input type="button" class="btn btn-info" id="btnShow" value="Montrer">
-                            <input type="button" class="btn btn-info" id="btnHide" value="Cacher" hidden="hidden">
+                            <input type="button" class="btn btn-success" name="btnShow" id="btnShow" value="Montrer" onclick="ShowParticipant();">
+                            <input type="button" hidden="hidden" name="btnHide" id="btnHide" onclick="HideParticipant();" value="Cacher">
                             <br />
                             <br />
-                            <div>
+                            <div id="participant" hidden="hidden">
                                 <table class="table table-striped" align="center">
                                     @foreach (Equipe e in listE)
                                     {
@@ -346,9 +346,8 @@
                                                         <tr><td></td></tr>
                                                     }
                                                     @if (finaliste == null)
-                    {
+                                                    {
                                                         <tr><td style="border: 1px solid #cdd0d4;"></td></tr>
-
                                                     }
                                                     else
                                                     {

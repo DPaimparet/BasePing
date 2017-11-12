@@ -19,13 +19,19 @@
                 <td>VS</td>
                 <td>@m.Score2</td>
                 <td>@m.Joueur2.Nom</td>
-                <td>@Html.ActionLink("Détail", "InfoMatch", "Match", new { id = m.Id }, null)</td>
-                <td>
-                    @if ((bool)Session["admin"])
+                @if (new Set().GetList(m.Id).Count != 0 && (bool)Session["admin"] == false)
                 {
+                     <td>@Html.ActionLink("Détail", "InfoMatch", "Match", new { id = m.Id }, null)</td>
+                }
+                
+                @if ((bool)Session["admin"])
+                {
+                <td>
+               
                         @Html.ActionLink("Supprimer", "SuppMatch", "Match", new { id = m.Id }, new { @class = "btn btn-success", onclick = "return confirm('Etes vous sur de vouloir supprimer ce match')" })
-                    }
+                   
                 </td>
+                }
             </tr>
         }
     </table>
@@ -39,8 +45,11 @@
     }
 
 
-@if (((List<Match>)ViewBag.listMD).Count() != 0)
+
+
+@if (((List<MatchDouble>)ViewBag.listMD).Count() != 0)
 {
+
     <h1>Liste des matchs doubles</h1>
 
     <table border="1">
@@ -54,17 +63,25 @@
                 <td>VS</td>
                 <td>@m.Score2</td>
                 <td>@m.Joueur3.Nom et  @m.Joueur4.Nom</td>
-                <td>@Html.ActionLink("Détail", "InfoMatchDouble", "Match", new { id = m.Id }, null)</td>
-                <td>
-                    @if ((bool)Session["admin"])
+                @if (new Set().GetList(m.Id).Count != 0 && (bool)Session["admin"]==false)
                 {
+                   <td>@Html.ActionLink("Détail", "InfoMatchDouble", "Match", new { id = m.Id }, null)</td>
+                }
+                    @if ((bool)Session["admin"])
+                    {
+                <td>
+                   
                         @Html.ActionLink("Supprimer", "SuppMatch", "Match", new { id = m.Id }, new { @class = "btn btn-success", onclick = "return confirm('Etes vous sur de vouloir supprimer ce match')" })
-                    }
+
                 </td>
+                    }
             </tr>
         }
-    }
+
+
     </table>
+
+}
     @if ((bool)Session["admin"])
     {
         <td>

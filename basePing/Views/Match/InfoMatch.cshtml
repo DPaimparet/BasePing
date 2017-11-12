@@ -16,7 +16,7 @@
         int cpt, cpt1 = 0, cpt2 = 0;
         <table border="1" class="table table-striped">
 
-            <tr><th># Set</th><th>@Model.Joueur1.Nom  @Model.Joueur1.Prenom</th> <th>@Model.Joueur2.Nom  @Model.Joueur2.Prenom</th></tr>
+            <tr><th width="87px"># Set</th><th width="87px">@Model.Joueur1.Nom  @Model.Joueur1.Prenom</th> <th width="87px">@Model.Joueur2.Nom  @Model.Joueur2.Prenom</th></tr>
 
 
             @{Set[] tab = new Set[Model.Score1 + Model.Score2 + 1];}
@@ -39,9 +39,9 @@
                         cpt2++;
                     }
                     <tr class="bg-info">
-                        <td>Set @cpt</td>
-                        <td>@tab[cpt].PointJ1</td>
-                        <td>@tab[cpt].PointJ2</td>
+                        <td width="87px">Set @cpt</td>
+                        <td width="87px">@tab[cpt].PointJ1</td>
+                        <td width="87px">@tab[cpt].PointJ2</td>
                         @if ((bool)Session["admin"])
                         {
                             <td>@Html.ActionLink("Supprimer le set", "SupprimerSet", "Match", new { idS = tab[cpt].Id, idM = Model.Id }, new { @class = "btn btn-info" })</td>

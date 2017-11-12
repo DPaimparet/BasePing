@@ -41,9 +41,20 @@
     <table border="1" class="table table-striped">
         @{
             ((Categorie)ViewBag.cat).GetListSousCat();
+            if ((bool)Session["admin"])
+            {
+                <tr class="bg-info">
+                    <td colspan="3">
+                        @Html.ActionLink("Crée une nouvelle compétition", "AjoutComp", "Competition",
+                    new { id = ViewBag.cat.Id, idSC = Session["idSC"] }, new { @class = "btn btn-info" })
 
+                    </td>
+                </tr>
+            }
             <tr><th>Compétition</th><th>Date</th><th>Type de la compétition</th><th>Type de rencontre</th><th>Vainqueur</th></tr>
 
+
+         
             foreach (Competition c in ViewBag.listComp)
             {
                 <tr class="bg-info">
@@ -69,16 +80,6 @@
                 </tr>
                         }
 
-                        if ((bool)Session["admin"])
-                        {
-                <tr class="bg-info">
-                    <td colspan="3">
-                        @Html.ActionLink("Crée une nouvelle compétition", "AjoutComp", "Competition",
-                    new { id = ViewBag.cat.Id, idSC = Session["idSC"] }, new { @class = "btn btn-info" })
-
-                    </td>
-                </tr>
-            }
         }
     </table>
 </div>

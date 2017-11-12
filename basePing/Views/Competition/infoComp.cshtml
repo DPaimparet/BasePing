@@ -25,7 +25,7 @@
         <input type="button" class="btn btn-success" name="btnShow" id="btnShow" value="Montrer" onclick="ShowParticipant();">
         <input type="button"  hidden="hidden" name="btnHide" id="btnHide" onclick="HideParticipant();" value="Cacher" >
         <br />
-        <div id="participant" hidden="hidden">
+        <div id="participant">
             <table class="table-striped">
                 @foreach (Joueur j in Model.GetListPart())
                 {
@@ -52,9 +52,11 @@
                             <td>@Html.ActionLink(j.nom, "Joueur", "Joueur", new { id = j.Id }, new { @class = "btn btn-success btn-lg" })</td>
                             <td>@Html.ActionLink(j.matchGagné + " ", "ListMatchPoule", "Serie", new { idP = p.Id, idC = Model.Id, IdJ = j.Id }, new { @class = "btn btn-success" })</td>
                             <td>@Html.ActionLink(j.matchPerdu + " ", "ListMatchPoule", "Serie", new { idP = p.Id, idC = Model.Id, IdJ = j.Id }, new { @class = "btn btn-success" })</td>
+                           
                             <td>
-                                @Html.ActionLink("Détail des rencontress", "ListRencontrePouleEquipe", "Serie", new { idP = p.Id, idC = Model.Id, IdJ = j.Id }, new { @class = "btn btn-success" })
+                                @Html.ActionLink("Détail des matchs", "ListMatchPoule", "Serie", new { idP = p.Id, idC = Model.Id, IdJ = j.Id }, new { @class = "btn btn-success" })
                             </td>
+                            
                         </tr>
                     }
                 }
@@ -104,10 +106,17 @@
                                     else
                                     {
                                         <tr><td style="border: 1px solid #cdd0d4;">@Html.ActionLink(@match[cpt].Joueur1.Identite + " | " + @match[cpt].Score1, "Joueur", "Joueur", new { id = @match[cpt].Joueur1.Id }, new { @class = "btn btn-success" })</td></tr>
+
                                         <tr>
+                                         
                                             <td style="border-right: 1px solid #cdd0d4;">
+                                            @if (new Set().GetList(@match[cpt].Id).Count != 0 && (bool)Session["admin"] == false)
+                                            {
                                                 @Html.ActionLink("Détail", "InfoMatch", "Match", new { id = @match[cpt].Id }, new { @class = "btn btn-success" })
+                                            }
                                             </td>
+                                            
+                                           
                                         </tr>
                                         for (int z = 0; z <= tab[1, i] - 3; z++)
                                         {
