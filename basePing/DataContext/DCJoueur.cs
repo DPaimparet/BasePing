@@ -179,7 +179,7 @@ namespace basePing.DataContext
             if (con.IsConnect())
             {
                 //récupérer le joueur gràce au nom du joueur
-                string query = "SELECT * FROM Joueur Inner Join Pays On joueur.idPays = pays.id Where joueur.nom='"+nom+"'";
+                string query = "SELECT * FROM Joueur Inner Join Pays On joueur.idPays = pays.id Where joueur.nom LIKE '"+nom+"%'";
                 var cmd = new MySqlCommand(query, con.Connection);
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
@@ -206,7 +206,7 @@ namespace basePing.DataContext
             DBConnection con = DBConnection.Instance();
             if (con.IsConnect())
             {
-                string query = "SELECT * FROM Joueur Inner Join Pays On joueur.idPays = pays.id Where joueur.nom='" + nom + "' AND pays.id=" + pays + " ORDER BY idPays , joueur.nom ";
+                string query = "SELECT * FROM Joueur Inner Join Pays On joueur.idPays = pays.id Where joueur.nom LIKE '" + nom + "%' AND pays.id=" + pays + " ORDER BY idPays , joueur.nom ";
                 var cmd = new MySqlCommand(query, con.Connection);
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
@@ -233,7 +233,7 @@ namespace basePing.DataContext
             DBConnection con = DBConnection.Instance();
             if (con.IsConnect())
             {
-                string query = "SELECT * FROM Joueur Inner Join Pays On joueur.idPays = pays.id Where joueur.nom='" + nom + "' AND sexe='" + sex + "' ";
+                string query = "SELECT * FROM Joueur Inner Join Pays On joueur.idPays = pays.id Where joueur.nom LIKE '" + nom + "%' AND sexe='" + sex + "' ";
                 var cmd = new MySqlCommand(query, con.Connection);
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
@@ -260,7 +260,7 @@ namespace basePing.DataContext
             DBConnection con = DBConnection.Instance();
             if (con.IsConnect())
             {
-                string query = "SELECT * FROM Joueur Inner Join Pays On joueur.idPays = pays.id Where joueur.nom='" + nom + "' AND pays.id=" + pays + " AND sexe='" + sex + "'";
+                string query = "SELECT * FROM Joueur Inner Join Pays On joueur.idPays = pays.id Where joueur.nom LIKE '" + nom + "%' AND pays.id=" + pays + " AND sexe='" + sex + "'";
                 var cmd = new MySqlCommand(query, con.Connection);
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
