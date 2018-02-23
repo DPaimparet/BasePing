@@ -232,7 +232,7 @@ namespace basePing.Controllers
         {
             DCMatch dc = new DCMatch();
             dc.LinkMatch((int)Session["pos"],(int) Session["idS"],(int)Session["idC"],match);
-            return Redirect("~/Competition/InfoComp/" + Session["idC"]);
+            return Redirect("~/Competition/InfoComp/" + Session["idComp"]);
         }
 
         [Authorize]
@@ -266,7 +266,7 @@ namespace basePing.Controllers
         {
             DCMatch dc = new DCMatch();
             dc.LinkMatch((int)Session["pos"], (int)Session["idS"], (int)Session["idC"],match);
-            return Redirect("~/Competition/InfoComp/" + Session["idC"]);
+            return Redirect("~/Competition/InfoComp/" + Session["idComp"]);
         }
 
 
@@ -277,10 +277,10 @@ namespace basePing.Controllers
             DCMatch dc = new DCMatch();
            
             if (joueur1 == joueur2)
-                return Redirect("/Match/LieMatch?pos="+ (int)Session["pos"] + "&idC="+ (int)Session["idC"] + "&idS="+ (int)Session["idS"] + "&error=Les 2 joueurs choisis sont le même.");
+                return Redirect("/Match/LieMatch?pos="+ (int)Session["pos"] + "&idC="+ (int)Session["idComp"] + "&idS="+ (int)Session["idS"] + "&error=Les 2 joueurs choisis sont le même.");
             else { 
-                dc.Create(joueur1, score1, joueur2, score2, (int)Session["pos"], (int)Session["idS"], (int)Session["idC"]);
-                return Redirect("~/Competition/InfoComp/" + Session["idC"]);
+                dc.Create(joueur1, score1, joueur2, score2, (int)Session["pos"], (int)Session["idS"], (int)Session["idComp"]);
+                return Redirect("~/Competition/InfoComp/" + Session["idComp"]);
             }
         }
 

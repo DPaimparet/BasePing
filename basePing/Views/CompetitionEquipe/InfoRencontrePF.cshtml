@@ -20,6 +20,10 @@
             {
               <td>@Html.ActionLink("Détail", "InfoMatch", "Match", new { id = m.Id }, null)</td>
             }
+            else if ((bool)Session["admin"])
+            {
+                <td>@Html.ActionLink("Détail", "InfoMatch", "Match", new { id = m.Id }, null)</td>
+            }
 
             @if ((bool)Session["admin"])
             {
@@ -35,7 +39,7 @@
 @if ((bool)Session["admin"])
 {
     <td>
-        @Html.ActionLink("Ajouter Match simple", "CreeMatchEquipe", "Match", new { idE1 = Model.Equipe1.Id, idE2 = Model.Equipe2.Id, idC = Session["idC"], idS = Session["idS"] }, new { @class = "btn btn-success" })
+        @Html.ActionLink("Ajouter Match simple", "CreeMatchEquipe", "Match", new { idE1 = Model.Equipe1.Id, idE2 = Model.Equipe2.Id, idC = Session["idComp"], idS = Session["idS"] }, new { @class = "btn btn-success" })
     </td>
 }
 
@@ -60,6 +64,10 @@
             @if (new Set().GetList(m.Id).Count != 0 && (bool)Session["admin"] == false)
             {
               <td>@Html.ActionLink("Détail", "InfoMatchDouble", "Match", new { id = m.Id }, null)</td>
+            }
+            else if((bool)Session["admin"])
+            {
+                <td>@Html.ActionLink("Détail", "InfoMatchDouble", "Match", new { id = m.Id }, null)</td>
             }
 
             @if ((bool)Session["admin"])
