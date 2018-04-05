@@ -7,10 +7,10 @@ namespace basePing.Models
 {
     public class PalmaresSportif
     {
-        private int         idCompetition;
-        private string      intituleCompetition;
-        private int         position;
-        private DateTime    annee;
+        private int idCompetition;
+        private string intituleCompetition;
+        private int position;
+        private DateTime annee;
 
         public int IdCompetition
         {
@@ -46,7 +46,9 @@ namespace basePing.Models
         {
             List<PalmaresSportif> list = new List<PalmaresSportif>();
             DataContext.DCPalmaresSportif dCPalmaresSportif = new DataContext.DCPalmaresSportif();
-            return list=dCPalmaresSportif.GetAllRecompense(idJoueur);
+            list = dCPalmaresSportif.GetAllRecompense(idJoueur);
+            list = list.OrderByDescending(o => o.annee).ToList();
+            return list;
         }
     }
 }
