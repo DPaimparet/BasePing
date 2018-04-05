@@ -29,6 +29,32 @@ namespace basePing.DataContext
                     );
                 }
                 reader.Close();
+
+                string query2 = "SELECT C.idComp, C.nom, LD.position, C.dateDeb " +
+                    "FROM competition C " +
+                    "INNER JOIN ld_equipe_comp LD " +
+                    "ON C.idComp = LD.idComp " +
+                    "WHERE idE IN ( " +
+                        "SELECT EC.idEquipe " +
+                        "FROM equipe E " +
+                        "INNER JOIN eclat_joueur_equipe EC " +
+                        "ON E.idEquipe = EC.idEquipe " +
+                        "WHERE idJoueur ='" + idJoueur + "') " +
+                    "AND position < 100 ORDER BY c.dateDeb DESC";
+                var cmd2 = new MySqlCommand(query2, con.Connection);
+                var reader2 = cmd2.ExecuteReader();
+                while (reader2.Read())
+                {
+                    listeRecompense.Add(new PalmaresSportif(
+                        reader2.GetInt32(0),
+                        reader2.GetString(1),
+                        reader2.GetInt32(2),
+                        reader2.GetDateTime(3))
+                    );
+                }
+                
+                reader2.Close();
+
                 return listeRecompense;
             }
             else
