@@ -7,10 +7,10 @@ namespace basePing.Models
 {
     public class PalmaresSportif
     {
-        private int         idCompetition;
-        private string      intituleCompetition;
-        private int         position;
-        private DateTime    annee;
+        private int idCompetition;
+        private string intituleCompetition;
+        private int position;
+        private DateTime annee;
 
         public int IdCompetition
         {
